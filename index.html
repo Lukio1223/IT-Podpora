@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
+  <script>
+  const correctPassword = 'matkomp2025';
+  if (!sessionStorage.getItem('authenticated')) {
+    const pass = prompt('Vnesi geslo za dostop do Matkomp strani:');
+    if (pass === correctPassword) {
+      sessionStorage.setItem('authenticated', 'true');
+    } else {
+      alert('Napačno geslo! Dostop zavrnjen.');
+      window.location = 'https://google.com'; // Preusmeri ven
+    }
+  }
+</script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Matkomp - Pomoč in popravilo računalnikov</title>
