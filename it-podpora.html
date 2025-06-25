@@ -80,25 +80,19 @@
   <main>
     <section>
 <h2>IT Podpora</h2>
-<form action="https://formsubmit.co/lukacp346@gmail.com" method="POST">
-    <!-- Skrij captcha in nastavi preusmeritev -->
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="http://localhost:8000/hvala.html">
+<form action="https://formspree.io/f/your-form-id" method="POST">
+  <label for="ime">Ime:</label><br>
+  <input type="text" id="ime" name="ime" required><br><br>
 
-    <label for="ime">Ime:</label>
-    <input type="text" id="ime" name="ime" required>
+  <label for="email">Email:</label><br>
+  <input type="email" id="email" name="email" required><br><br>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
+  <label for="sporocilo">Sporočilo:</label><br>
+  <textarea id="sporocilo" name="sporocilo" rows="5" required></textarea><br><br>
 
-    <label for="telefon">Telefon (neobvezno):</label>
-    <input type="text" id="telefon" name="telefon">
-
-    <label for="opis">Opis težave:</label>
-    <textarea id="opis" name="opis" rows="5" required></textarea>
-
-    <button type="submit">Pošlji</button>
+  <button type="submit">Pošlji</button>
 </form>
+      
     </section>
   </main>
 
