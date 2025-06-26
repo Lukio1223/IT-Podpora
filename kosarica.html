@@ -72,31 +72,63 @@
     .btn-kupi:active {
       transform: scale(0.97);
     }
+    .prazna-kosarica {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+      margin: 2em 0;
+    }
   </style>
 </head>
 <body>
   <h1>Košarica</h1>
-  <div class="kosarica" id="kosarica">
+  <div class="kosarica" id="kosarica"></div>
 
-    <div class="izdelek">
-      <div class="izdelek-info">Matična plošča XYZ123 - 150€</div>
-      <button class="btn-delete" onclick="odstraniIzdelek(this)">×</button>
-    </div>
-
-    <div class="izdelek">
-      <div class="izdelek-info">Grafična kartica ABC456 - 300€</div>
-      <button class="btn-delete" onclick="odstraniIzdelek(this)">×</button>
-    </div>
-
-  </div>
-
-  <button class="btn-kupi" onclick="alert('Hvala za nakup!')">Kupi zdaj</button>
+  <button class="btn-kupi" id="kupiBtn" style="display:none;">Kupi zdaj</button>
 
   <script>
-    function odstraniIzdelek(gumb) {
-      const izdelek = gumb.parentElement;
-      izdelek.remove();
+    function prikaziKosarico() {
+      const kosaricaEl = document.getElementById('kosarica');
+      let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+
+      kosaricaEl.innerHTML = '';
+
+      if(kosarica.length === 0) {
+        kosaricaEl.innerHTML = '<p class="prazna-kosarica">Tvoja košarica je prazna.</p>';
+        document.getElementById('kupiBtn').style.display = 'none';
+        return;
+      }
+
+      kosarica.forEach((izdelek, index) => {
+        const div = document.createElement('div');
+        div.className = 'izdelek';
+
+        div.innerHTML = `
+          <div class="izdelek-info">${izdelek.ime} - ${izdelek.cena}€</div>
+          <button class="btn-delete" onclick="odstraniIzdelek(${index})">×</button>
+        `;
+
+        kosaricaEl.appendChild(div);
+      });
+
+      document.getElementById('kupiBtn').style.display = 'block';
     }
+
+    function odstraniIzdelek(index) {
+      let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+      kosarica.splice(index, 1);
+      localStorage.setItem('kosarica', JSON.stringify(kosarica));
+      prikaziKosarico();
+    }
+
+    document.getElementById('kupiBtn').addEventListener('click', function() {
+      alert('Hvala za nakup! Košarica bo zdaj izpraznjena.');
+      localStorage.removeItem('kosarica');
+      prikaziKosarico();
+    });
+
+    // ob nalaganju strani pokaži košarico
+    prikaziKosarico();
   </script>
 </body>
 </html>
