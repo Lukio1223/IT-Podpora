@@ -44,7 +44,7 @@
     button {
       margin-top: 2em;
       padding: 12px 20px;
-      background-color: #007bff;
+      background-color: #28a745;
       color: white;
       border: none;
       border-radius: 6px;
@@ -52,7 +52,7 @@
       cursor: pointer;
     }
     button:hover {
-      background-color: #0056b3;
+      background-color: #218838;
     }
     .cash-note {
       margin-top: 2em;
@@ -67,8 +67,8 @@
 <body>
   <h1>Zaključi nakup</h1>
 
-  <form action="https://formspree.io/f/movwpkap" method="POST">
-    <input type="hidden" name="izdelek" value="Lenovo IS6XM">
+  <form action="https://formspree.io/f/movwpkap" method="POST" onsubmit="poCeku()">
+    <input type="hidden" name="izdelek" id="vsi-izdelki" />
 
     <label for="ime">Ime in priimek:</label>
     <input type="text" id="ime" name="ime" required>
@@ -98,5 +98,15 @@
 
     <button type="submit">Pošlji naročilo</button>
   </form>
+
+  <script>
+    const izdelki = JSON.parse(localStorage.getItem('kosarica')) || [];
+    const input = document.getElementById('vsi-izdelki');
+    input.value = izdelki.join(', ');
+
+    function poCeku() {
+      localStorage.removeItem('kosarica');
+    }
+  </script>
 </body>
 </html>
