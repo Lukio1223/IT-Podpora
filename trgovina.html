@@ -43,6 +43,7 @@
     button:hover {
       background-color: #0056b3;
     }
+    /* Iskalnik */
     #search {
       width: 100%;
       padding: 12px;
@@ -55,20 +56,18 @@
     .opis {
       flex: 1;
     }
-    a.izdelek-link {
-      color: #007bff;
-      text-decoration: underline;
-      cursor: pointer;
-      font-size: 1.4em;
+    .izdelek-link {
       font-weight: bold;
+      font-size: 1.3rem;
+      color: #005577;
+      text-decoration: none;
     }
-    a.izdelek-link:hover {
-      color: #0056b3;
+    .izdelek-link:hover {
+      text-decoration: underline;
     }
     .zaloga {
-      margin-top: 0.5em;
       font-weight: 600;
-      color: #b30000;
+      margin-top: 0.5em;
     }
   </style>
 </head>
@@ -78,17 +77,19 @@
   </div>
   <h1>Spletna trgovina Matkomp</h1>
 
+  <!-- Iskalnik -->
   <input type="search" id="search" placeholder="Išči izdelek..." />
 
-<div id="container"></div>
+  <div id="izdelki-list"></div>
 
-<script>
-  const izdelki = [
-    {
-      id: 0,
-      ime: "Lenovo IS6XM",
-      cena: 29.99,
-      opis: `Lenovo IS6XM (rev 1.0) je mikro ATX matična plošča s podnožjem LGA 1155, namenjena pisarniškim računalnikom Lenovo ThinkCentre, kot so M81, M91 in M91p. Podnožje: LGA 1155 (za Intel 2. in 3. generacijo Core i7/i5/i3, Pentium)
+  <script>
+    // Podatki o izdelkih
+    const izdelki = [
+      {
+        id: 0,
+        ime: "Lenovo IS6XM",
+        cena: 29.99,
+        opis: `Lenovo IS6XM (rev 1.0) je mikro ATX matična plošča s podnožjem LGA 1155, namenjena pisarniškim računalnikom Lenovo ThinkCentre, kot so M81, M91 in M91p. Podnožje: LGA 1155 (za Intel 2. in 3. generacijo Core i7/i5/i3, Pentium)
 Čipovje: Intel Q67 ali Q61
 RAM: 4 reže za DDR3 (do 32 GB)
 Razširitvene reže: 1 × PCIe x16, 1 × PCIe x1, včasih še 1 × PCI
@@ -96,47 +97,13 @@ Video izhodi: VGA in DisplayPort
 SATA: 4 priključki
 USB: Več USB 2.0 vhodov (brez USB 3.0)
 BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
-      slika: "is6mx.jpg",
-      zaloga: 1
-    }
-  ];
+        slika: "is6mx.jpg",
+        zaloga: 1
+      },
+      // Lahko dodaš več izdelkov tukaj
+    ];
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const id = parseInt(urlParams.get('id'));
-  const container = document.getElementById('container');
-
-  const izdelek = izdelki.find(i => i.id === id);
-
-  if (isNaN(id) || !izdelek) {
-    container.innerHTML = '<p>Izdelek ni najden.</p>';
-  } else {
-    container.innerHTML = `
-      <h1>${izdelek.ime}</h1>
-      <img src="${izdelek.slika}" alt="${izdelek.ime}" style="width: 300px; border-radius: 12px;" />
-      <p>${izdelek.opis.replace(/\n/g, '<br>')}</p>
-      <p><strong>Cena:</strong> ${izdelek.cena.toFixed(2)} €</p>
-      <p><strong>Zaloga:</strong> ${izdelek.zaloga > 0 ? izdelek.zaloga : '<span style="color:red;">Ni na zalogi</span>'}</p>
-      <button onclick="dodajVKosarico('${izdelek.ime}', ${izdelek.cena})" ${izdelek.zaloga <= 0 ? 'disabled' : ''}>Dodaj v košarico</button>
-      <button onclick="location.href='kosarica.html'">Kupi zdaj</button>
-    `;
-  }
-
-  function dodajVKosarico(ime, cena) {
-    const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-    kosarica.push({ ime, cena });
-    localStorage.setItem('kosarica', JSON.stringify(kosarica));
-    alert('Izdelek dodan v košarico!');
-  }
-</script>
-
-    `;
-
-    container.appendChild(div);
-  });
-</script>
-
-
-    // Nalaganje zaloge iz localStorage ali nastavi začetno, če ni
+    // Naloži zalogo iz localStorage ali nastavi začetno
     function naloziZalogo() {
       const zalogaLS = localStorage.getItem('zaloga');
       if (zalogaLS) {
@@ -150,12 +117,7 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
       }
     }
 
-    // Shrani zalogo v localStorage
-    function shraniZalogo() {
-      localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
-    }
-
-    // Prikaz izdelkov
+    // Prikaz izdelkov brez gumbov
     function prikaziIzdelke(filter = '') {
       const list = document.getElementById('izdelki-list');
       list.innerHTML = '';
@@ -181,13 +143,11 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
         link.href = `izdelek.html?id=${izdelek.id}`;
         link.textContent = izdelek.ime;
         link.className = 'izdelek-link';
+
         naslov.appendChild(link);
 
-        const opisP = document.createElement('p');
-        opisP.textContent = izdelek.opis;
-
         const cenaP = document.createElement('p');
-        cenaP.innerHTML = `<strong>Cena:</strong> ${izdelek.cena.toFixed(2)} €`;
+        cenaP.innerHTML = `Cena: ${izdelek.cena.toFixed(2)} €`;
 
         const zalogaP = document.createElement('p');
         zalogaP.className = 'zaloga';
@@ -199,38 +159,9 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
           zalogaP.style.color = 'red';
         }
 
-        const dodajBtn = document.createElement('button');
-        dodajBtn.textContent = 'Dodaj v košarico';
-        dodajBtn.disabled = izdelek.zaloga <= 0;
-        dodajBtn.onclick = () => {
-          if (izdelek.zaloga <= 0) {
-            alert('Izdelek ni na zalogi.');
-            return;
-          }
-
-          const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-          kosarica.push({ id: izdelek.id, ime: izdelek.ime, cena: izdelek.cena });
-          localStorage.setItem('kosarica', JSON.stringify(kosarica));
-
-          izdelek.zaloga--;
-          shraniZalogo();
-          prikaziIzdelke(document.getElementById('search').value);
-
-          alert('Izdelek dodan v košarico!');
-        };
-
-        const kupiBtn = document.createElement('button');
-        kupiBtn.textContent = 'Kupi zdaj';
-        kupiBtn.onclick = () => {
-          location.href = 'kosarica.html';
-        };
-
         opisDiv.appendChild(naslov);
-        opisDiv.appendChild(opisP);
         opisDiv.appendChild(cenaP);
         opisDiv.appendChild(zalogaP);
-        opisDiv.appendChild(dodajBtn);
-        opisDiv.appendChild(kupiBtn);
 
         div.appendChild(img);
         div.appendChild(opisDiv);
