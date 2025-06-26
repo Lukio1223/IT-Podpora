@@ -72,6 +72,10 @@
       border-radius: 8px;
       box-sizing: border-box;
     }
+    img {
+      border-radius: 12px;
+      width: 250px;
+    }
   </style>
 </head>
 <body>
@@ -102,10 +106,11 @@ USB: Več USB 2.0 vhodov (brez USB 3.0)
 BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
         slika: "is6mx.jpg",
         zaloga: 5
-      },
-      // Več izdelkov lahko dodaš tukaj...
+      }
+      // Tukaj lahko dodaš več izdelkov
     ];
 
+    // Naloži zalogo iz localStorage ali nastavi začetno
     function naloziZalogo() {
       const zalogaLS = localStorage.getItem('zaloga');
       if (zalogaLS) {
@@ -119,6 +124,7 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
       }
     }
 
+    // Prikaz izdelkov z iskalnikom
     function prikaziIzdelke(filter = '') {
       const list = document.getElementById('izdelki-list');
       list.innerHTML = '';
@@ -133,8 +139,6 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
         const img = document.createElement('img');
         img.src = izdelek.slika;
         img.alt = izdelek.ime;
-        img.style.width = '250px';
-        img.style.borderRadius = '12px';
 
         const opisDiv = document.createElement('div');
         opisDiv.className = 'opis';
@@ -174,7 +178,7 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
     naloziZalogo();
     prikaziIzdelke();
 
-    document.getElementById('search').addEventListener('input', (e) => {
+    document.getElementById('search').addEventListener('input', e => {
       prikaziIzdelke(e.target.value);
     });
   </script>
