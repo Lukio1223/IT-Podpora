@@ -43,7 +43,6 @@
     button:hover {
       background-color: #0056b3;
     }
-    /* Iskalnik */
     #search {
       width: 100%;
       padding: 12px;
@@ -72,18 +71,18 @@
   </style>
 </head>
 <body>
+
   <div style="text-align: right;">
     <button onclick="location.href='kosarica.html'">🛒 Košarica</button>
   </div>
+
   <h1>Spletna trgovina Matkomp</h1>
 
-  <!-- Iskalnik -->
   <input type="search" id="search" placeholder="Išči izdelek..." />
 
   <div id="izdelki-list"></div>
 
   <script>
-    // Podatki o izdelkih
     const izdelki = [
       {
         id: 0,
@@ -98,26 +97,25 @@ SATA: 4 priključki
 USB: Več USB 2.0 vhodov (brez USB 3.0)
 BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
         slika: "is6mx.jpg",
-        zaloga: 5
-      },
-      // Lahko dodaš več izdelkov tukaj
+        zaloga: 5 // začetna zaloga
+      }
     ];
 
-    // Naloži zalogo iz localStorage ali nastavi začetno
-function naloziZalogo() {
-  localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
-  const zaloga = JSON.parse(localStorage.getItem('zaloga'));
-  for (const izdelek of izdelki) {
-    const z = zaloga.find(z => z.id === izdelek.id);
-    if (z) izdelek.zaloga = z.zaloga;
-  }
-}
- else {
+    function naloziZalogo() {
+      const zalogaLS = localStorage.getItem('zaloga');
+      if (!zalogaLS) {
+        // Če še ni zaloge, jo inicializiraj
         localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
+      } else {
+        // Če obstaja, jo preberi in uporabi
+        const zaloga = JSON.parse(zalogaLS);
+        for (const izdelek of izdelki) {
+          const z = zaloga.find(z => z.id === izdelek.id);
+          if (z) izdelek.zaloga = z.zaloga;
+        }
       }
     }
 
-    // Prikaz izdelkov brez gumbov
     function prikaziIzdelke(filter = '') {
       const list = document.getElementById('izdelki-list');
       list.innerHTML = '';
@@ -165,11 +163,11 @@ function naloziZalogo() {
 
         div.appendChild(img);
         div.appendChild(opisDiv);
-
         list.appendChild(div);
       });
     }
 
+    // Osveži prikaz
     naloziZalogo();
     prikaziIzdelke();
 
