@@ -1,98 +1,102 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Košarica - Matkomp</title>
-<style>
-  body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: #f2f5f9;
-    max-width: 600px;
-    margin: 2em auto;
-    color: #2e3a59;
-  }
-  h1 {
-    text-align: center;
-  }
-  .kosarica {
-    background: white;
-    padding: 1em;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  }
-  .izdelek {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: 0.7em 0;
-  }
-  .izdelek:last-child {
-    border-bottom: none;
-  }
-  .btn-izbrisi {
-    background: #ff4c4c;
-    border: none;
-    color: white;
-    font-weight: bold;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 20px;
-    text-align: center;
-    transition: background-color 0.3s;
-  }
-  .btn-izbrisi:hover {
-    background: #cc0000;
-  }
-  .btn-kupi {
-    margin-top: 1em;
-    width: 100%;
-    padding: 12px;
-    background: #005577;
-    color: white;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  .btn-kupi:hover {
-    background: #003344;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Košarica - Matkomp</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f5f9;
+      max-width: 900px;
+      margin: 2em auto;
+      color: #2e3a59;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    .kosarica {
+      background: white;
+      padding: 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .izdelek {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding: 0.8em 0;
+    }
+    .izdelek:last-child {
+      border-bottom: none;
+    }
+    .izdelek-info {
+      flex-grow: 1;
+    }
+    .btn-delete {
+      background-color: #cc3300;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      line-height: 1;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      margin-left: 1em;
+      transition: background-color 0.3s;
+    }
+    .btn-delete:hover {
+      background-color: #990000;
+    }
+    .btn-kupi {
+      margin-top: 1em;
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #005577, #003344);
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0, 85, 119, 0.5);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .btn-kupi:hover {
+      background: linear-gradient(135deg, #003344, #005577);
+      box-shadow: 0 6px 14px rgba(0, 85, 119, 0.8);
+    }
+    .btn-kupi:active {
+      transform: scale(0.97);
+    }
+  </style>
 </head>
 <body>
+  <h1>Košarica</h1>
+  <div class="kosarica" id="kosarica">
 
-<h1>Vaša košarica</h1>
+    <div class="izdelek">
+      <div class="izdelek-info">Matična plošča XYZ123 - 150€</div>
+      <button class="btn-delete" onclick="odstraniIzdelek(this)">×</button>
+    </div>
 
-<div class="kosarica" id="kosarica">
-  <div class="izdelek" data-id="1">
-    <span>Matična plošča XYZ123</span>
-    <button class="btn-izbrisi" onclick="izbrisiIzdelek(this)">×</button>
+    <div class="izdelek">
+      <div class="izdelek-info">Grafična kartica ABC456 - 300€</div>
+      <button class="btn-delete" onclick="odstraniIzdelek(this)">×</button>
+    </div>
+
   </div>
-  <div class="izdelek" data-id="2">
-    <span>Procesor Intel i7-950</span>
-    <button class="btn-izbrisi" onclick="izbrisiIzdelek(this)">×</button>
-  </div>
-  <div class="izdelek" data-id="3">
-    <span>Grafična kartica Radeon HD 6950</span>
-    <button class="btn-izbrisi" onclick="izbrisiIzdelek(this)">×</button>
-  </div>
-</div>
 
-<button class="btn-kupi" onclick="alert('Hvala za nakup!')">Kupi zdaj</button>
+  <button class="btn-kupi" onclick="alert('Hvala za nakup!')">Kupi zdaj</button>
 
-<script>
-  function izbrisiIzdelek(button) {
-    const izdelekDiv = button.parentElement;
-    izdelekDiv.remove();
-    // Tukaj lahko dodaš tudi kodo, da izdelek odstraniš iz prave košarice / shranjevanja
-  }
-</script>
-
+  <script>
+    function odstraniIzdelek(gumb) {
+      const izdelek = gumb.parentElement;
+      izdelek.remove();
+    }
+  </script>
 </body>
 </html>
