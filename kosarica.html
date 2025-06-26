@@ -37,7 +37,8 @@
   <h1>🛒 Tvoja košarica</h1>
   <div id="kosarica-vsebina"></div>
   <p><strong>Skupaj:</strong> <span id="skupna-cena">0.00</span> €</p>
-  <button onclick="checkout()">Kupi zdaj</button>
+ <button onclick="location.href='checkout.html'">Kupi zdaj</button>
+
 
   <script>
     const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
