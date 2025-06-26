@@ -2,111 +2,51 @@
 <html lang="sl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Zaključi nakup - Matkomp</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f2f5f9;
-      color: #2e3a59;
-      max-width: 600px;
-      margin: 2em auto;
-      padding: 2em;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1em;
-    }
-    form {
-      background: white;
-      padding: 1.5em;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    label {
-      display: block;
-      margin-top: 1em;
-      font-weight: bold;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
-    }
-    input[type="checkbox"] {
-      margin-top: 1em;
-    }
-    button {
-      margin-top: 2em;
-      padding: 12px 20px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1em;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #218838;
-    }
-    .cash-note {
-      margin-top: 2em;
-      font-weight: bold;
-      color: #b30000;
-      background: #ffeaea;
-      padding: 1em;
-      border-radius: 6px;
-    }
+    /* Tvoje CSS stile za formo */
   </style>
 </head>
 <body>
   <h1>Zaključi nakup</h1>
 
-  <form action="https://formspree.io/f/movwpkap" method="POST" onsubmit="poCeku()">
-    <input type="hidden" name="izdelek" id="vsi-izdelki" />
+  <form id="checkout-form">
+    <!-- Polja za vnos podatkov -->
+    <label>Ime in priimek:<br><input type="text" id="ime" required></label><br>
+    <label>Telefon:<br><input type="tel" id="telefon" required></label><br>
+    <label>Email:<br><input type="email" id="email" required></label><br>
+    <label>Naslov:<br><input type="text" id="naslov" required></label><br>
+    <label>Poštna št.:<br><input type="text" id="posta" required></label><br>
+    <label>Mesto:<br><input type="text" id="mesto" required></label><br>
 
-    <label for="ime">Ime in priimek:</label>
-    <input type="text" id="ime" name="ime" required>
-
-    <label for="telefon">Telefonska številka:</label>
-    <input type="tel" id="telefon" name="telefon" required>
-
-    <label for="email">Email naslov:</label>
-    <input type="email" id="email" name="email" required>
-
-    <label for="naslov">Naslov za dostavo:</label>
-    <input type="text" id="naslov" name="naslov" required>
-
-    <label for="posta">Poštna številka:</label>
-    <input type="text" id="posta" name="posta" required>
-
-    <label for="mesto">Mesto:</label>
-    <input type="text" id="mesto" name="mesto" required>
-
-    <label>
-      <input type="checkbox" name="dostava" value="Da"> Želim dostavo na dom
-    </label>
-
-    <div class="cash-note">
-      Sprejemamo <u>samo plačilo z gotovino (denarjem)</u>.
-    </div>
-
-    <button type="submit">Pošlji naročilo</button>
+    <button type="submit">Generiraj PDF</button>
   </form>
 
   <script>
-    const izdelki = JSON.parse(localStorage.getItem('kosarica')) || [];
-    const input = document.getElementById('vsi-izdelki');
-    input.value = izdelki.join(', ');
+    document.getElementById('checkout-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
 
-    function poCeku() {
-      localStorage.removeItem('kosarica');
-    }
+      const ime = document.getElementById('ime').value;
+      const telefon = document.getElementById('telefon').value;
+      const email = document.getElementById('email').value;
+      const naslov = document.getElementById('naslov').value;
+      const posta = document.getElementById('posta').value;
+      const mesto = document.getElementById('mesto').value;
+
+      doc.text("Račun za nakup - Matkomp", 10, 10);
+      doc.text(`Ime in priimek: ${ime}`, 10, 20);
+      doc.text(`Telefon: ${telefon}`, 10, 30);
+      doc.text(`Email: ${email}`, 10, 40);
+      doc.text(`Naslov: ${naslov}`, 10, 50);
+      doc.text(`Poštna številka: ${posta}`, 10, 60);
+      doc.text(`Mesto: ${mesto}`, 10, 70);
+      doc.text("Hvala za vaš nakup!", 10, 90);
+
+      doc.save("racun.pdf");
+    });
   </script>
 </body>
 </html>
