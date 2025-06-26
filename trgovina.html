@@ -104,15 +104,15 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
     ];
 
     // Naloži zalogo iz localStorage ali nastavi začetno
-    function naloziZalogo() {
-      const zalogaLS = localStorage.getItem('zaloga');
-      if (zalogaLS) {
-        const zaloga = JSON.parse(zalogaLS);
-        for (const izdelek of izdelki) {
-          const z = zaloga.find(z => z.id === izdelek.id);
-          if (z) izdelek.zaloga = z.zaloga;
-        }
-      } else {
+function naloziZalogo() {
+  localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
+  const zaloga = JSON.parse(localStorage.getItem('zaloga'));
+  for (const izdelek of izdelki) {
+    const z = zaloga.find(z => z.id === izdelek.id);
+    if (z) izdelek.zaloga = z.zaloga;
+  }
+}
+ else {
         localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
       }
     }
