@@ -18,52 +18,67 @@
       text-align: center;
       margin-bottom: 1em;
     }
-    .izdelek-podrobno {
-      background: white;
-      padding: 2em;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    .izdelek-container {
       display: flex;
       gap: 20px;
-      align-items: flex-start;
+      background: white;
+      padding: 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
-    img {
-      max-width: 350px;
+    .izdelek-slika {
+      width: 300px;
       border-radius: 12px;
     }
     .opis {
       flex: 1;
     }
     button {
-      padding: 10px 20px;
-      font-size: 1em;
+      padding: 12px 24px;
+      font-size: 1.1em;
       border-radius: 6px;
       border: none;
       cursor: pointer;
       background-color: #007bff;
       color: white;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      margin-top: 1em;
       margin-right: 10px;
+      margin-top: 1em;
       transition: background-color 0.3s;
     }
-    button:hover {
+    button:hover:not(:disabled) {
       background-color: #0056b3;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
     }
     .zaloga {
       font-weight: 600;
-      margin-top: 1em;
+      margin-top: 0.5em;
+    }
+    a.back-link {
+      display: inline-block;
+      margin-bottom: 1em;
+      color: #005577;
+      text-decoration: none;
+    }
+    a.back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <button onclick="history.back()" style="margin-bottom: 1em;">← Nazaj na trgovino</button>
+
+  <a href="trgovina.html" class="back-link">← Nazaj na trgovino</a>
+
   <h1>Podrobnosti izdelka</h1>
 
-  <div class="izdelek-podrobno" id="izdelek-podrobno"></div>
+  <div id="izdelek-container" class="izdelek-container">
+    <!-- Podrobnosti izdelka bodo tukaj -->
+  </div>
 
   <script>
-    // Enaki podatki kot v trgovina.html
+    // Podatki o izdelkih (mora biti isti kot v trgovina.html)
     const izdelki = [
       {
         id: 0,
@@ -82,27 +97,43 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
       }
     ];
 
-    // Naloži zalogo iz localStorage, če obstaja
-    const zalogaLS = localStorage.getItem('zaloga');
-    if (zalogaLS) {
-      const zaloga = JSON.parse(zalogaLS);
-      for (const izdelek of izdelki) {
-        const z = zaloga.find(z => z.id === izdelek.id);
-        if (z) izdelek.zaloga = z.zaloga;
+    // Naloži zalogo iz localStorage ali nastavi začetno
+    function naloziZalogo() {
+      const zalogaLS = localStorage.getItem('zaloga');
+      if (zalogaLS) {
+        const zaloga = JSON.parse(zalogaLS);
+        for (const izdelek of izdelki) {
+          const z = zaloga.find(z => z.id === izdelek.id);
+          if (z) izdelek.zaloga = z.zaloga;
+        }
+      } else {
+        localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
       }
     }
 
-    // Preberi id izdelka iz URL-ja
-    const params = new URLSearchParams(window.location.search);
-    const id = parseInt(params.get('id'));
+    function shraniZalogo() {
+      localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
+    }
 
-    const container = document.getElementById('izdelek-podrobno');
+    // Pridobi ID iz URL
+    function getIdFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return parseInt(params.get('id'));
+    }
 
-const izdelek = izdelki.find(i => i.id === id);
+    function prikaziIzdelek(id) {
+      const container = document.getElementById('izdelek-container');
+      if (isNaN(id)) {
+        container.innerHTML = '<p>Izdelek ni najden.</p>';
+        return;
+      }
 
-if (isNaN(id) || !izdelek) {
-  container.innerHTML = '<p>Izdelek ni najden.</p>';
-} else {
+      const izdelek = izdelki.find(i => i.id === id);
+      if (!izdelek) {
+        container.innerHTML = '<p>Izdelek ni najden.</p>';
+        return;
+      }
+
       const div = document.createElement('div');
       div.style.display = 'flex';
       div.style.gap = '20px';
@@ -110,6 +141,7 @@ if (isNaN(id) || !izdelek) {
       const img = document.createElement('img');
       img.src = izdelek.slika;
       img.alt = izdelek.ime;
+      img.className = 'izdelek-slika';
 
       const opisDiv = document.createElement('div');
       opisDiv.className = 'opis';
@@ -133,16 +165,46 @@ if (isNaN(id) || !izdelek) {
         zalogaP.style.color = 'red';
       }
 
+      const dodajBtn = document.createElement('button');
+      dodajBtn.textContent = 'Dodaj v košarico';
+      dodajBtn.disabled = izdelek.zaloga <= 0;
+      dodajBtn.onclick = () => {
+        if (izdelek.zaloga <= 0) {
+          alert('Izdelek ni na zalogi.');
+          return;
+        }
+        const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+        kosarica.push({ id: izdelek.id, ime: izdelek.ime, cena: izdelek.cena });
+        localStorage.setItem('kosarica', JSON.stringify(kosarica));
+        izdelek.zaloga--;
+        shraniZalogo();
+        prikaziIzdelek(id); // osveži prikaz, da se zaloga posodobi
+        alert('Izdelek dodan v košarico!');
+      };
+
+      const kupiBtn = document.createElement('button');
+      kupiBtn.textContent = 'Kupi zdaj';
+      kupiBtn.onclick = () => {
+        location.href = 'kosarica.html';
+      };
+
       opisDiv.appendChild(naslov);
       opisDiv.appendChild(opisP);
       opisDiv.appendChild(cenaP);
       opisDiv.appendChild(zalogaP);
+      opisDiv.appendChild(dodajBtn);
+      opisDiv.appendChild(kupiBtn);
 
       div.appendChild(img);
       div.appendChild(opisDiv);
 
+      container.innerHTML = '';
       container.appendChild(div);
     }
+
+    naloziZalogo();
+    const id = getIdFromUrl();
+    prikaziIzdelek(id);
   </script>
 </body>
 </html>
