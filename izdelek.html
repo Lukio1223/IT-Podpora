@@ -74,11 +74,11 @@
   <h1>Podrobnosti izdelka</h1>
 
   <div id="izdelek-container" class="izdelek-container">
-    <!-- Podrobnosti izdelka bodo tukaj -->
+    <!-- Izdelek bo tukaj -->
   </div>
 
   <script>
-    // Podatki o izdelkih (mora biti isti kot v trgovina.html)
+    // Izdelki
     const izdelki = [
       {
         id: 0,
@@ -95,45 +95,38 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
         slika: "is6mx.jpg",
         zaloga: 5
       }
-      // Lahko dodaš še več izdelkov tukaj...
     ];
 
-    // Naloži zalogo iz localStorage ali nastavi začetno
-function naloziZalogo() {
-  // vedno nastavi localStorage na zalogo iz kode (tukaj 5, 10, ... kar imaš v izdelkih)
-  localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
-
-  // nato preberi nazaj iz localStorage in nastavi zalogo v izdelkih
-  const zaloga = JSON.parse(localStorage.getItem('zaloga'));
-  for (const izdelek of izdelki) {
-    const z = zaloga.find(z => z.id === izdelek.id);
-    if (z) izdelek.zaloga = z.zaloga;
-  }
-}
- else {
+    // Naloži zalogo iz localStorage
+    function naloziZalogo() {
+      const zalogaLS = localStorage.getItem('zaloga');
+      if (zalogaLS) {
+        const zaloga = JSON.parse(zalogaLS);
+        for (const izdelek of izdelki) {
+          const z = zaloga.find(z => z.id === izdelek.id);
+          if (z) izdelek.zaloga = z.zaloga;
+        }
+      } else {
         localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
       }
     }
 
+    // Shrani trenutno stanje zaloge
     function shraniZalogo() {
       localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
     }
 
-    // Pridobi ID iz URL
+    // ID iz URL-ja
     function getIdFromUrl() {
       const params = new URLSearchParams(window.location.search);
       return parseInt(params.get('id'));
     }
 
-    // Prikaži izdelek na podlagi ID-ja
+    // Prikaži izdelek
     function prikaziIzdelek(id) {
       const container = document.getElementById('izdelek-container');
-      if (isNaN(id)) {
-        container.innerHTML = '<p>Izdelek ni najden.</p>';
-        return;
-      }
-
       const izdelek = izdelki.find(i => i.id === id);
+
       if (!izdelek) {
         container.innerHTML = '<p>Izdelek ni najden.</p>';
         return;
@@ -162,38 +155,26 @@ function naloziZalogo() {
 
       const zalogaP = document.createElement('p');
       zalogaP.className = 'zaloga';
-      if (izdelek.zaloga > 0) {
-        zalogaP.textContent = `Na zalogi: ${izdelek.zaloga}`;
-        zalogaP.style.color = 'green';
-      } else {
-        zalogaP.textContent = 'Ni na zalogi';
-        zalogaP.style.color = 'red';
-      }
+      zalogaP.textContent = izdelek.zaloga > 0 ? `Na zalogi: ${izdelek.zaloga}` : 'Ni na zalogi';
+      zalogaP.style.color = izdelek.zaloga > 0 ? 'green' : 'red';
 
-      // Gumb Dodaj v košarico
       const dodajBtn = document.createElement('button');
       dodajBtn.textContent = 'Dodaj v košarico';
       dodajBtn.disabled = izdelek.zaloga <= 0;
       dodajBtn.onclick = () => {
-        if (izdelek.zaloga <= 0) {
-          alert('Izdelek ni na zalogi.');
-          return;
-        }
+        if (izdelek.zaloga <= 0) return;
         const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
         kosarica.push({ id: izdelek.id, ime: izdelek.ime, cena: izdelek.cena });
         localStorage.setItem('kosarica', JSON.stringify(kosarica));
         izdelek.zaloga--;
         shraniZalogo();
-        prikaziIzdelek(id); // osveži prikaz, da se zaloga posodobi
+        prikaziIzdelek(id);
         alert('Izdelek dodan v košarico!');
       };
 
-      // Gumb Kupi zdaj
       const kupiBtn = document.createElement('button');
       kupiBtn.textContent = 'Kupi zdaj';
-      kupiBtn.onclick = () => {
-        location.href = 'kosarica.html';
-      };
+      kupiBtn.onclick = () => location.href = 'kosarica.html';
 
       opisDiv.appendChild(naslov);
       opisDiv.appendChild(opisP);
@@ -210,8 +191,7 @@ function naloziZalogo() {
     }
 
     naloziZalogo();
-    const id = getIdFromUrl();
-    prikaziIzdelek(id);
+    prikaziIzdelek(getIdFromUrl());
   </script>
 </body>
 </html>
