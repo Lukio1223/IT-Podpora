@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registracija - Matkomp</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 2em;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5em;
+      color: #003344;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5em;
+      font-weight: bold;
+      color: #2e3a59;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1.5em;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #005577;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #003344;
+    }
+
+    .link {
+      text-align: center;
+      margin-top: 1em;
+    }
+
+    .link a {
+      color: #005577;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Registracija</h1>
+    <form id="regForm" onsubmit="shraniUporabnika(event)">
+      <label for="uporabnisko">Uporabniško ime:</label>
+      <input type="text" id="uporabnisko" required>
+
+      <label for="geslo">Geslo:</label>
+      <input type="password" id="geslo" required>
+
+      <button type="submit">Registriraj se</button>
+    </form>
+
+    <div class="link">
+      <p>Že imaš račun? <a href="prijava.html">Prijava</a></p>
+    </div>
+  </div>
+
+  <script>
+    function shraniUporabnika(e) {
+      e.preventDefault();
+      const uporabnisko = document.getElementById('uporabnisko').value;
+      const geslo = document.getElementById('geslo').value;
+
+      // Shrani uporabnika v localStorage
+      localStorage.setItem('uporabnik', uporabnisko);
+      localStorage.setItem('geslo', geslo);
+
+      alert('Registracija uspešna! Zdaj se lahko prijaviš.');
+      window.location.href = 'prijava.html';
+    }
+  </script>
+</body>
+</html>
