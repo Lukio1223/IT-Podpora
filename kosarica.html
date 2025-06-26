@@ -8,127 +8,87 @@
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background: #f2f5f9;
-      max-width: 900px;
+      max-width: 700px;
       margin: 2em auto;
+      padding: 2em;
       color: #2e3a59;
     }
     h1 {
       text-align: center;
       margin-bottom: 1em;
     }
-    .kosarica {
-      background: white;
-      padding: 1.5em;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
     .izdelek {
+      background: white;
+      padding: 1em;
+      border-radius: 8px;
+      margin-bottom: 1em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #ddd;
-      padding: 0.8em 0;
     }
-    .izdelek:last-child {
-      border-bottom: none;
-    }
-    .izdelek-info {
-      flex-grow: 1;
-    }
-    .btn-delete {
-      background-color: #cc3300;
-      border: none;
+    .izbrisi {
+      background: #d9534f;
       color: white;
-      font-weight: bold;
-      font-size: 1.2rem;
-      line-height: 1;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      cursor: pointer;
-      margin-left: 1em;
-      transition: background-color 0.3s;
-    }
-    .btn-delete:hover {
-      background-color: #990000;
-    }
-    .btn-kupi {
-      margin-top: 1em;
-      padding: 12px 30px;
-      font-size: 1.2rem;
-      border-radius: 12px;
       border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
       cursor: pointer;
-      background: linear-gradient(135deg, #005577, #003344);
+    }
+    .izbrisi:hover {
+      background: #c9302c;
+    }
+    .kupi {
+      margin-top: 2em;
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
       color: white;
-      font-weight: 600;
-      box-shadow: 0 4px 10px rgba(0, 85, 119, 0.5);
-      transition: background 0.3s, box-shadow 0.3s;
+      border: none;
+      font-size: 1.1em;
+      border-radius: 6px;
+      cursor: pointer;
     }
-    .btn-kupi:hover {
-      background: linear-gradient(135deg, #003344, #005577);
-      box-shadow: 0 6px 14px rgba(0, 85, 119, 0.8);
-    }
-    .btn-kupi:active {
-      transform: scale(0.97);
-    }
-    .prazna-kosarica {
-      text-align: center;
-      font-style: italic;
-      color: #666;
-      margin: 2em 0;
+    .kupi:hover {
+      background: #0056b3;
     }
   </style>
 </head>
 <body>
-  <h1>Košarica</h1>
-  <div class="kosarica" id="kosarica"></div>
-
-  <button class="btn-kupi" id="kupiBtn" style="display:none;">Kupi zdaj</button>
+  <h1>🛒 Tvoja košarica</h1>
+  <div id="kosarica"></div>
+  <button class="kupi" onclick="window.location.href='checkout.html'">Kupi zdaj</button>
 
   <script>
-    function prikaziKosarico() {
-      const kosaricaEl = document.getElementById('kosarica');
-      let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+    const kosaricaDiv = document.getElementById('kosarica');
+    const izdelki = JSON.parse(localStorage.getItem('kosarica')) || [];
 
-      kosaricaEl.innerHTML = '';
-
-      if(kosarica.length === 0) {
-        kosaricaEl.innerHTML = '<p class="prazna-kosarica">Tvoja košarica je prazna.</p>';
-        document.getElementById('kupiBtn').style.display = 'none';
+    function prikaziIzdelke() {
+      kosaricaDiv.innerHTML = '';
+      if (izdelki.length === 0) {
+        kosaricaDiv.innerHTML = '<p>Košarica je prazna.</p>';
         return;
       }
 
-      kosarica.forEach((izdelek, index) => {
+      izdelki.forEach((izdelek, index) => {
         const div = document.createElement('div');
         div.className = 'izdelek';
-
         div.innerHTML = `
-          <div class="izdelek-info">${izdelek.ime} - ${izdelek.cena}€</div>
-          <button class="btn-delete" onclick="odstraniIzdelek(${index})">×</button>
+          <span>${izdelek}</span>
+          <button class="izbrisi" onclick="odstrani(${index})">✖</button>
         `;
-
-        kosaricaEl.appendChild(div);
+        kosaricaDiv.appendChild(div);
       });
-
-      document.getElementById('kupiBtn').style.display = 'block';
     }
 
-    function odstraniIzdelek(index) {
-      let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-      kosarica.splice(index, 1);
-      localStorage.setItem('kosarica', JSON.stringify(kosarica));
-      prikaziKosarico();
+    function odstrani(index) {
+      izdelki.splice(index, 1);
+      localStorage.setItem('kosarica', JSON.stringify(izdelki));
+      prikaziIzdelke();
     }
 
-    document.getElementById('kupiBtn').addEventListener('click', function() {
-      alert('Hvala za nakup! Košarica bo zdaj izpraznjena.');
-      localStorage.removeItem('kosarica');
-      prikaziKosarico();
-    });
-
-    // ob nalaganju strani pokaži košarico
-    prikaziKosarico();
+    prikaziIzdelke();
   </script>
 </body>
 </html>
