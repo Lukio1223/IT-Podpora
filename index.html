@@ -64,17 +64,30 @@
       margin-right: auto;
     }
 
-    .btn-trgovina {
+    .header-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1em;
+      margin-top: 1.5em;
+      flex-wrap: wrap;
+    }
+
+    .btn-trgovina, .btn-itpodpora {
       padding: 12px 30px;
       font-size: 1.2rem;
       font-weight: 600;
       color: white;
-      background: linear-gradient(135deg, #005577, #003344);
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 85, 119, 0.5);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       transition: background 0.3s, box-shadow 0.3s;
+      min-width: 180px;
+      user-select: none;
+    }
+
+    .btn-trgovina {
+      background: linear-gradient(135deg, #005577, #003344);
     }
 
     .btn-trgovina:hover {
@@ -83,6 +96,19 @@
     }
 
     .btn-trgovina:active {
+      transform: scale(0.97);
+    }
+
+    .btn-itpodpora {
+      background: linear-gradient(135deg, #2e7d32, #145a22);
+    }
+
+    .btn-itpodpora:hover {
+      background: linear-gradient(135deg, #145a22, #0b3a0b);
+      box-shadow: 0 6px 14px rgba(20, 90, 34, 0.8);
+    }
+
+    .btn-itpodpora:active {
       transform: scale(0.97);
     }
 
@@ -110,16 +136,13 @@
       padding: 0.4em 0;
     }
 
-    .it-podpora-link {
-      font-size: 1.2rem;
-      color: #2e7d32; /* zelena barva */
-      font-weight: 600;
+    a.discord-link {
+      color: #2e7d32;
       text-decoration: none;
     }
 
-    .it-podpora-link:hover {
+    a.discord-link:hover {
       text-decoration: underline;
-      color: #145a22; /* temnejša zelena ob hoverju */
     }
 
     footer {
@@ -136,11 +159,14 @@
     <img src="Matkomp.png" alt="Logotip Matkomp" class="logo" />
     <h1>Matkomp</h1>
     <p class="description">Tvoji zaupanja vredni prijatelji za sestavo, popravilo in reševanje podatkov računalnikov</p>
-    <button class="btn-trgovina" onclick="location.href='trgovina.html'">Pojdi v spletno trgovino</button>
+    
+    <div class="header-buttons">
+      <button class="btn-trgovina" onclick="location.href='trgovina.html'">Pojdi v spletno trgovino</button>
+      <button class="btn-itpodpora" onclick="location.href='it-podpora.html'">IT Podpora</button>
+    </div>
   </header>
 
   <main>
-    <p><a href="it-podpora.html" class="it-podpora-link">IT Podpora</a></p>
     <section>
       <h2>💻 Naše storitve</h2>
       <ul>
@@ -156,8 +182,8 @@
       <h2>📞 Kontakt</h2>
       <p>Piši nam na Discord ali po e-pošti ali po telefonu:</p>
       <ul>
-        <li><strong>Discord:</strong> <a href="https://discord.gg/UMBfFC3W" target="_blank" rel="noopener" style="color:#2e7d32;">https://discord.gg/UMBfFC3W</a></li>
-        <li><strong>E-mail:</strong> <a href="mailto:lukacp346@gmail.com" style="color:#2e7d32;">lukacp346@gmail.com</a></li>
+        <li><strong>Discord:</strong> <a href="https://discord.gg/UMBfFC3W" target="_blank" rel="noopener" class="discord-link">https://discord.gg/UMBfFC3W</a></li>
+        <li><strong>E-mail:</strong> <a href="mailto:lukacp346@gmail.com" class="discord-link">lukacp346@gmail.com</a></li>
         <li><strong>Telefon:</strong> 064 232 471</li>
       </ul>
     </section>
