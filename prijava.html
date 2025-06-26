@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Prijava - Matkomp</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f2f5f9;
+      max-width: 400px;
+      margin: 5em auto;
+      padding: 2em;
+      border-radius: 12px;
+      background-color: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Prijava</h2>
+  <input type="text" id="username" placeholder="Uporabniško ime" />
+  <input type="password" id="password" placeholder="Geslo" />
+  <button onclick="prijavi()">Prijavi se</button>
+  <p id="error" class="error"></p>
+
+  <script>
+    const uporabniki = {
+      "admin": "matkomp2025",
+      "luka": "1234"
+    };
+
+    function prijavi() {
+      const uporabnik = document.getElementById("username").value;
+      const geslo = document.getElementById("password").value;
+
+      if (uporabniki[uporabnik] && uporabniki[uporabnik] === geslo) {
+        sessionStorage.setItem("prijavljen", uporabnik);
+        window.location.href = "index.html";
+      } else {
+        document.getElementById("error").innerText = "Napačno uporabniško ime ali geslo!";
+      }
+    }
+  </script>
+</body>
+</html>
