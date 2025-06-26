@@ -6,8 +6,8 @@
   <title>Registracija - Matkomp</title>
   <style>
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f2f5f9;
+      font-family: Arial, sans-serif;
+      background-color: #f2f5f9;
       color: #2e3a59;
       max-width: 400px;
       margin: 3em auto;
@@ -16,21 +16,69 @@
       background: white;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
-    label, input, button {
+    h1 {
+      text-align: center;
+    }
+    label {
       display: block;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+    input {
       width: 100%;
-      margin-bottom: 1em;
-      font-size: 1rem;
+      padding: 0.5em;
+      margin-top: 0.3em;
+      box-sizing: border-box;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
     }
     button {
+      margin-top: 1.5em;
+      width: 100%;
+      padding: 0.8em;
+      font-size: 1.1em;
       background-color: #28a745;
       color: white;
-      padding: 0.7em;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s;
+      font-weight: bold;
     }
     button:hover {
       background-color: #1e7e34;
+    }
+  </style>
+</head>
+<body>
+  <h1>Registracija</h1>
+  <form id="registerForm">
+    <label for="uporabnik">Uporabniško ime:</label>
+    <input type="text" id="uporabnik" required />
+    
+    <label for="geslo">Geslo:</label>
+    <input type="password" id="geslo" required />
+    
+    <button type="submit">Registriraj se</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const uporabnik = document.getElementById('uporabnik').value.trim();
+      const geslo = document.getElementById('geslo').value.trim();
+
+      if (!uporabnik || !geslo) {
+        alert('Prosimo, izpolnite vsa polja.');
+        return;
+      }
+
+      localStorage.setItem('uporabnik', uporabnik);
+      localStorage.setItem('geslo', geslo);
+      alert('Registracija uspešna! Sedaj se lahko prijavite.');
+      window.location.href = 'prijava.html';
+    });
+  </script>
+</body>
+</html>
