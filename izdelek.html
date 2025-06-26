@@ -98,9 +98,11 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
 
     const container = document.getElementById('izdelek-podrobno');
 
-    if (isNaN(id) || !izdelek = izdelki.find(i => i.id === id)) {
-      container.innerHTML = '<p>Izdelek ni najden.</p>';
-    } else {
+const izdelek = izdelki.find(i => i.id === id);
+
+if (isNaN(id) || !izdelek) {
+  container.innerHTML = '<p>Izdelek ni najden.</p>';
+} else {
       const div = document.createElement('div');
       div.style.display = 'flex';
       div.style.gap = '20px';
