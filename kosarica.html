@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Košarica - Matkomp</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: #f2f5f9;
+      padding: 2em;
+      max-width: 900px;
+      margin: auto;
+      color: #2e3a59;
+    }
+    .izdelek {
+      background: white;
+      margin-bottom: 1em;
+      padding: 1em;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛒 Tvoja košarica</h1>
+  <div id="kosarica-vsebina"></div>
+  <p><strong>Skupaj:</strong> <span id="skupna-cena">0.00</span> €</p>
+  <button onclick="checkout()">Kupi zdaj</button>
+
+  <script>
+    const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+    const vsebina = document.getElementById('kosarica-vsebina');
+    const skupnaCena = document.getElementById('skupna-cena');
+    let skupaj = 0;
+
+    if (kosarica.length === 0) {
+      vsebina.innerHTML = "<p>Košarica je prazna.</p>";
+    } else {
+      kosarica.forEach((izdelek, i) => {
+        vsebina.innerHTML += `
+          <div class="izdelek">
+            <p><strong>${izdelek.ime}</strong></p>
+            <p>Cena: ${izdelek.cena.toFixed(2)} €</p>
+          </div>
+        `;
+        skupaj += izdelek.cena;
+      });
+      skupnaCena.textContent = skupaj.toFixed(2);
+    }
+
+    function checkout() {
+      localStorage.removeItem('kosarica');
+      window.location.href = "zakljucek.html";
+    }
+  </script>
+</body>
+</html>
