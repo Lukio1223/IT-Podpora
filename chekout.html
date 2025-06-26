@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zaključi nakup - Matkomp</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f5f9;
+      color: #2e3a59;
+      max-width: 600px;
+      margin: 2em auto;
+      padding: 2em;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    form {
+      background: white;
+      padding: 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    input[type="checkbox"] {
+      margin-top: 1em;
+    }
+    button {
+      margin-top: 2em;
+      padding: 12px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .cash-note {
+      margin-top: 2em;
+      font-weight: bold;
+      color: #b30000;
+      background: #ffeaea;
+      padding: 1em;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Zaključi nakup</h1>
+
+  <form action="https://formspree.io/f/movwpkap" method="POST">
+    <label for="ime">Ime in priimek:</label>
+    <input type="text" id="ime" name="ime" required>
+
+    <label for="telefon">Telefonska številka:</label>
+    <input type="tel" id="telefon" name="telefon" required>
+
+    <label for="email">Email naslov:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="naslov">Naslov za dostavo:</label>
+    <input type="text" id="naslov" name="naslov" required>
+
+    <label for="posta">Poštna številka:</label>
+    <input type="text" id="posta" name="posta" required>
+
+    <label for="mesto">Mesto:</label>
+    <input type="text" id="mesto" name="mesto" required>
+
+    <label>
+      <input type="checkbox" name="dostava" value="Da"> Želim dostavo na dom
+    </label>
+
+    <div class="cash-note">
+      Sprejemamo <u>samo plačilo z gotovino (denarjem)</u>.
+    </div>
+
+    <button type="submit">Pošlji naročilo</button>
+  </form>
+</body>
+</html>
