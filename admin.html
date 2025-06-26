@@ -1,0 +1,77 @@
+<table>
+  <thead>
+    <tr>
+      <th>Izdelek</th>
+      <th>Cena (€)</th>
+      <th>Akcija</th>
+    </tr>
+  </thead>
+  <tbody id="naročila-tabela">
+    <!-- Tukaj bomo dodali naročila preko JavaScripta -->
+  </tbody>
+</table>
+
+<button onclick="izbrisiVse()">Izbriši vsa naročila</button>
+
+<script>
+  // Funkcija za prikaz naročil v tabeli
+  function prikaziNarocila() {
+    const tabela = document.getElementById('naročila-tabela');
+    const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+
+    // Počistimo tabelo
+    tabela.innerHTML = '';
+
+    if (kosarica.length === 0) {
+      tabela.innerHTML = '<tr><td colspan="3" style="text-align:center;">Ni nobenih naročil.</td></tr>';
+      return;
+    }
+
+    // Dodaj naročila v tabelo
+    kosarica.forEach((izdelek, index) => {
+      const vrstica = document.createElement('tr');
+
+      const imeCelica = document.createElement('td');
+      imeCelica.textContent = izdelek.ime;
+
+      const cenaCelica = document.createElement('td');
+      cenaCelica.textContent = izdelek.cena.toFixed(2);
+
+      const akcijaCelica = document.createElement('td');
+      const gumbIzbrisi = document.createElement('button');
+      gumbIzbrisi.textContent = 'Izbriši';
+      gumbIzbrisi.onclick = () => {
+        izbrisiNarocilo(index);
+      };
+      akcijaCelica.appendChild(gumbIzbrisi);
+
+      vrstica.appendChild(imeCelica);
+      vrstica.appendChild(cenaCelica);
+      vrstica.appendChild(akcijaCelica);
+
+      tabela.appendChild(vrstica);
+    });
+  }
+
+  // Funkcija za izbris posameznega naročila
+  function izbrisiNarocilo(index) {
+    const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+    kosarica.splice(index, 1);
+    localStorage.setItem('kosarica', JSON.stringify(kosarica));
+    prikaziNarocila();
+  }
+
+  // Funkcija za izbris vseh naročil
+  function izbrisiVse() {
+    if (confirm('Ali res želite izbrisati vsa naročila?')) {
+      localStorage.removeItem('kosarica');
+      prikaziNarocila();
+    }
+  }
+
+  // Ob nalaganju strani prikažemo naročila
+  window.onload = prikaziNarocila;
+</script>
+
+</body>
+</html>
