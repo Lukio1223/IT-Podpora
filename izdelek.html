@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Podrobnosti izdelka - Matkomp</title>
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f2f5f9;
+    max-width: 900px;
+    margin: 2em auto;
+    color: #2e3a59;
+  }
+  .izdelek-container {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5em;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    display: flex;
+    gap: 20px;
+  }
+  img {
+    width: 300px;
+    border-radius: 12px;
+  }
+  .opis {
+    flex: 1;
+  }
+  button {
+    margin-top: 1em;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+</style>
+</head>
+<body>
+
+<div id="izdelek-prikaz"></div>
+
+<script>
+  // Podatki o izdelkih (enako kot v trgovina.html, pomembno da je usklajeno)
+  const izdelki = JSON.parse(localStorage.getItem('zaloga')) || [
+    {
+      ime: "Lenovo IS6XM",
+      cena: 29.99,
+      opis: `Lenovo IS6XM (rev 1.0) je mikro ATX matična plošča s podnožjem LGA 1155, namenjena pisarniškim računalnikom Lenovo ThinkCentre, kot so M81, M91 in M91p. Podnožje: LGA 1155 (za Intel 2. in 3. generacijo Core i7/i5/i3, Pentium)
+Čipovje: Intel Q67 ali Q61
+RAM: 4 reže za DDR3 (do 32 GB)
+Razširitvene reže: 1 × PCIe x16, 1 × PCIe x1, včasih še 1 × PCI
+Video izhodi: VGA in DisplayPort
+SATA: 4 priključki
+USB: Več USB 2.0 vhodov (brez USB 3.0)
+BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
+      slika: "is6mx.jpg",
+      zaloga: 1
+    },
+    // ... lahko dodaš še več izdelkov
+  ];
+
+  // Preberi id iz URL npr. izdelek.html?id=0
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get('id'));
+
+  const container = document.getElementById('izdelek-prikaz');
+
+  if (isNaN(id) || !izdelki[id]) {
+    container.innerHTML = "<p>Izdelek ni najden.</p>";
+  } else {
+    const izdelek = izdelki[id];
+    container.innerHTML = `
+      <div class="izdelek-container">
+        <img src="${izdelek.slika}" alt="${izdelek.ime}" />
+        <div class="opis">
+          <h1>${izdelek.ime}</h1>
+          <p>${izdelek.opis}</p>
+          <p><strong>Cena:</strong> ${izdelek.cena.toFixed(2)} €</p>
+          <p><strong>Zaloga:</strong> ${izdelek.zaloga}</p>
+          <button id="btnDodaj" ${izdelek.zaloga <= 0 ? 'disabled' : ''}>Dodaj v košarico</button>
+        </div>
+      </div>
+    `;
+
+    const btn = document.getElementById('btnDodaj');
+    btn?.addEventListener('click', () => {
+      if (izdelek.zaloga <= 0) {
+        alert('Izdelek ni na zalogi.');
+        return;
+      }
+      const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+      kosarica.push({ ime: izdelek.ime, cena: izdelek.cena });
+      localStorage.setItem('kosarica', JSON.stringify(kosarica));
+
+      // Zmanjšaj zalogo
+      izdelki[id].zaloga -= 1;
+      localStorage.setItem('zaloga', JSON.stringify(izdelki));
+
+      alert('Izdelek dodan v košarico!');
+      // Osveži stran, da se posodobi zaloga in gumbi
+      location.reload();
+    });
+  }
+</script>
+
+</body>
+</html>
