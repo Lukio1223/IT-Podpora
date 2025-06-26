@@ -80,16 +80,15 @@
 
   <input type="search" id="search" placeholder="Išči izdelek..." />
 
-  <div id="izdelki-list"></div>
+<div id="izdelki-list"></div>
 
-  <script>
-    // Podatki o izdelkih (lahko kasneje naložiš iz JSON-a ali baze)
-    const izdelki = [
-      {
-        id: 0,
-        ime: "Lenovo IS6XM",
-        cena: 29.99,
-        opis: `Lenovo IS6XM (rev 1.0) je mikro ATX matična plošča s podnožjem LGA 1155, namenjena pisarniškim računalnikom Lenovo ThinkCentre, kot so M81, M91 in M91p. Podnožje: LGA 1155 (za Intel 2. in 3. generacijo Core i7/i5/i3, Pentium)
+<script>
+  const izdelki = [
+    {
+      id: 0,
+      ime: "Lenovo IS6XM",
+      cena: 29.99,
+      opis: `Lenovo IS6XM (rev 1.0) je mikro ATX matična plošča s podnožjem LGA 1155, namenjena pisarniškim računalnikom Lenovo ThinkCentre, kot so M81, M91 in M91p. Podnožje: LGA 1155 (za Intel 2. in 3. generacijo Core i7/i5/i3, Pentium)
 Čipovje: Intel Q67 ali Q61
 RAM: 4 reže za DDR3 (do 32 GB)
 Razširitvene reže: 1 × PCIe x16, 1 × PCIe x1, včasih še 1 × PCI
@@ -97,10 +96,38 @@ Video izhodi: VGA in DisplayPort
 SATA: 4 priključki
 USB: Več USB 2.0 vhodov (brez USB 3.0)
 BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
-        slika: "is6mx.jpg",
-        zaloga: 1
-      }
-    ];
+      slika: "is6mx.jpg",
+      zaloga: 1
+    }
+  ];
+
+  const container = document.getElementById('izdelki-list');
+
+  izdelki.forEach(izdelek => {
+    const div = document.createElement('div');
+    div.classList.add('izdelek');
+    div.style.marginBottom = '20px';
+    div.style.padding = '10px';
+    div.style.border = '1px solid #ccc';
+    div.style.borderRadius = '8px';
+    div.style.display = 'flex';
+    div.style.alignItems = 'center';
+    div.style.gap = '20px';
+
+    div.innerHTML = `
+      <img src="${izdelek.slika}" alt="${izdelek.ime}" style="width: 150px; border-radius: 8px;" />
+      <div>
+        <h2>${izdelek.ime}</h2>
+        <p><strong>Cena:</strong> ${izdelek.cena.toFixed(2)} €</p>
+        <p><strong>Zaloga:</strong> ${izdelek.zaloga > 0 ? izdelek.zaloga : '<span style="color:red;">Ni na zalogi</span>'}</p>
+        <button onclick="location.href='izdelek.html?id=${izdelek.id}'" ${izdelek.zaloga <= 0 ? 'disabled' : ''}>Več informacij</button>
+      </div>
+    `;
+
+    container.appendChild(div);
+  });
+</script>
+
 
     // Nalaganje zaloge iz localStorage ali nastavi začetno, če ni
     function naloziZalogo() {
