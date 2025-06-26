@@ -19,6 +19,29 @@
   <title>Matkomp - Pomoč in popravilo računalnikov</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    <style>
+  .btn-trgovina {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #005577, #003344);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 85, 119, 0.5);
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  .btn-trgovina:hover {
+    background: linear-gradient(135deg, #003344, #005577);
+    box-shadow: 0 6px 14px rgba(0, 85, 119, 0.8);
+  }
+  .btn-trgovina:active {
+    transform: scale(0.97);
+  }
+</style>
+
     form {
   background-color: #fff;
   max-width: 600px;
@@ -134,7 +157,9 @@ form button:hover {
   </header>
 
   <main>
-    <button onclick="location.href='trgovina.html'">Pojdi v spletno trgovino</button>
+   <button class="btn-trgovina" onclick="location.href='trgovina.html'">
+  Pojdi v spletno trgovino
+</button>
     <p><a href="it-podpora.html" class="it-podpora-link">IT Podpora</a></p>
     <section>
       <h2>💻 Naše storitve</h2>
