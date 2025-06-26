@@ -95,6 +95,7 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
         slika: "is6mx.jpg",
         zaloga: 1
       }
+      // Lahko dodaš še več izdelkov tukaj...
     ];
 
     // Naloži zalogo iz localStorage ali nastavi začetno
@@ -121,6 +122,7 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
       return parseInt(params.get('id'));
     }
 
+    // Prikaži izdelek na podlagi ID-ja
     function prikaziIzdelek(id) {
       const container = document.getElementById('izdelek-container');
       if (isNaN(id)) {
@@ -165,11 +167,12 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
         zalogaP.style.color = 'red';
       }
 
+      // Gumb Dodaj v košarico
       const dodajBtn = document.createElement('button');
       dodajBtn.textContent = 'Dodaj v košarico';
       dodajBtn.disabled = izdelek.zaloga <= 0;
       dodajBtn.onclick = () => {
-        if (izdelek.zaloga <= 1) {
+        if (izdelek.zaloga <= 0) {
           alert('Izdelek ni na zalogi.');
           return;
         }
@@ -182,6 +185,7 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
         alert('Izdelek dodan v košarico!');
       };
 
+      // Gumb Kupi zdaj
       const kupiBtn = document.createElement('button');
       kupiBtn.textContent = 'Kupi zdaj';
       kupiBtn.onclick = () => {
