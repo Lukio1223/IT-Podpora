@@ -52,8 +52,6 @@
     <button onclick="alert('Preusmerjam na nakup...')">Kupi zdaj</button>
   </div>
 
-  <!-- Dodaj več izdelkov po potrebi -->
-
 </body>
 </html>
 
