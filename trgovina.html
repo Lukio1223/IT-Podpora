@@ -24,6 +24,9 @@
       border-radius: 12px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       margin-bottom: 2em;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
     }
     button {
       padding: 10px 20px;
@@ -40,20 +43,35 @@
     button:hover {
       background-color: #0056b3;
     }
+    /* Iskalnik */
+    #search {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1rem;
+      margin-bottom: 1.5em;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    .opis {
+      flex: 1;
+    }
   </style>
 </head>
 <body>
-    <div style="text-align: right;">
+  <div style="text-align: right;">
     <button onclick="location.href='kosarica.html'">🛒 Košarica</button>
   </div>
   <h1>Spletna trgovina Matkomp</h1>
 
-<div class="izdelek" style="display: flex; align-items: flex-start; gap: 20px; background: white; padding: 1.5em; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 2em;">
-  <img src="is6mx.jpg" alt="Lenovo IS6XM" style="width: 250px; border-radius: 12px;" />
-  
-  <div class="opis" style="flex: 1;">
-    <h2>Lenovo IS6XM</h2>
-    <p>Opis izdelka: Lenovo IS6XM (rev 1.0) je mikro ATX matična plošča s podnožjem LGA 1155, namenjena pisarniškim računalnikom Lenovo ThinkCentre, kot so M81, M91 in M91p. Podnožje: LGA 1155 (za Intel 2. in 3. generacijo Core i7/i5/i3, Pentium)
+  <!-- Iskalnik -->
+  <input type="search" id="search" placeholder="Išči izdelek..." />
+
+  <div class="izdelek">
+    <img src="is6mx.jpg" alt="Lenovo IS6XM" style="width: 250px; border-radius: 12px;" />
+    <div class="opis">
+      <h2>Lenovo IS6XM</h2>
+      <p>Opis izdelka: Lenovo IS6XM (rev 1.0) je mikro ATX matična plošča s podnožjem LGA 1155, namenjena pisarniškim računalnikom Lenovo ThinkCentre, kot so M81, M91 in M91p. Podnožje: LGA 1155 (za Intel 2. in 3. generacijo Core i7/i5/i3, Pentium)
 
 Čipovje: Intel Q67 ali Q61
 
@@ -68,23 +86,41 @@ SATA: 4 priključki
 USB: Več USB 2.0 vhodov (brez USB 3.0)
 
 BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice</p>
-    <p><strong>Cena:</strong> 29.99 €</p>
-   <button onclick="dodajVKosarico('Lenovo IS6XM', 29.99)">Dodaj v košarico</button>
-<button onclick="location.href='kosarica.html'">Kupi zdaj</button>
-
+      <p><strong>Cena:</strong> 29.99 €</p>
+      <button onclick="dodajVKosarico('Lenovo IS6XM', 29.99)">Dodaj v košarico</button>
+      <button onclick="location.href='kosarica.html'">Kupi zdaj</button>
+    </div>
   </div>
-</div>
-<script>
-  function dodajVKosarico(ime, cena) {
-    const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-    kosarica.push({ ime, cena });
-    localStorage.setItem('kosarica', JSON.stringify(kosarica));
-    alert('Izdelek dodan v košarico!');
-  }
-</script>
 
+  <!-- Lahko dodaš več izdelkov s to strukturo tukaj -->
 
+  <script>
+    function dodajVKosarico(ime, cena) {
+      const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+      kosarica.push({ ime, cena });
+      localStorage.setItem('kosarica', JSON.stringify(kosarica));
+      alert('Izdelek dodan v košarico!');
+    }
 
+    // Iskalnik
+    const input = document.getElementById('search');
+    const izdelki = document.querySelectorAll('.izdelek');
+
+    input.addEventListener('input', () => {
+      const filter = input.value.toLowerCase();
+
+      izdelki.forEach(izdelek => {
+        // Iščemo v naslovu in opisu
+        const naslov = izdelek.querySelector('h2').textContent.toLowerCase();
+        const opis = izdelek.querySelector('.opis p').textContent.toLowerCase();
+
+        if (naslov.includes(filter) || opis.includes(filter)) {
+          izdelek.style.display = 'flex';
+        } else {
+          izdelek.style.display = 'none';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-
