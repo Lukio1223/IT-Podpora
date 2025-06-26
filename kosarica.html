@@ -1,70 +1,98 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Košarica - Matkomp</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      background: #f2f5f9;
-      padding: 2em;
-      max-width: 900px;
-      margin: auto;
-      color: #2e3a59;
-    }
-    .izdelek {
-      background: white;
-      margin-bottom: 1em;
-      padding: 1em;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-    button {
-      padding: 10px 20px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Košarica - Matkomp</title>
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f2f5f9;
+    max-width: 600px;
+    margin: 2em auto;
+    color: #2e3a59;
+  }
+  h1 {
+    text-align: center;
+  }
+  .kosarica {
+    background: white;
+    padding: 1em;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .izdelek {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 0.7em 0;
+  }
+  .izdelek:last-child {
+    border-bottom: none;
+  }
+  .btn-izbrisi {
+    background: #ff4c4c;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    transition: background-color 0.3s;
+  }
+  .btn-izbrisi:hover {
+    background: #cc0000;
+  }
+  .btn-kupi {
+    margin-top: 1em;
+    width: 100%;
+    padding: 12px;
+    background: #005577;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .btn-kupi:hover {
+    background: #003344;
+  }
+</style>
 </head>
 <body>
-  <h1>🛒 Tvoja košarica</h1>
-  <div id="kosarica-vsebina"></div>
-  <p><strong>Skupaj:</strong> <span id="skupna-cena">0.00</span> €</p>
- <button onclick="location.href='checkout.html'">Kupi zdaj</button>
 
+<h1>Vaša košarica</h1>
 
-  <script>
-    const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-    const vsebina = document.getElementById('kosarica-vsebina');
-    const skupnaCena = document.getElementById('skupna-cena');
-    let skupaj = 0;
+<div class="kosarica" id="kosarica">
+  <div class="izdelek" data-id="1">
+    <span>Matična plošča XYZ123</span>
+    <button class="btn-izbrisi" onclick="izbrisiIzdelek(this)">×</button>
+  </div>
+  <div class="izdelek" data-id="2">
+    <span>Procesor Intel i7-950</span>
+    <button class="btn-izbrisi" onclick="izbrisiIzdelek(this)">×</button>
+  </div>
+  <div class="izdelek" data-id="3">
+    <span>Grafična kartica Radeon HD 6950</span>
+    <button class="btn-izbrisi" onclick="izbrisiIzdelek(this)">×</button>
+  </div>
+</div>
 
-    if (kosarica.length === 0) {
-      vsebina.innerHTML = "<p>Košarica je prazna.</p>";
-    } else {
-      kosarica.forEach((izdelek, i) => {
-        vsebina.innerHTML += `
-          <div class="izdelek">
-            <p><strong>${izdelek.ime}</strong></p>
-            <p>Cena: ${izdelek.cena.toFixed(2)} €</p>
-          </div>
-        `;
-        skupaj += izdelek.cena;
-      });
-      skupnaCena.textContent = skupaj.toFixed(2);
-    }
+<button class="btn-kupi" onclick="alert('Hvala za nakup!')">Kupi zdaj</button>
 
-    function checkout() {
-      localStorage.removeItem('kosarica');
-      window.location.href = "zakljucek.html";
-    }
-  </script>
+<script>
+  function izbrisiIzdelek(button) {
+    const izdelekDiv = button.parentElement;
+    izdelekDiv.remove();
+    // Tukaj lahko dodaš tudi kodo, da izdelek odstraniš iz prave košarice / shranjevanja
+  }
+</script>
+
 </body>
 </html>
