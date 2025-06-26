@@ -19,6 +19,55 @@
   <title>Matkomp - Pomoč in popravilo računalnikov</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    form {
+  background-color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+form button {
+  padding: 12px 25px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #004999;
+}
+
+/* Honeypot (anti-spam skrito polje) */
+.honeypot {
+  display: none;
+}
+
     body {
       .it-podpora-link {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
