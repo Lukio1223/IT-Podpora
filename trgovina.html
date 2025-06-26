@@ -43,7 +43,6 @@
     button:hover {
       background-color: #0056b3;
     }
-    /* Iskalnik */
     #search {
       width: 100%;
       padding: 12px;
@@ -60,9 +59,16 @@
       color: #007bff;
       text-decoration: underline;
       cursor: pointer;
+      font-size: 1.4em;
+      font-weight: bold;
     }
     a.izdelek-link:hover {
       color: #0056b3;
+    }
+    .zaloga {
+      margin-top: 0.5em;
+      font-weight: 600;
+      color: #b30000;
     }
   </style>
 </head>
@@ -72,15 +78,15 @@
   </div>
   <h1>Spletna trgovina Matkomp</h1>
 
-  <!-- Iskalnik -->
   <input type="search" id="search" placeholder="Išči izdelek..." />
 
   <div id="izdelki-list"></div>
 
   <script>
-    // Podatki o izdelkih - lahko jih shraniš tudi v localStorage za zalogo itd.
+    // Podatki o izdelkih (lahko kasneje naložiš iz JSON-a ali baze)
     const izdelki = [
       {
+        id: 0,
         ime: "Lenovo IS6XM",
         cena: 29.99,
         opis: `Lenovo IS6XM (rev 1.0) je mikro ATX matična plošča s podnožjem LGA 1155, namenjena pisarniškim računalnikom Lenovo ThinkCentre, kot so M81, M91 in M91p. Podnožje: LGA 1155 (za Intel 2. in 3. generacijo Core i7/i5/i3, Pentium)
@@ -93,29 +99,36 @@ USB: Več USB 2.0 vhodov (brez USB 3.0)
 BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
         slika: "is6mx.jpg",
         zaloga: 1
-      },
-      // Tu lahko dodaš več izdelkov, npr.:
-      // {
-      //   ime: "Drugi izdelek",
-      //   cena: 59.99,
-      //   opis: "Opis drugega izdelka ...",
-      //   slika: "drugi.jpg",
-      //   zaloga: 5
-      // }
+      }
     ];
 
-    const izdelkiList = document.getElementById('izdelki-list');
-    const searchInput = document.getElementById('search');
+    // Nalaganje zaloge iz localStorage ali nastavi začetno, če ni
+    function naloziZalogo() {
+      const zalogaLS = localStorage.getItem('zaloga');
+      if (zalogaLS) {
+        const zaloga = JSON.parse(zalogaLS);
+        for (const izdelek of izdelki) {
+          const z = zaloga.find(z => z.id === izdelek.id);
+          if (z) izdelek.zaloga = z.zaloga;
+        }
+      } else {
+        localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
+      }
+    }
 
+    // Shrani zalogo v localStorage
+    function shraniZalogo() {
+      localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
+    }
+
+    // Prikaz izdelkov
     function prikaziIzdelke(filter = '') {
-      izdelkiList.innerHTML = '';
+      const list = document.getElementById('izdelki-list');
+      list.innerHTML = '';
       const niz = filter.toLowerCase();
 
-      izdelki.forEach((izdelek, index) => {
-        // Filtriramo po imenu ali opisu
-        if (!izdelek.ime.toLowerCase().includes(niz) && !izdelek.opis.toLowerCase().includes(niz)) {
-          return;
-        }
+      izdelki.forEach(izdelek => {
+        if (!izdelek.ime.toLowerCase().includes(niz) && !izdelek.opis.toLowerCase().includes(niz)) return;
 
         const div = document.createElement('div');
         div.className = 'izdelek';
@@ -129,10 +142,9 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
         const opisDiv = document.createElement('div');
         opisDiv.className = 'opis';
 
-        // Naslov kot link na izdelek.html?id=index
         const naslov = document.createElement('h2');
         const link = document.createElement('a');
-        link.href = `izdelek.html?id=${index}`;
+        link.href = `izdelek.html?id=${izdelek.id}`;
         link.textContent = izdelek.ime;
         link.className = 'izdelek-link';
         naslov.appendChild(link);
@@ -143,8 +155,19 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
         const cenaP = document.createElement('p');
         cenaP.innerHTML = `<strong>Cena:</strong> ${izdelek.cena.toFixed(2)} €`;
 
+        const zalogaP = document.createElement('p');
+        zalogaP.className = 'zaloga';
+        if (izdelek.zaloga > 0) {
+          zalogaP.textContent = `Na zalogi: ${izdelek.zaloga}`;
+          zalogaP.style.color = 'green';
+        } else {
+          zalogaP.textContent = 'Ni na zalogi';
+          zalogaP.style.color = 'red';
+        }
+
         const dodajBtn = document.createElement('button');
         dodajBtn.textContent = 'Dodaj v košarico';
+        dodajBtn.disabled = izdelek.zaloga <= 0;
         dodajBtn.onclick = () => {
           if (izdelek.zaloga <= 0) {
             alert('Izdelek ni na zalogi.');
@@ -152,15 +175,14 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
           }
 
           const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-          kosarica.push({ ime: izdelek.ime, cena: izdelek.cena });
+          kosarica.push({ id: izdelek.id, ime: izdelek.ime, cena: izdelek.cena });
           localStorage.setItem('kosarica', JSON.stringify(kosarica));
 
-          // Zmanjšaj zalogo in shrani nazaj
-          izdelki[index].zaloga--;
-          localStorage.setItem('zaloga', JSON.stringify(izdelki));
+          izdelek.zaloga--;
+          shraniZalogo();
+          prikaziIzdelke(document.getElementById('search').value);
 
           alert('Izdelek dodan v košarico!');
-          prikaziIzdelke(searchInput.value); // osveži prikaz, da se vidi zaloga
         };
 
         const kupiBtn = document.createElement('button');
@@ -172,35 +194,22 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
         opisDiv.appendChild(naslov);
         opisDiv.appendChild(opisP);
         opisDiv.appendChild(cenaP);
+        opisDiv.appendChild(zalogaP);
         opisDiv.appendChild(dodajBtn);
         opisDiv.appendChild(kupiBtn);
 
         div.appendChild(img);
         div.appendChild(opisDiv);
 
-        izdelkiList.appendChild(div);
+        list.appendChild(div);
       });
     }
 
-    // Če v localStorage že imamo zalogo, uporabimo to, drugače privzete izdelke shranimo
-    if (!localStorage.getItem('zaloga')) {
-      localStorage.setItem('zaloga', JSON.stringify(izdelki));
-    } else {
-      // Naloži zalogo iz localStorage (da se upoštevajo spremembe zaloge)
-      const zalogaStorage = JSON.parse(localStorage.getItem('zaloga'));
-      for (let i = 0; i < izdelki.length; i++) {
-        if (zalogaStorage[i]) {
-          izdelki[i].zaloga = zalogaStorage[i].zaloga;
-        }
-      }
-    }
-
-    // Prikaži vse izdelke na začetku
+    naloziZalogo();
     prikaziIzdelke();
 
-    // Iskalnik - poslušaj vnos in filtriraj
-    searchInput.addEventListener('input', () => {
-      prikaziIzdelke(searchInput.value);
+    document.getElementById('search').addEventListener('input', (e) => {
+      prikaziIzdelke(e.target.value);
     });
   </script>
 </body>
