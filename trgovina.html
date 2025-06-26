@@ -40,8 +40,13 @@
       margin-right: 10px;
       transition: background-color 0.3s;
     }
-    button:hover {
+    button:hover:not(:disabled) {
       background-color: #0056b3;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      color: #666;
     }
     /* Iskalnik */
     #search {
@@ -56,6 +61,10 @@
     .opis {
       flex: 1;
     }
+    img {
+      width: 250px;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
@@ -67,60 +76,126 @@
   <!-- Iskalnik -->
   <input type="search" id="search" placeholder="Išči izdelek..." />
 
-  <div class="izdelek">
-    <img src="is6mx.jpg" alt="Lenovo IS6XM" style="width: 250px; border-radius: 12px;" />
-    <div class="opis">
-      <h2>Lenovo IS6XM</h2>
-      <p>Opis izdelka: Lenovo IS6XM (rev 1.0) je mikro ATX matična plošča s podnožjem LGA 1155, namenjena pisarniškim računalnikom Lenovo ThinkCentre, kot so M81, M91 in M91p. Podnožje: LGA 1155 (za Intel 2. in 3. generacijo Core i7/i5/i3, Pentium)
-
-Čipovje: Intel Q67 ali Q61
-
-RAM: 4 reže za DDR3 (do 32 GB)
-
-Razširitvene reže: 1 × PCIe x16, 1 × PCIe x1, včasih še 1 × PCI
-
-Video izhodi: VGA in DisplayPort
-
-SATA: 4 priključki
-
-USB: Več USB 2.0 vhodov (brez USB 3.0)
-
-BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice</p>
-      <p><strong>Cena:</strong> 29.99 €</p>
-      <button onclick="dodajVKosarico('Lenovo IS6XM', 29.99)">Dodaj v košarico</button>
-      <button onclick="location.href='kosarica.html'">Kupi zdaj</button>
-    </div>
-  </div>
-
-  <!-- Lahko dodaš več izdelkov s to strukturo tukaj -->
+  <div id="izdelki-lista"></div>
 
   <script>
-    function dodajVKosarico(ime, cena) {
+    // Če imamo zalogo v localStorage, jo uporabimo, drugače nastavimo začetno
+    let izdelki = JSON.parse(localStorage.getItem('zaloga')) || [
+      {
+        ime: "Lenovo IS6XM",
+        cena: 29.99,
+        opis: `Lenovo IS6XM (rev 1.0) je mikro ATX matična plošča s podnožjem LGA 1155, namenjena pisarniškim računalnikom Lenovo ThinkCentre, kot so M81, M91 in M91p. Podnožje: LGA 1155 (za Intel 2. in 3. generacijo Core i7/i5/i3, Pentium)
+Čipovje: Intel Q67 ali Q61
+RAM: 4 reže za DDR3 (do 32 GB)
+Razširitvene reže: 1 × PCIe x16, 1 × PCIe x1, včasih še 1 × PCI
+Video izhodi: VGA in DisplayPort
+SATA: 4 priključki
+USB: Več USB 2.0 vhodov (brez USB 3.0)
+BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
+        slika: "is6mx.jpg",
+        zaloga: 1
+      },
+      // Lahko dodaš še več izdelkov tukaj s to strukturo:
+      /*
+      {
+        ime: "Drugi izdelek",
+        cena: 19.99,
+        opis: "Opis izdelka ...",
+        slika: "drugi.jpg",
+        zaloga: 5
+      }
+      */
+    ];
+
+    // Shranimo zalogo v localStorage
+    localStorage.setItem('zaloga', JSON.stringify(izdelki));
+
+    const container = document.getElementById('izdelki-lista');
+
+    function prikaziIzdelke() {
+      container.innerHTML = '';
+      izdelki.forEach((izdelek, index) => {
+        const div = document.createElement('div');
+        div.className = 'izdelek';
+
+        div.innerHTML = `
+          <img src="${izdelek.slika}" alt="${izdelek.ime}" />
+          <div class="opis">
+            <h2>${izdelek.ime}</h2>
+            <p>${izdelek.opis}</p>
+            <p><strong>Cena:</strong> ${izdelek.cena.toFixed(2)} €</p>
+            <p><strong>Zaloga:</strong> ${izdelek.zaloga}</p>
+          </div>
+        `;
+
+        // Dodaj gumb ali napis "Ni na zalogi"
+        const btnAdd = document.createElement('button');
+        btnAdd.textContent = "Dodaj v košarico";
+        btnAdd.disabled = izdelki[index].zaloga <= 0;
+        btnAdd.onclick = () => {
+          dodajVKosarico(index);
+        };
+
+        if (izdelek.zaloga <= 0) {
+          btnAdd.textContent = "Ni na zalogi";
+        }
+        div.querySelector('.opis').appendChild(btnAdd);
+
+        // Gumb Kupi zdaj
+        const btnBuy = document.createElement('button');
+        btnBuy.textContent = "Kupi zdaj";
+        btnBuy.onclick = () => {
+          location.href = 'kosarica.html';
+        };
+        div.querySelector('.opis').appendChild(btnBuy);
+
+        container.appendChild(div);
+      });
+    }
+
+    function dodajVKosarico(index) {
+      if (izdelki[index].zaloga <= 0) {
+        alert('Izdelek ni več na zalogi.');
+        return;
+      }
+
+      // Dodaj v košarico (localStorage)
       const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-      kosarica.push({ ime, cena });
+      kosarica.push({
+        ime: izdelki[index].ime,
+        cena: izdelki[index].cena
+      });
       localStorage.setItem('kosarica', JSON.stringify(kosarica));
+
+      // Zmanjšaj zalogo in shrani
+      izdelki[index].zaloga -= 1;
+      localStorage.setItem('zaloga', JSON.stringify(izdelki));
+
+      // Ponovno prikaži izdelke, da se posodobi stanje
+      prikaziIzdelke();
+
       alert('Izdelek dodan v košarico!');
     }
 
     // Iskalnik
     const input = document.getElementById('search');
-    const izdelki = document.querySelectorAll('.izdelek');
-
     input.addEventListener('input', () => {
       const filter = input.value.toLowerCase();
+      const izdelkiDivs = container.querySelectorAll('.izdelek');
 
-      izdelki.forEach(izdelek => {
-        // Iščemo v naslovu in opisu
-        const naslov = izdelek.querySelector('h2').textContent.toLowerCase();
-        const opis = izdelek.querySelector('.opis p').textContent.toLowerCase();
-
+      izdelkiDivs.forEach(div => {
+        const naslov = div.querySelector('h2').textContent.toLowerCase();
+        const opis = div.querySelector('.opis p').textContent.toLowerCase();
         if (naslov.includes(filter) || opis.includes(filter)) {
-          izdelek.style.display = 'flex';
+          div.style.display = 'flex';
         } else {
-          izdelek.style.display = 'none';
+          div.style.display = 'none';
         }
       });
     });
+
+    // Inicialni prikaz
+    prikaziIzdelke();
   </script>
 </body>
 </html>
