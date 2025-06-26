@@ -66,10 +66,19 @@ USB: Več USB 2.0 vhodov (brez USB 3.0)
 
 BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice</p>
     <p><strong>Cena:</strong> 29.99 €</p>
-    <button onclick="alert('Dodano v košarico!')">Dodaj v košarico</button>
-    <button onclick="alert('Preusmerjam na nakup...')">Kupi zdaj</button>
+   <button onclick="dodajVKosarico('Lenovo IS6XM', 29.99)">Dodaj v košarico</button>
+<button onclick="location.href='kosarica.html'">Kupi zdaj</button>
+
   </div>
 </div>
+<script>
+  function dodajVKosarico(ime, cena) {
+    const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+    kosarica.push({ ime, cena });
+    localStorage.setItem('kosarica', JSON.stringify(kosarica));
+    alert('Izdelek dodan v košarico!');
+  }
+</script>
 
 
 
