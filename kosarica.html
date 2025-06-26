@@ -75,7 +75,7 @@
         const div = document.createElement('div');
         div.className = 'izdelek';
         div.innerHTML = `
-          <span>${izdelek}</span>
+          <span>${izdelek.ime} - ${izdelek.cena}</span>
           <button class="izbrisi" onclick="odstrani(${index})">✖</button>
         `;
         kosaricaDiv.appendChild(div);
