@@ -169,7 +169,7 @@ BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
       dodajBtn.textContent = 'Dodaj v košarico';
       dodajBtn.disabled = izdelek.zaloga <= 0;
       dodajBtn.onclick = () => {
-        if (izdelek.zaloga <= 0) {
+        if (izdelek.zaloga <= 1) {
           alert('Izdelek ni na zalogi.');
           return;
         }
