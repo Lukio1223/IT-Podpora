@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Top 3 brezplačni programi za testiranje računalnika - Matkomp</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 900px;
+      margin: 2em auto;
+      padding: 1em;
+      background: #f2f5f9;
+      color: #2e3a59;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    a.back-link {
+      display: inline-block;
+      margin-bottom: 1em;
+      color: #005577;
+      text-decoration: none;
+    }
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+    section {
+      background: white;
+      padding: 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      line-height: 1.6;
+    }
+    h2 {
+      color: #005577;
+      margin-top: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <a href="blog.html" class="back-link">← Nazaj na blog</a>
+  <h1>Top 3 brezplačni programi za testiranje računalnika</h1>
+
+  <section>
+    <h2>1. HWiNFO</h2>
+    <p>HWiNFO je zmogljiv program za diagnostiko, ki ponuja podrobne informacije o strojni opremi računalnika in spremljanje delovanja v realnem času.</p>
+  </section>
+
+  <section>
+    <h2>2. CrystalDiskInfo</h2>
+    <p>CrystalDiskInfo je orodje za spremljanje stanja trdih diskov, ki omogoča pregled SMART parametrov in opozori na morebitne težave.</p>
+  </section>
+
+  <section>
+    <h2>3. OCCT</h2>
+    <p>OCCT je program za stresno testiranje CPU-ja, grafične kartice in napajalnika, kar pomaga preveriti stabilnost sistema pod obremenitvijo.</p>
+  </section>
+</body>
+</html>
