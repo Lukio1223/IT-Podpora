@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nadzor naročil - Matkomp</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f5f9;
+      color: #2e3a59;
+      max-width: 900px;
+      margin: 2em auto;
+      padding: 1em;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    .naročilo {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5em;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5em;
+    }
+    .naročilo strong {
+      display: inline-block;
+      width: 130px;
+    }
+    .uredi {
+      margin-top: 1em;
+    }
+    select, button {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-top: 0.5em;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #005577;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #003344;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nadzor naročil</h1>
+
+  <div id="seznamNaročil"></div>
+
+  <script>
+    function prikaziNaročila() {
+      const seznam = document.getElementById('seznamNaročil');
+      seznam.innerHTML = '';
+      const naročila = JSON.parse(localStorage.getItem('narocila')) || [];
+
+      naročila.forEach((n, index) => {
+        const div = document.createElement('div');
+        div.className = 'naročilo';
+        div.innerHTML = `
+          <p><strong>Št. naročila:</strong> ${n.id}</p>
+          <p><strong>Ime:</strong> ${n.ime}</p>
+          <p><strong>Status:</strong> <span id="status-${index}">${n.status}</span></p>
+          <div class="uredi">
+            <label for="nov-status-${index}">Spremeni status:</label><br>
+            <select id="nov-status-${index}">
+              <option value="Obdelava naročila">Obdelava naročila</option>
+              <option value="Odposlano">Odposlano</option>
+              <option value="Zaključeno">Zaključeno</option>
+              <option value="Preklicano">Preklicano</option>
+            </select>
+            <br>
+            <button onclick="shraniStatus(${index})">Shrani</button>
+          </div>
+        `;
+        seznam.appendChild(div);
+      });
+    }
+
+    function shraniStatus(index) {
+      const naročila = JSON.parse(localStorage.getItem('narocila')) || [];
+      const novStatus = document.getElementById(`nov-status-${index}`).value;
+      naročila[index].status = novStatus;
+      localStorage.setItem('narocila', JSON.stringify(naročila));
+      document.getElementById(`status-${index}`).textContent = novStatus;
+      alert('Status posodobljen.');
+    }
+
+    prikaziNaročila();
+  </script>
+</body>
+</html>
