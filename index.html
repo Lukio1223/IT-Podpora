@@ -151,6 +151,20 @@
       text-decoration: underline;
       color: #1e7e34;
     }
+    /* Stil za seznam naročil */
+    #seznam-narocil {
+      max-width: 900px;
+      margin: 2em auto;
+      background: white;
+      padding: 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      font-size: 1rem;
+    }
+    #seznam-narocil ul {
+      list-style: none;
+      padding-left: 0;
+    }
   </style>
 </head>
 <body>
@@ -163,7 +177,7 @@
     <p class="description">Tvoji zaupanja vredni prijatelji za sestavo, popravilo in reševanje podatkov računalnikov</p>
     <button class="btn btn-itpodpora" onclick="location.href='it-podpora.html'">IT Pomoč</button>
     <button class="btn btn-trgovina" onclick="location.href='trgovina.html'">Pojdi v spletno trgovino</button>
-    <!-- Tukaj je gumb samo za zaposlene -->
+    <!-- Gumb za zaposlene -->
     <button class="btn-employee" id="employeeBtn">Samo za zaposlene</button>
   </header>
   <main>
@@ -203,12 +217,20 @@
       </ul>
     </section>
   </main>
+
+  <!-- Sekcija za prikaz naročil -->
+  <section id="seznam-narocil">
+    <h2>Aktivna naročila</h2>
+    <ul id="lista-narocil"></ul>
+  </section>
+
   <footer style="display: flex; justify-content: space-between; align-items: center; padding: 1em; background: #ccc; font-size: 0.9em;">
     <p>&copy; 2025 Matkomp. Izdelal s ❤️ Luka in ekipa.</p>
     <div id="logout-container"></div>
   </footer>
 
   <script>
+    // Če je uporabnik prijavljen, pokaži gumb za odjavo
     if (sessionStorage.getItem("prijavljen")) {
       const odjavaDiv = document.getElementById("logout-container");
       odjavaDiv.innerHTML = '<button onclick="odjavi()" style="padding: 8px 14px; background-color: #b30000; color: white; border: none; border-radius: 6px; cursor: pointer;">Odjavi se</button>';
@@ -229,33 +251,28 @@
         alert('Napačno geslo! Dostop zavrnjen.');
       }
     });
-  </script>
-  <section id="seznam-narocil">
-  <h2>Aktivna naročila</h2>
-  <ul id="lista-narocil"></ul>
-</section>
 
-<script>
-  function prikaziNarocila() {
-    const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
-    const lista = document.getElementById('lista-narocil');
-    lista.innerHTML = ''; // počisti vsebino
+    // Funkcija za prikaz naročil iz localStorage
+    function prikaziNarocila() {
+      const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
+      const lista = document.getElementById('lista-narocil');
+      lista.innerHTML = ''; // počisti vsebino
 
-    if (narocila.length === 0) {
-      lista.innerHTML = '<li>Trenutno ni naročil.</li>';
-      return;
+      if (narocila.length === 0) {
+        lista.innerHTML = '<li>Trenutno ni naročil.</li>';
+        return;
+      }
+
+      narocila.forEach(narocilo => {
+        const li = document.createElement('li');
+        li.textContent = `Št. naročila: ${narocilo.id} - ${narocilo.ime} - Status: ${narocilo.status} - Datum: ${new Date(narocilo.datum).toLocaleString()}`;
+        lista.appendChild(li);
+      });
     }
 
-    narocila.forEach(narocilo => {
-      const li = document.createElement('li');
-      li.textContent = `Št. naročila: ${narocilo.id} - ${narocilo.ime} - Status: ${narocilo.status} - Datum: ${new Date(narocilo.datum).toLocaleString()}`;
-      lista.appendChild(li);
-    });
-  }
-
-  // Prikaži naročila takoj ob naložitvi strani
-  window.onload = prikaziNarocila;
-</script>
+    // Prikaži naročila takoj ob naložitvi strani
+    window.onload = prikaziNarocila;
+  </script>
 
 </body>
 </html>
