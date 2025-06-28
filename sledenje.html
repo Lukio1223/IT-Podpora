@@ -1,19 +1,106 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>🚚 Ročno sledenje naročilu - Matkomp</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🚚Sledenje naročilom - Matkomp</title>
   <style>
-    body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: #f2f5f9; color: #2e3a59; max-width: 900px; margin: auto; padding: 2em; }
-    h1 { text-align: center; margin-bottom: 1em; }
-    input, button { padding: 12px; font-size: 1rem; border-radius: 6px; border: 1px solid #ccc; margin-right: 0.5em; }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 600px;
+      margin: 2em auto;
+      padding: 1em;
+      background: #f2f5f9;
+      color: #2e3a59;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5em;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5em;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.5em;
+      font-size: 1.1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 1em;
+      box-sizing: border-box;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 0.7em 1.5em;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .status {
+      margin-top: 1.5em;
+      padding: 1em;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2e3a59;
+    }
+    .error {
+      color: red;
+      font-weight: 600;
+      margin-top: 1em;
+    }
   </style>
 </head>
 <body>
-  <h1>🚚 Ročno sledenje naročilu</h1>
-  <p>Vnesi številko naročila za sledenje:</p>
-  <input type="text" placeholder="Št. naročila">
-  <button>Preveri</button>
+
+  <h1>Sledenje naročilom</h1>
+
+  <form id="sledenjeForm">
+    <label for="stevilkaNaročila">Vnesi številko naročila:</label>
+    <input type="text" id="stevilkaNaročila" placeholder="Npr. 12345" required />
+    <button type="submit">Poišči naročilo</button>
+  </form>
+
+  <div id="rezultat"></div>
+
+  <script>
+    // Ročno vnesena naročila z ID-jem in statusom
+    const naročila = [
+      { id: "12345", status: "Obdelava naročila" },
+      { id: "12346", status: "Poslano - na poti" },
+      { id: "12347", status: "Dostavljeno" },
+      { id: "12348", status: "Preklicano" }
+      // Dodaj še več po potrebi
+    ];
+
+    const forma = document.getElementById("sledenjeForm");
+    const rezultatDiv = document.getElementById("rezultat");
+
+    forma.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const vnos = document.getElementById("stevilkaNaročila").value.trim();
+      if (!vnos) return;
+
+      const naročilo = naročila.find(n => n.id === vnos);
+
+      if (naročilo) {
+        rezultatDiv.innerHTML = `<div class="status">Status naročila <strong>#${naročilo.id}</strong>: ${naročilo.status}</div>`;
+      } else {
+        rezultatDiv.innerHTML = `<div class="error">Naročilo s številko <strong>${vnos}</strong> ni bilo najdeno.</div>`;
+      }
+    });
+  </script>
+
 </body>
 </html>
