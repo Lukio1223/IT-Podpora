@@ -7,57 +7,47 @@
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      max-width: 600px;
-      margin: 2em auto;
-      padding: 1em;
       background: #f2f5f9;
       color: #2e3a59;
+      max-width: 600px;
+      margin: 2em auto;
+      padding: 2em;
     }
     h1 {
       text-align: center;
-      margin-bottom: 1.5em;
-    }
-    label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 0.5em;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 0.5em;
-      font-size: 1.1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
       margin-bottom: 1em;
+    }
+    label, input, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 1em;
+      font-size: 1rem;
+    }
+    input {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
       box-sizing: border-box;
     }
     button {
-      background: #007bff;
+      background-color: #005577;
       color: white;
+      padding: 12px;
       border: none;
-      padding: 0.7em 1.5em;
-      font-size: 1.1rem;
-      border-radius: 6px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
     }
     button:hover {
-      background: #0056b3;
+      background-color: #003344;
     }
-    .status {
-      margin-top: 1.5em;
+    #rezultat {
+      margin-top: 2em;
       padding: 1em;
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #2e3a59;
-    }
-    .error {
-      color: red;
-      font-weight: 600;
-      margin-top: 1em;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
   </style>
 </head>
@@ -65,41 +55,39 @@
 
   <h1>Sledenje naročilom</h1>
 
-  <form id="sledenjeForm">
-    <label for="stevilkaNaročila">Vnesi številko naročila:</label>
-    <input type="text" id="stevilkaNaročila" placeholder="Npr. 12345" required />
-    <button type="submit">Poišči naročilo</button>
-  </form>
+  <label for="input-stevilka">Vnesi številko naročila:</label>
+  <input type="text" id="input-stevilka" placeholder="npr. 12345" />
+  <button onclick="prikaziNarocilo()">Poišči naročilo</button>
 
   <div id="rezultat"></div>
 
   <script>
-    // Ročno vnesena naročila z ID-jem in statusom
-    const naročila = [
-      { id: "12345", status: "Obdelava naročila" },
-      { id: "12346", status: "Poslano - na poti" },
-      { id: "12347", status: "Dostavljeno" },
-      { id: "12348", status: "Preklicano" }
-      // Dodaj še več po potrebi
-    ];
+    function poisciNarocilo(iskanaStevilka) {
+      const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
+      return narocila.find(narocilo => narocilo.id === iskanaStevilka);
+    }
 
-    const forma = document.getElementById("sledenjeForm");
-    const rezultatDiv = document.getElementById("rezultat");
+    function prikaziNarocilo() {
+      const input = document.getElementById('input-stevilka');
+      const rezultatDiv = document.getElementById('rezultat');
+      const iskanaStevilka = input.value.trim();
 
-    forma.addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      const vnos = document.getElementById("stevilkaNaročila").value.trim();
-      if (!vnos) return;
-
-      const naročilo = naročila.find(n => n.id === vnos);
-
-      if (naročilo) {
-        rezultatDiv.innerHTML = `<div class="status">Status naročila <strong>#${naročilo.id}</strong>: ${naročilo.status}</div>`;
-      } else {
-        rezultatDiv.innerHTML = `<div class="error">Naročilo s številko <strong>${vnos}</strong> ni bilo najdeno.</div>`;
+      if (!iskanaStevilka) {
+        rezultatDiv.textContent = 'Prosim, vnesi številko naročila.';
+        return;
       }
-    });
+
+      const narocilo = poisciNarocilo(iskanaStevilka);
+      if (narocilo) {
+        rezultatDiv.innerHTML = `
+          <p><strong>Številka naročila:</strong> ${narocilo.id}</p>
+          <p><strong>Status:</strong> ${narocilo.status}</p>
+          <p><strong>Datum:</strong> ${new Date(narocilo.datum).toLocaleString()}</p>
+        `;
+      } else {
+        rezultatDiv.textContent = 'Naročilo s to številko ni bilo najdeno.';
+      }
+    }
   </script>
 
 </body>
