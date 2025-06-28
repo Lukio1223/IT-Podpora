@@ -1,74 +1,218 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
+  <script>
+  const correctPassword = 'matkomp2025';
+  if (!sessionStorage.getItem('authenticated')) {
+    const pass = prompt('Vnesi geslo za dostop do Matkomp strani:');
+    if (pass === correctPassword) {
+      sessionStorage.setItem('authenticated', 'true');
+    } else {
+      alert('Napačno geslo! Dostop zavrnjen.');
+      window.location = 'https://google.com';
+    }
+  }
+  </script>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Matkomp - Pomoč in popravilo računalnikov</title>
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background: #f2f5f9;
       margin: 0;
-      padding: 2em;
+      padding: 0;
       color: #2e3a59;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
     }
     header {
-      margin-bottom: 2em;
+      background: linear-gradient(135deg, #003344, #005577);
+      color: white;
+      padding: 2em 1em;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      box-sizing: border-box;
+    }
+    .logo {
+      max-width: 90px;
+      border-radius: 50%;
+      margin-bottom: 0.5em;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     h1 {
+      margin: 0.2em 0;
       font-weight: 700;
-      margin-bottom: 0.5em;
     }
     p.description {
+      margin-top: 0;
+      margin-bottom: 1.5em;
       font-size: 1.1rem;
       font-weight: 400;
-      margin-bottom: 2em;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    button {
-      padding: 12px 25px;
-      background-color: #005577;
+    .btn {
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      font-weight: 600;
       color: white;
       border: none;
-      border-radius: 10px;
-      font-size: 1.2rem;
+      border-radius: 12px;
       cursor: pointer;
-      font-weight: 600;
-      box-shadow: 0 4px 10px rgba(0,85,119,0.5);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: background 0.3s, box-shadow 0.3s;
       user-select: none;
-      transition: background-color 0.3s ease;
+      margin: 0 0.5em;
+      display: inline-block;
+      min-width: 180px;
     }
-    button:hover {
-      background-color: #003344;
-      box-shadow: 0 6px 14px rgba(0, 51, 68, 0.7);
+    .btn-trgovina {
+      background: linear-gradient(135deg, #005577, #003344);
+    }
+    .btn-trgovina:hover {
+      background: linear-gradient(135deg, #003344, #005577);
+      box-shadow: 0 6px 14px rgba(0, 85, 119, 0.8);
+    }
+    .btn-itpodpora {
+      background: linear-gradient(135deg, #2e7d32, #145a22);
+    }
+    .btn-itpodpora:hover {
+      background: linear-gradient(135deg, #145a22, #0b3a0b);
+      box-shadow: 0 6px 14px rgba(20, 90, 34, 0.8);
+    }
+    .btn-blog {
+      background: linear-gradient(135deg, #444, #222);
+      font-size: 0.95rem;
+      padding: 10px 24px;
+      font-weight: 500;
+    }
+    .btn-blog:hover {
+      background: linear-gradient(135deg, #222, #444);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 2em;
+      text-align: center;
+    }
+    section {
+      margin-bottom: 2em;
+      background: white;
+      padding: 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    ul li {
+      padding: 0.4em 0;
+    }
+    a.discord-link {
+      color: #2e7d32;
+      text-decoration: none;
+    }
+    a.discord-link:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      padding: 1em;
+      background: #ccc;
+      font-size: 0.9em;
+      margin-top: 2em;
+    }
+    .contact-link {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 1.1rem;
+      color: #28a745;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .contact-link:hover {
+      text-decoration: underline;
+      color: #1e7e34;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>Matkomp</h1>
+    <div style="position: absolute; top: 15px; right: 20px;">
+      <button class="btn btn-blog" onclick="location.href='blog.html'">📝 Blog</button>
+    </div>
+    <img src="Matkomp.png" alt="Logotip Matkomp" class="logo" />
+    <h1 style="margin-top: 0;">Matkomp</h1>
     <p class="description">Tvoji zaupanja vredni prijatelji za sestavo, popravilo in reševanje podatkov računalnikov</p>
+    <button class="btn btn-itpodpora" onclick="location.href='it-podpora.html'">IT Pomoč</button>
+    <button class="btn btn-trgovina" onclick="location.href='trgovina.html'">Pojdi v spletno trgovino</button>
   </header>
+  <main>
+    <section>
+      <h2>💻 Naše storitve</h2>
+      <ul>
+        <li>🔧 Sestava in nadgradnja računalnikov</li>
+        <li>🛠️ Popravilo in diagnostika</li>
+        <li>📀 Reševanje podatkov in varnostne kopije</li>
+        <li>📦 Namestitev operacijskih sistemov (Windows...) in programov</li>
+        <li>🌐 Pomoč pri omrežju in internetu</li>
+      </ul>
+    </section>
+    <section>
+      <h2>📞 Kontakt</h2>
+      <p>Piši nam na Discord ali po e-pošti ali po telefonu:</p>
+      <ul>
+        <li><strong>Discord:</strong> <a href="https://discord.gg/UMBfFC3W" target="_blank" rel="noopener" class="discord-link">https://discord.gg/UMBfFC3W</a></li>
+        <li><strong>E-mail:</strong> <a href="mailto:lukacp346@gmail.com" class="discord-link">lukacp346@gmail.com</a></li>
+        <li><strong>Telefon:</strong> 064 232 471</li>
+        <button class="btn-youtube" onclick="window.open('https://www.youtube.com/@Matkomp-IT', '_blank')">🎪 YouTube kanal</button>
+      </ul>
+    </section>
+    <section>
+      <h2>🔒 Zasebna stran</h2>
+      <p>Ta stran je namenjena samo našim prijateljem in strankam. Prosim, ne deli povezave naprej, razen če ti dovolimo 😊</p>
+    </section>
+    <section>
+      <h2>Dodatne strani</h2>
+<ul>
+  <li><a href="faq.html">❓ Pogosta vprašanja (FAQ)</a></li>
+  <li><a href="vodniki.html">📘 Vodniki za začetnike</a></li>
+  <li><a href="orodja.html">🧰 Orodja za hitro pomoč</a></li>
+  <li><a href="sledenje.html">🚚 Ročno sledenje naročilu</a></li>
+  <li><a href="galerija.html">🖼️ Galerija</a></li>
+  <li><a href="sodeluj.html">🤝 Sodeluj z nami</a></li>
+</ul>
 
-  <button id="employeeBtn">Samo za zaposlene</button>
-
+    </section>
+  </main>
+  <footer style="display: flex; justify-content: space-between; align-items: center; padding: 1em; background: #ccc; font-size: 0.9em;">
+    <p>&copy; 2025 Matkomp. Izdelal s ❤️ Luka in ekipa.</p>
+    <div id="logout-container"></div>
+  </footer>
   <script>
-    const correctPassword = 'matkomp2025';
-
-    document.getElementById('employeeBtn').addEventListener('click', function() {
-      const pass = prompt('Vnesi geslo za dostop do zaposlene strani:');
-      if (pass === correctPassword) {
-        // Geslo pravilno, preusmeri na admin.html (ali drugo skrivno stran)
-        window.location.href = 'admin.html';
-      } else {
-        alert('Napačno geslo! Dostop zavrnjen.');
-      }
-    });
+    if (sessionStorage.getItem("prijavljen")) {
+      const odjavaDiv = document.getElementById("logout-container");
+      odjavaDiv.innerHTML = '<button onclick="odjavi()" style="padding: 8px 14px; background-color: #b30000; color: white; border: none; border-radius: 6px; cursor: pointer;">Odjavi se</button>';
+    }
+    function odjavi() {
+      sessionStorage.removeItem("prijavljen");
+      window.location.reload();
+    }
   </script>
-
 </body>
 </html>
