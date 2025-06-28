@@ -127,10 +127,41 @@
     <button type="submit">Pošlji naročilo</button>
   </form>
 
-  <script>
-    // Če želiš, da se v skrito polje "izdelek" dinamično nastavi vrednost iz košarice,
-    // tukaj lahko napišeš JS kodo, ki to nastavi pred pošiljanjem
-    // npr. document.querySelector('input[name="izdelek"]').value = "Tvoj izdelek";
-  </script>
+function generirajStevilkoNarocila() {
+  // Enostaven primer: naključno 5-mestno število (lahko spremeniš logiko)
+  const randomId = Math.floor(10000 + Math.random() * 90000).toString();
+  return randomId;
+}
+
+function shraniNarocilo(narocilo) {
+  // Preberi obstoječa naročila iz localStorage (ali prazno polje)
+  const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
+  
+  // Dodaj novo naročilo (lahko vsebuješ status, datum itd.)
+  narocila.push(narocilo);
+  
+  // Shrani nazaj
+  localStorage.setItem('narocila', JSON.stringify(narocila));
+}
+
+// Klic, ko kupec uspešno kupi:
+function uspehNakupa() {
+  const stevilka = generirajStevilkoNarocila();
+  
+  // Naredi objekt naročila, npr. lahko imaš status "Obdelava"
+  const novoNarocilo = {
+    id: stevilka,
+    status: 'Obdelava naročila',
+    datum: new Date().toISOString(),
+    // Lahko dodaš še več podatkov, npr. kupec, izdelki itd.
+  };
+  
+  shraniNarocilo(novoNarocilo);
+  
+  alert(`Hvala za nakup! Tvoja številka naročila je: ${stevilka}`);
+  
+  // Lahko preusmeriš kupca ali narediš kaj drugega
+}
+
 </body>
 </html>
