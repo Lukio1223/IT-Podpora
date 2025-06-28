@@ -44,8 +44,6 @@
       border-radius: 6px;
       box-sizing: border-box;
       font-size: 1rem;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      color: #2e3a59;
     }
 
     input[type="checkbox"] {
@@ -67,7 +65,6 @@
       cursor: pointer;
       font-weight: 600;
       transition: background-color 0.3s ease;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       box-shadow: 0 4px 10px rgba(0,85,119,0.5);
       user-select: none;
     }
@@ -86,7 +83,6 @@
       border-radius: 6px;
       font-size: 1rem;
       text-align: center;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
   </style>
 </head>
@@ -94,7 +90,7 @@
   <h1>Zaključi nakup</h1>
 
   <form id="checkoutForm" action="https://formspree.io/f/movwpkap" method="POST">
-    <input type="hidden" name="izdelek" value="">
+    <input type="hidden" name="izdelek" value="Ročno dodano" />
 
     <label for="ime">Ime in priimek:</label>
     <input type="text" id="ime" name="ime" required />
@@ -141,7 +137,6 @@
     form.addEventListener('submit', function(event) {
       event.preventDefault();
 
-      // Preberi vrednosti iz obrazca
       const ime = form.ime.value.trim();
       const telefon = form.telefon.value.trim();
       const email = form.email.value.trim();
@@ -150,31 +145,32 @@
       const mesto = form.mesto.value.trim();
       const dostava = form.dostava.checked ? 'Da' : 'Ne';
 
-      // Generiraj številko naročila
       const stevilka = generirajStevilkoNarocila();
 
-      // Ustvari objekt naročila
       const novoNarocilo = {
         id: stevilka,
-        ime: ime,
-        telefon: telefon,
-        email: email,
-        naslov: naslov,
-        posta: posta,
-        mesto: mesto,
-        dostava: dostava,
+        ime,
+        telefon,
+        email,
+        naslov,
+        posta,
+        mesto,
+        dostava,
         status: 'Obdelava naročila',
         datum: new Date().toISOString()
       };
 
-      // Shrani naročilo v localStorage
       shraniNarocilo(novoNarocilo);
 
       alert(`Hvala za nakup! Tvoja številka naročila je: ${stevilka}`);
 
-      // Nato oddaj formo na Formspree
-      form.submit();
+      // Počakaj malo, potem oddaj formo in preusmeri na index.html
+      setTimeout(() => {
+        form.submit(); // pošlje na Formspree
+        window.location.href = "index.html";
+      }, 500);
     });
   </script>
 </body>
 </html>
+
