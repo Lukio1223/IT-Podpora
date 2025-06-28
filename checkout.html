@@ -93,8 +93,7 @@
 <body>
   <h1>Zaključi nakup</h1>
 
-  <form action="https://formspree.io/f/movwpkap" method="POST">
-    <!-- Polje za dinamično izdelek - lahko ga nastaviš preko JS -->
+  <form id="checkoutForm" action="https://formspree.io/f/movwpkap" method="POST">
     <input type="hidden" name="izdelek" value="">
 
     <label for="ime">Ime in priimek:</label>
@@ -127,41 +126,55 @@
     <button type="submit">Pošlji naročilo</button>
   </form>
 
-function generirajStevilkoNarocila() {
-  // Enostaven primer: naključno 5-mestno število (lahko spremeniš logiko)
-  const randomId = Math.floor(10000 + Math.random() * 90000).toString();
-  return randomId;
-}
+  <script>
+    function generirajStevilkoNarocila() {
+      return Math.floor(10000 + Math.random() * 90000).toString();
+    }
 
-function shraniNarocilo(narocilo) {
-  // Preberi obstoječa naročila iz localStorage (ali prazno polje)
-  const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
-  
-  // Dodaj novo naročilo (lahko vsebuješ status, datum itd.)
-  narocila.push(narocilo);
-  
-  // Shrani nazaj
-  localStorage.setItem('narocila', JSON.stringify(narocila));
-}
+    function shraniNarocilo(narocilo) {
+      const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
+      narocila.push(narocilo);
+      localStorage.setItem('narocila', JSON.stringify(narocila));
+    }
 
-// Klic, ko kupec uspešno kupi:
-function uspehNakupa() {
-  const stevilka = generirajStevilkoNarocila();
-  
-  // Naredi objekt naročila, npr. lahko imaš status "Obdelava"
-  const novoNarocilo = {
-    id: stevilka,
-    status: 'Obdelava naročila',
-    datum: new Date().toISOString(),
-    // Lahko dodaš še več podatkov, npr. kupec, izdelki itd.
-  };
-  
-  shraniNarocilo(novoNarocilo);
-  
-  alert(`Hvala za nakup! Tvoja številka naročila je: ${stevilka}`);
-  
-  // Lahko preusmeriš kupca ali narediš kaj drugega
-}
+    const form = document.getElementById('checkoutForm');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
 
+      // Preberi vrednosti iz obrazca
+      const ime = form.ime.value.trim();
+      const telefon = form.telefon.value.trim();
+      const email = form.email.value.trim();
+      const naslov = form.naslov.value.trim();
+      const posta = form.posta.value.trim();
+      const mesto = form.mesto.value.trim();
+      const dostava = form.dostava.checked ? 'Da' : 'Ne';
+
+      // Generiraj številko naročila
+      const stevilka = generirajStevilkoNarocila();
+
+      // Ustvari objekt naročila
+      const novoNarocilo = {
+        id: stevilka,
+        ime: ime,
+        telefon: telefon,
+        email: email,
+        naslov: naslov,
+        posta: posta,
+        mesto: mesto,
+        dostava: dostava,
+        status: 'Obdelava naročila',
+        datum: new Date().toISOString()
+      };
+
+      // Shrani naročilo v localStorage
+      shraniNarocilo(novoNarocilo);
+
+      alert(`Hvala za nakup! Tvoja številka naročila je: ${stevilka}`);
+
+      // Nato oddaj formo na Formspree
+      form.submit();
+    });
+  </script>
 </body>
 </html>
