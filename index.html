@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <script>
-  const correctPassword = 'matkomp2025';
-  if (!sessionStorage.getItem('authenticated')) {
-    const pass = prompt('Vnesi geslo za dostop do Matkomp strani:');
-    if (pass === correctPassword) {
-      sessionStorage.setItem('authenticated', 'true');
-    } else {
-      alert('Napačno geslo! Dostop zavrnjen.');
-      window.location = 'https://google.com';
-    }
-  }
-  </script>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Matkomp - Pomoč in popravilo računalnikov</title>
@@ -99,8 +86,23 @@
       background: linear-gradient(135deg, #222, #444);
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
     }
-    .btn:active {
-      transform: scale(0.97);
+    .btn-employee {
+      background: linear-gradient(135deg, #aa5500, #774400);
+      font-size: 1rem;
+      padding: 10px 24px;
+      font-weight: 600;
+      margin-top: 1em;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(170, 85, 0, 0.7);
+      transition: background 0.3s, box-shadow 0.3s;
+      user-select: none;
+      display: inline-block;
+    }
+    .btn-employee:hover {
+      background: linear-gradient(135deg, #774400, #aa5500);
+      box-shadow: 0 6px 14px rgba(119, 68, 0, 0.9);
     }
     main {
       max-width: 900px;
@@ -161,6 +163,8 @@
     <p class="description">Tvoji zaupanja vredni prijatelji za sestavo, popravilo in reševanje podatkov računalnikov</p>
     <button class="btn btn-itpodpora" onclick="location.href='it-podpora.html'">IT Pomoč</button>
     <button class="btn btn-trgovina" onclick="location.href='trgovina.html'">Pojdi v spletno trgovino</button>
+    <!-- Tukaj je gumb samo za zaposlene -->
+    <button class="btn-employee" id="employeeBtn">Samo za zaposlene</button>
   </header>
   <main>
     <section>
@@ -189,21 +193,21 @@
     </section>
     <section>
       <h2>Dodatne strani</h2>
-<ul>
-  <li><a href="faq.html">❓ Pogosta vprašanja (FAQ)</a></li>
-  <li><a href="vodniki.html">📘 Vodniki za začetnike</a></li>
-  <li><a href="orodja.html">🧰 Orodja za hitro pomoč</a></li>
-  <li><a href="sledenje.html">🚚 Ročno sledenje naročilu</a></li>
-  <li><a href="galerija.html">🖼️ Galerija</a></li>
-  <li><a href="sodeluj.html">🤝 Sodeluj z nami</a></li>
-</ul>
-
+      <ul>
+        <li><a href="faq.html">❓ Pogosta vprašanja (FAQ)</a></li>
+        <li><a href="vodniki.html">📘 Vodniki za začetnike</a></li>
+        <li><a href="orodja.html">🧰 Orodja za hitro pomoč</a></li>
+        <li><a href="sledenje.html">🚚 Ročno sledenje naročilu</a></li>
+        <li><a href="galerija.html">🖼️ Galerija</a></li>
+        <li><a href="sodeluj.html">🤝 Sodeluj z nami</a></li>
+      </ul>
     </section>
   </main>
   <footer style="display: flex; justify-content: space-between; align-items: center; padding: 1em; background: #ccc; font-size: 0.9em;">
     <p>&copy; 2025 Matkomp. Izdelal s ❤️ Luka in ekipa.</p>
     <div id="logout-container"></div>
   </footer>
+
   <script>
     if (sessionStorage.getItem("prijavljen")) {
       const odjavaDiv = document.getElementById("logout-container");
@@ -213,6 +217,18 @@
       sessionStorage.removeItem("prijavljen");
       window.location.reload();
     }
+
+    // Geslo za zaposlene in funkcija za gumb
+    const correctPassword = 'matkomp2025';
+
+    document.getElementById('employeeBtn').addEventListener('click', function() {
+      const pass = prompt('Vnesi geslo za dostop do zaposlene strani:');
+      if (pass === correctPassword) {
+        window.location.href = 'admin.html';
+      } else {
+        alert('Napačno geslo! Dostop zavrnjen.');
+      }
+    });
   </script>
 </body>
 </html>
