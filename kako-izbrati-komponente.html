@@ -1,106 +1,148 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kako izbrati komponente za računalnik - Matkomp</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matkomp – Trgovina</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      max-width: 900px;
-      margin: 2em auto;
-      padding: 1em;
-      background: #f2f5f9;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9fbfc;
       color: #2e3a59;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1em;
-    }
-    a.back-link {
-      display: inline-block;
-      margin-bottom: 1em;
-      color: #005577;
-      text-decoration: none;
-    }
-    a.back-link:hover {
-      text-decoration: underline;
-    }
-    section {
-      background: white;
-      padding: 1.5em;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 2em;
+      max-width: 960px;
+      margin: auto;
       line-height: 1.6;
-      margin-bottom: 1.5em;
     }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2em;
+    }
+
+    header h1 {
+      color: #1e88e5;
+      font-size: 2em;
+    }
+
+    nav a {
+      margin-left: 1em;
+      text-decoration: none;
+      color: #1e88e5;
+      font-weight: 600;
+    }
+
+    section {
+      background: #ffffff;
+      padding: 2em;
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      margin-bottom: 2em;
+    }
+
     h2 {
-      color: #005577;
-      margin-top: 1.5em;
+      color: #1e88e5;
+      font-weight: 600;
+      margin-bottom: 1em;
+    }
+
+    p, li {
+      margin-bottom: 0.8em;
+    }
+
+    ul {
+      padding-left: 1.2em;
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 1rem;
+      background: #1e88e5;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background: #1565c0;
+      transform: scale(1.03);
     }
   </style>
 </head>
 <body>
-  <a href="blog.html" class="back-link">← Nazaj na blog</a>
-  <h1>Kako izbrati komponente za računalnik</h1>
+  <header>
+    <h1>Matkomp</h1>
+    <nav>
+      <a href="index.html">Domov</a>
+      <a href="trgovina.html">Trgovina</a>
+      <a href="blog.html">Blog</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+  </header>
 
   <section>
-    <h2>1. Namen računalnika</h2>
-    <p>Najprej razmisli, zakaj rabiš računalnik. Gaming? Pisarna? Montaža videov? Za vsako nalogo obstajajo primerne komponente. Gaming zahteva močno grafično kartico, pisarna pa ne.</p>
-  </section>
+    <h2>Kako izbrati komponente za računalnik</h2>
+    <p>Izbira komponent za računalnik je pomemben korak pri sestavljanju ali nadgradnji sistema. V tem vodiču bomo pokrili ključne dele računalnika in podali nasvete, kako izbrati najboljše komponente za vaše potrebe.</p>
 
-  <section>
-    <h2>2. Procesor (CPU)</h2>
-    <p>CPU je možgan računalnika. Za igre poglej proti AMD Ryzen serija 9000 ali Intel Core Ultra. Za multitasking ali montažo videa pa Ryzen serija 5000 / Ultra. Ne pozabi preveriti kompatibilnosti s ploščo!</p>
-  </section>
+    <h3>1. Procesor (CPU)</h3>
+    <ul>
+      <li>Izberite glede na namen: igre, pisarniško delo, urejanje videov ...</li>
+      <li>AMD Ryzen in Intel Core serije so najbolj razširjene.</li>
+    </ul>
 
-  <section>
-    <h2>3. Matična plošča</h2>
-    <p>Izberi ploščo glede na podnožje (socket) tvojega CPU-ja. Pazi tudi na podporo za RAM, PCIe reže in priključke.</p>
-  </section>
+    <h3>2. Matična plošča (Motherboard)</h3>
+    <ul>
+      <li>Mora biti kompatibilna s procesorjem (AM4, LGA1700, itd.).</li>
+      <li>Preverite, koliko RAM slotov in priključkov ima.</li>
+    </ul>
 
-  <section>
-    <h2>4. RAM</h2>
-    <p>Danes je 16 GB minimum za gaming, 32 GB za montažo ali resno delo. Če imaš DDR4 ali DDR5 je odvisno od CPU in plošče.</p>
-  </section>
+    <h3>3. Pomnilnik (RAM)</h3>
+    <ul>
+      <li>Za osnovno uporabo je dovolj 8 GB, za igre in večopravilnost priporočamo 16 GB ali več.</li>
+      <li>DDR4 je še vedno standard, DDR5 je nov in hitrejši.</li>
+    </ul>
 
-  <section>
-    <h2>5. Grafična kartica (GPU)</h2>
-    <p>Za igre je to najpomembnejši del. Če kupuješ novo grafično kartico poglej na kateri ločljivosti boš igral. Odvisno je tudi od VRAM-a Lahko pa tudi igraš na integrirani grafiki. Samo poglej kakšne priključe potrebuješ!</p>
-  </section>
+    <h3>4. Grafična kartica (GPU)</h3>
+    <ul>
+      <li>Nujna za igre, 3D modeliranje in zahtevno obdelavo videa.</li>
+      <li>Za osnovne naloge je dovolj integrirana grafika.</li>
+    </ul>
 
-  <section>
-    <h2>6. SSD in HDD</h2>
-    <p>Za hitrost uporabi SSD (najmanj 500 GB NVMe), za shranjevanje filmov, slik pa HDD (trdi disk). Operacijski sistem naj gre vedno na SSD (negibljivi disk).</p>
-  </section>
+    <h3>5. Shramba (SSD/HDD)</h3>
+    <ul>
+      <li>SSD je veliko hitrejši kot HDD. Priporočamo vsaj 250 GB SSD za OS + dodatni HDD za podatke.</li>
+    </ul>
 
-  <section>
-    <h2>7. Napajalnik (PSU)</h2>
-    <p>Ne varčuj tukaj. 80+ Bronze ali Gold plus dovolj moči za tvojo konfiguracijo.</p>
-  </section>
+    <h3>6. Napajalnik (PSU)</h3>
+    <ul>
+      <li>Naj ima dovolj moči za celoten sistem (računaj z rezervo!).</li>
+      <li>Izberi kvalitetno znamko z 80+ certifikatom.</li>
+    </ul>
 
-  <section>
-    <h2>8. Ohišje</h2>
-    <p>Mora ustrezati velikosti matične plošče (ATX, mATX...), imeti dobro hlajenje in pretok zraka. Pazi tudi, da gre tvoja grafična kartica noter (dolžina).</p>
-  </section>
+    <h3>7. Ohišje</h3>
+    <ul>
+      <li>Naj bo prostorno, z dobro zračenjem in možnostjo upravljanja kablov.</li>
+    </ul>
 
-  <section>
-    <h2>9. Hlajenje</h2>
-    <p>Privzeti hladilniki so v redu za pisarniško uporabo. Za igranje iger pa raje vzemi nadomestni hladilnik z dobrim hlajenjem. (npr. Arctic Freezer, be quiet! Pure Rock).</p>
-  </section>
+    <h3>8. Hlajenje</h3>
+    <ul>
+      <li>Stock hladilnik je OK za osnovno rabo, za boljše hlajenje priporočamo aftermarket hladilnik.</li>
+    </ul>
 
-  <section>
-    <h2>10. Ostalo</h2>
-    <p>Wi-Fi? Bluetooth? Koliko USB vhodov potrebuješ? Vse to preveri, da ne boš kasneje pogrešal kakšne funkcije. Vedno preveri mere ohišja in hlajenja.</p>
-  </section>
-  <section>
-    <h2>Kje to najdem?</h2>
-    <p>Vse to lahko najdeš na Geizhals (Geizhals Price Comparison je spletni portal za primerjavo cen , kjer lahko potrošniki primerjajo več izdelkov glede na želene specifikacije in zahteve ter najdejo več ponudb za isti izdelek na enem spletnem mestu.)
-    Lahko pa tudi nas pokličeš če imaš kakršnekoli težave in vam mi poiščemo in setavimo😁. Samo pokliči na 064 232 471 ali pa nam piši na lukacp346@gmail.com ali matkomp11@gmail.com. </p>
-  <a href="https://geizhals.eu/" target="_blank" rel="noopener noreferrer" style="color: #005577; text-decoration: underline; cursor: pointer;">
-  Obišči Geizhals
-</a>
-
+    <p>Če nisi prepričan, nam lahko pišeš in ti bomo pomagali izbrati prave komponente.</p>
+    <button>Kontaktiraj nas</button>
   </section>
 </body>
 </html>
