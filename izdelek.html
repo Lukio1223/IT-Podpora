@@ -1,197 +1,220 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Podrobnosti izdelka - Matkomp</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f2f5f9;
-      margin: 0; padding: 2em;
-      color: #2e3a59;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1em;
-    }
-    .izdelek-container {
-      display: flex;
-      gap: 20px;
-      background: white;
-      padding: 1.5em;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-    .izdelek-slika {
-      width: 300px;
-      border-radius: 12px;
-    }
-    .opis {
-      flex: 1;
-    }
-    button {
-      padding: 12px 24px;
-      font-size: 1.1em;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      background-color: #007bff;
-      color: white;
-      margin-right: 10px;
-      margin-top: 1em;
-      transition: background-color 0.3s;
-    }
-    button:hover:not(:disabled) {
-      background-color: #0056b3;
-    }
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-    .zaloga {
-      font-weight: 600;
-      margin-top: 0.5em;
-    }
-    a.back-link {
-      display: inline-block;
-      margin-bottom: 1em;
-      color: #005577;
-      text-decoration: none;
-    }
-    a.back-link:hover {
-      text-decoration: underline;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Podrobnosti izdelka - Matkomp</title>
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f2f5f9;
+    margin: 0; padding: 2em;
+    color: #2e3a59;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 1em;
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  .izdelek-container {
+    display: flex;
+    gap: 20px;
+    background: white;
+    padding: 1.5em;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .izdelek-slika {
+    width: 300px;
+    max-width: 100%;
+    border-radius: 12px;
+    object-fit: contain;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .opis {
+    flex: 1 1 300px;
+    min-width: 280px;
+  }
+  .opis h2 {
+    margin-top: 0;
+    font-weight: 700;
+    color: #005577;
+    font-size: 1.6rem;
+  }
+  .opis p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  button {
+    padding: 12px 24px;
+    font-size: 1.1em;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    margin-right: 10px;
+    margin-top: 1.5em;
+    transition: background-color 0.3s;
+    user-select: none;
+  }
+  button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  .zaloga {
+    font-weight: 600;
+    margin-top: 0.7em;
+    font-size: 1.05rem;
+  }
+  a.back-link {
+    display: inline-block;
+    margin-bottom: 1.5em;
+    color: #005577;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  a.back-link:hover {
+    text-decoration: underline;
+  }
+</style>
 </head>
 <body>
 
-  <a href="trgovina.html" class="back-link">← Nazaj na trgovino</a>
+<a href="trgovina.html" class="back-link">← Nazaj na trgovino</a>
 
-  <h1>Podrobnosti izdelka</h1>
+<h1>Podrobnosti izdelka</h1>
 
-  <div id="izdelek-container" class="izdelek-container">
-    <!-- Izdelek bo tukaj -->
-  </div>
+<div id="izdelek-container" class="izdelek-container">
+  <!-- Izdelek bo tukaj -->
+</div>
 
-  <script>
-    // Izdelki
-    const izdelki = [
-      {
-        id: 0,
-        ime: "Lenovo IS6XM",
-        cena: 29.99,
-        opis: `Lenovo IS6XM (rev 1.0) je mikro ATX matična plošča s podnožjem LGA 1155, namenjena pisarniškim računalnikom Lenovo ThinkCentre, kot so M81, M91 in M91p. Podnožje: LGA 1155 (za Intel 2. in 3. generacijo Core i7/i5/i3, Pentium)
-Čipovje: Intel Q67 ali Q61
-RAM: 4 reže za DDR3 (do 32 GB)
-Razširitvene reže: 1 × PCIe x16, 1 × PCIe x1, včasih še 1 × PCI
-Video izhodi: VGA in DisplayPort
-SATA: 4 priključki
-USB: Več USB 2.0 vhodov (brez USB 3.0)
-BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
-        slika: "is6mx.jpg",
-        zaloga: 5
-      }
-    ];
-
-    // Naloži zalogo iz localStorage
-    function naloziZalogo() {
-      const zalogaLS = localStorage.getItem('zaloga');
-      if (zalogaLS) {
-        const zaloga = JSON.parse(zalogaLS);
-        for (const izdelek of izdelki) {
-          const z = zaloga.find(z => z.id === izdelek.id);
-          if (z) izdelek.zaloga = z.zaloga;
-        }
-      } else {
-        localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
-      }
+<script>
+  // Izdelki
+  const izdelki = [
+    {
+      id: 0,
+      ime: "Lenovo IS6XM",
+      cena: 29.99,
+      opis: `Lenovo IS6XM (rev 1.0) je mikro ATX matična plošča s podnožjem LGA 1155, namenjena pisarniškim računalnikom Lenovo ThinkCentre, kot so M81, M91 in M91p.<br><br>
+      Podnožje: LGA 1155 (za Intel 2. in 3. generacijo Core i7/i5/i3, Pentium)<br>
+      Čipovje: Intel Q67 ali Q61<br>
+      RAM: 4 reže za DDR3 (do 32 GB)<br>
+      Razširitvene reže: 1 × PCIe x16, 1 × PCIe x1, včasih še 1 × PCI<br>
+      Video izhodi: VGA in DisplayPort<br>
+      SATA: 4 priključki<br>
+      USB: Več USB 2.0 vhodov (brez USB 3.0)<br>
+      BIOS: Lenovo OEM; včasih potreben posodobitev za novejše grafične kartice`,
+      slika: "is6mx.jpg",
+      zaloga: 5
     }
+  ];
 
-    // Shrani trenutno stanje zaloge
-    function shraniZalogo() {
+  // Naloži zalogo iz localStorage
+  function naloziZalogo() {
+    const zalogaLS = localStorage.getItem('zaloga');
+    if (zalogaLS) {
+      const zaloga = JSON.parse(zalogaLS);
+      for (const izdelek of izdelki) {
+        const z = zaloga.find(z => z.id === izdelek.id);
+        if (z) izdelek.zaloga = z.zaloga;
+      }
+    } else {
       localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
     }
+  }
 
-    // ID iz URL-ja
-    function getIdFromUrl() {
-      const params = new URLSearchParams(window.location.search);
-      return parseInt(params.get('id'));
+  // Shrani trenutno stanje zaloge
+  function shraniZalogo() {
+    localStorage.setItem('zaloga', JSON.stringify(izdelki.map(i => ({ id: i.id, zaloga: i.zaloga }))));
+  }
+
+  // ID iz URL-ja
+  function getIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return parseInt(params.get('id'));
+  }
+
+  // Prikaži izdelek
+  function prikaziIzdelek(id) {
+    const container = document.getElementById('izdelek-container');
+    const izdelek = izdelki.find(i => i.id === id);
+
+    if (!izdelek) {
+      container.innerHTML = '<p>Izdelek ni najden.</p>';
+      return;
     }
 
-    // Prikaži izdelek
-    function prikaziIzdelek(id) {
-      const container = document.getElementById('izdelek-container');
-      const izdelek = izdelki.find(i => i.id === id);
+    const div = document.createElement('div');
+    div.style.display = 'flex';
+    div.style.gap = '20px';
 
-      if (!izdelek) {
-        container.innerHTML = '<p>Izdelek ni najden.</p>';
-        return;
-      }
+    const img = document.createElement('img');
+    img.src = izdelek.slika;
+    img.alt = izdelek.ime;
+    img.className = 'izdelek-slika';
 
-      const div = document.createElement('div');
-      div.style.display = 'flex';
-      div.style.gap = '20px';
+    const opisDiv = document.createElement('div');
+    opisDiv.className = 'opis';
 
-      const img = document.createElement('img');
-      img.src = izdelek.slika;
-      img.alt = izdelek.ime;
-      img.className = 'izdelek-slika';
+    const naslov = document.createElement('h2');
+    naslov.textContent = izdelek.ime;
 
-      const opisDiv = document.createElement('div');
-      opisDiv.className = 'opis';
+    const opisP = document.createElement('p');
+    opisP.innerHTML = izdelek.opis;
 
-      const naslov = document.createElement('h2');
-      naslov.textContent = izdelek.ime;
+    const cenaP = document.createElement('p');
+    cenaP.innerHTML = `<strong>Cena:</strong> ${izdelek.cena.toFixed(2)} €`;
 
-      const opisP = document.createElement('p');
-      opisP.textContent = izdelek.opis;
+    const zalogaP = document.createElement('p');
+    zalogaP.className = 'zaloga';
+    zalogaP.textContent = izdelek.zaloga > 0 ? `Na zalogi: ${izdelek.zaloga}` : 'Ni na zalogi';
+    zalogaP.style.color = izdelek.zaloga > 0 ? 'green' : 'red';
 
-      const cenaP = document.createElement('p');
-      cenaP.innerHTML = `<strong>Cena:</strong> ${izdelek.cena.toFixed(2)} €`;
+    const dodajBtn = document.createElement('button');
+    dodajBtn.textContent = 'Dodaj v košarico';
+    dodajBtn.disabled = izdelek.zaloga <= 0;
+    dodajBtn.onclick = () => {
+      if (izdelek.zaloga <= 0) return;
+      const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+      kosarica.push({ id: izdelek.id, ime: izdelek.ime, cena: izdelek.cena });
+      localStorage.setItem('kosarica', JSON.stringify(kosarica));
+      izdelek.zaloga--;
+      shraniZalogo();
+      prikaziIzdelek(id);
+      alert('Izdelek dodan v košarico!');
+    };
 
-      const zalogaP = document.createElement('p');
-      zalogaP.className = 'zaloga';
-      zalogaP.textContent = izdelek.zaloga > 0 ? `Na zalogi: ${izdelek.zaloga}` : 'Ni na zalogi';
-      zalogaP.style.color = izdelek.zaloga > 0 ? 'green' : 'red';
+    const kupiBtn = document.createElement('button');
+    kupiBtn.textContent = 'Kupi zdaj';
+    kupiBtn.disabled = izdelek.zaloga <= 0;
+    kupiBtn.onclick = () => {
+      alert('Hvala za nakup! Trenutno funkcija ni aktivna.');
+    };
 
-      const dodajBtn = document.createElement('button');
-      dodajBtn.textContent = 'Dodaj v košarico';
-      dodajBtn.disabled = izdelek.zaloga <= 0;
-      dodajBtn.onclick = () => {
-        if (izdelek.zaloga <= 0) return;
-        const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-        kosarica.push({ id: izdelek.id, ime: izdelek.ime, cena: izdelek.cena });
-        localStorage.setItem('kosarica', JSON.stringify(kosarica));
-        izdelek.zaloga--;
-        shraniZalogo();
-        prikaziIzdelek(id);
-        alert('Izdelek dodan v košarico!');
-      };
+    opisDiv.appendChild(naslov);
+    opisDiv.appendChild(opisP);
+    opisDiv.appendChild(cenaP);
+    opisDiv.appendChild(zalogaP);
+    opisDiv.appendChild(dodajBtn);
+    opisDiv.appendChild(kupiBtn);
 
-      const kupiBtn = document.createElement('button');
-      kupiBtn.textContent = 'Kupi zdaj';
-      kupiBtn.onclick = () => location.href = 'kosarica.html';
+    container.innerHTML = '';
+    container.appendChild(img);
+    container.appendChild(opisDiv);
+  }
 
-      opisDiv.appendChild(naslov);
-      opisDiv.appendChild(opisP);
-      opisDiv.appendChild(cenaP);
-      opisDiv.appendChild(zalogaP);
-      opisDiv.appendChild(dodajBtn);
-      opisDiv.appendChild(kupiBtn);
-
-      div.appendChild(img);
-      div.appendChild(opisDiv);
-
-      container.innerHTML = '';
-      container.appendChild(div);
-    }
-
-    naloziZalogo();
-    prikaziIzdelek(getIdFromUrl());
-  </script>
+  naloziZalogo();
+  prikaziIzdelek(getIdFromUrl());
+</script>
 </body>
 </html>
