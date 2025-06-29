@@ -1,23 +1,110 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>❓ Pogosta vprašanja - Matkomp</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQ – Matkomp</title>
   <style>
-    body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: #f2f5f9; color: #2e3a59; max-width: 900px; margin: auto; padding: 2em; }
-    h1 { text-align: center; }
-    section { background: white; padding: 1.5em; border-radius: 12px; margin-bottom: 2em; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-    h2 { color: #005577; }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f5f9;
+      max-width: 900px;
+      margin: 2em auto;
+      padding: 1em;
+      color: #2e3a59;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5em;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4em;
+    }
+    .faq {
+      background: white;
+      padding: 1.5em 2em;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .faq:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+    .faq h2 {
+      margin: 0 0 0.5em 0;
+      font-weight: 700;
+      color: #005577;
+      font-size: 1.4rem;
+    }
+    .faq p {
+      margin: 0;
+      font-size: 1.05rem;
+      color: #444;
+    }
+    a.back-link {
+      display: inline-block;
+      margin-bottom: 1.5em;
+      color: #005577;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    a.back-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-  <h1>❓ Pogosta vprašanja (FAQ)</h1>
-  <section>
-    <h2>Kako naročim izdelek?</h2>
-    <p>Izdelek dodaš v košarico in nato izpolniš obrazec v zaključku nakupa.</p>
-    <h2>Kako vas lahko kontaktiram?</h2>
-    <p>Pošlji nam e-pošto, pokliči ali se pridruži Discordu.</p>
-  </section>
+
+<a href="index.html" class="back-link">← Nazaj na domov</a>
+
+<h1>Pogosta vprašanja (FAQ)</h1>
+
+<div class="faq-list" id="faq-list">
+  <!-- Vprašanja se naložijo tukaj -->
+</div>
+
+<script>
+  const faqs = [
+    {
+      id: 'kako-narociti',
+      title: 'Kako naročim izdelek?',
+      excerpt: 'Hiter postopek naročila iz spletne trgovine Matkomp.'
+    },
+    {
+      id: 'ali-ponujate-garancijo',
+      title: 'Ali ponujate garancijo?',
+      excerpt: 'Vse o garanciji, vračilu izdelkov in podpori po nakupu.'
+    }
+    // Dodaj več vprašanj tukaj
+  ];
+
+  const container = document.getElementById('faq-list');
+
+  for (const faq of faqs) {
+    const div = document.createElement('div');
+    div.className = 'faq';
+    div.onclick = () => {
+      window.location.href = faq.id + '.html';
+    };
+
+    const naslov = document.createElement('h2');
+    naslov.textContent = faq.title;
+
+    const povzetek = document.createElement('p');
+    povzetek.textContent = faq.excerpt;
+
+    div.appendChild(naslov);
+    div.appendChild(povzetek);
+    container.appendChild(div);
+  }
+</script>
+
 </body>
 </html>
