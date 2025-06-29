@@ -168,6 +168,22 @@
   </style>
 </head>
 <body>
+  <script>
+  const sitePassword = 'matkomp2025';  // tukaj nastavi geslo za vstop na stran
+
+  // Preveri, če je uporabnik že vnesel geslo
+  if (!sessionStorage.getItem('site-authenticated')) {
+    const pass = prompt('Vnesi geslo za dostop do spletne strani:');
+    if (pass === sitePassword) {
+      sessionStorage.setItem('site-authenticated', 'true');
+    } else {
+      alert('Napačno geslo! Dostop zavrnjen.');
+      // Preusmeri nekam ali zapri stran
+      window.location = 'https://google.com';
+    }
+  }
+</script>
+
   <header>
     <div style="position: absolute; top: 15px; right: 20px;">
       <button class="btn btn-blog" onclick="location.href='blog.html'">📝 Blog</button>
