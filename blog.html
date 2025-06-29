@@ -1,78 +1,105 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blog – Matkomp</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f2f5f9;
-      color: #2e3a59;
-      margin: 0 auto;
-      padding: 2em;
-      max-width: 900px;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1em;
-    }
-    .objava {
-      background: white;
-      padding: 1.5em;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      margin-bottom: 2em;
-    }
-    .objava h2 {
-      margin-top: 0;
-      color: #005577;
-      cursor: pointer;
-    }
-    .objava h2 a {
-      color: #005577;
-      text-decoration: none;
-    }
-    .objava h2 a:hover {
-      text-decoration: underline;
-    }
-    .nazaj {
-      display: inline-block;
-      margin-bottom: 1.5em;
-      text-decoration: none;
-      color: #005577;
-    }
-    .nazaj:hover {
-      text-decoration: underline;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blog - Matkomp</title>
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f2f5f9;
+    max-width: 900px;
+    margin: 2em auto;
+    padding: 1em;
+    color: #2e3a59;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 1.5em;
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4em;
+  }
+  .post {
+    background: white;
+    padding: 1.5em 2em;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+  }
+  .post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  }
+  .post h2 {
+    margin: 0 0 0.5em 0;
+    font-weight: 700;
+    color: #005577;
+    font-size: 1.5rem;
+  }
+  .post p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #444;
+  }
+  a.back-link {
+    display: inline-block;
+    margin-bottom: 1.5em;
+    color: #005577;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  a.back-link:hover {
+    text-decoration: underline;
+  }
+</style>
 </head>
 <body>
 
-  <a href="index.html" class="nazaj">← Nazaj na glavno stran</a>
-  <h1>Blog – Matkomp</h1>
+<a href="index.html" class="back-link">← Nazaj na domov</a>
 
-  <div class="objava">
-    <h2><a href="kako-zamenjati-pasto-cpu.html">Kako pravilno zamenjati pasto na CPU</a></h2>
-    <p>V tem vodiču ti povemo, kako pravilno očistiš staro pasto in naneseš novo. To pomaga pri hlajenju in boljšem delovanju procesorja.</p>
-  </div>
+<h1>Blog Matkomp</h1>
 
-  <div class="objava">
-    <h2><a href="top-3-brezplacni-programi.html">Top 4 brezplačni programi za testiranje računalnika</a></h2>
-    <p>Če želiš preveriti zdravje svojega sistema, ti priporočamo te brezplačne programe: HWMonitor, CrystalDiskInfo in MemTest86...</p>
-  </div>
-
-  <div class="objava">
-  <h2><a href="namestitev-cpuz.html">Kako namestiti CPU-Z</a></h2>
-  <p>Poglej vodič in se nauči, kako pravilno namestiš CPU-Z za pregled komponent v tvojem računalniku.</p>
-</div>
-  
-  <div class="objava">
-  <h2><a href="kako-izbrati-komponente.html">Kako izbrati komponente za računalnik</a></h2>
-  <p>V tej objavi ti podrobno razložimo, kako izbrati prave komponente za tvoj novi računalnik – ne glede na to, ali gre za gaming, pisarniško uporabo ali domači strežnik.</p>
+<div class="post-list" id="post-list">
+  <!-- Posts loaded here -->
 </div>
 
+<script>
+  const posts = [
+    {
+      id: 'kako-izbrati-komponente',
+      title: 'Kako izbrati komponente za računalnik',
+      excerpt: 'Podroben vodič, ki ti pomaga razumeti, katere komponente izbrati glede na namen računalnika, proračun in želje.'
+    }
+    // Kasneje lahko dodaš več objav
+  ];
 
+  const container = document.getElementById('post-list');
+
+  for (const post of posts) {
+    const div = document.createElement('div');
+    div.className = 'post';
+    div.onclick = () => {
+      window.location.href = post.id + '.html';
+    };
+
+    const naslov = document.createElement('h2');
+    naslov.textContent = post.title;
+
+    const povzetek = document.createElement('p');
+    povzetek.textContent = post.excerpt;
+
+    div.appendChild(naslov);
+    div.appendChild(povzetek);
+    container.appendChild(div);
+  }
+</script>
 
 </body>
 </html>
