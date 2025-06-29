@@ -122,5 +122,57 @@
     container.appendChild(ustvariIzdelek(izdelek));
   }
 </script>
+  <!-- Dodaj v trgovina.html nekje spodaj, recimo pod izdelki -->
+
+<h2>Košarica</h2>
+<div id="kosarica-container" style="background:white; padding:1em; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05); margin-top:1em;">
+  <ul id="kosarica-seznam"></ul>
+  <button id="pocistiKosaricoBtn" style="margin-top:1em; padding:10px 20px; background:#b30000; color:white; border:none; border-radius:6px; cursor:pointer;">Počisti košarico</button>
+</div>
+
+<script>
+  function prikaziKosarico() {
+    const container = document.getElementById('kosarica-seznam');
+    const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+    container.innerHTML = '';
+
+    if(kosarica.length === 0) {
+      container.innerHTML = '<li>Košarica je prazna.</li>';
+      return;
+    }
+
+    kosarica.forEach((izdelek, i) => {
+      const li = document.createElement('li');
+      li.textContent = `${izdelek.ime} - ${izdelek.cena.toFixed(2)} €`;
+
+      const btnIzbrisi = document.createElement('button');
+      btnIzbrisi.textContent = 'Izbriši';
+      btnIzbrisi.style.marginLeft = '10px';
+      btnIzbrisi.style.background = '#b30000';
+      btnIzbrisi.style.color = 'white';
+      btnIzbrisi.style.border = 'none';
+      btnIzbrisi.style.borderRadius = '6px';
+      btnIzbrisi.style.cursor = 'pointer';
+      btnIzbrisi.onclick = () => {
+        kosarica.splice(i, 1);
+        localStorage.setItem('kosarica', JSON.stringify(kosarica));
+        prikaziKosarico();
+      };
+
+      li.appendChild(btnIzbrisi);
+      container.appendChild(li);
+    });
+  }
+
+  document.getElementById('pocistiKosaricoBtn').onclick = () => {
+    if(confirm('Ali želiš počistiti celotno košarico?')) {
+      localStorage.removeItem('kosarica');
+      prikaziKosarico();
+    }
+  };
+
+  prikaziKosarico();
+</script>
+
 </body>
 </html>
