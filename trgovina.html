@@ -131,47 +131,45 @@
 </div>
 
 <script>
-  function prikaziKosarico() {
-    const container = document.getElementById('kosarica-seznam');
-    const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-    container.innerHTML = '';
+function prikaziKosarico() {
+  const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+  const container = document.getElementById('kosarica-seznam');
+  const skupnaCenaEl = document.getElementById('skupna-cena');
+  const pocistiBtn = document.getElementById('pocisti-kosarico');
 
-    if(kosarica.length === 0) {
-      container.innerHTML = '<li>Košarica je prazna.</li>';
-      return;
-    }
+  container.innerHTML = '';
 
-    kosarica.forEach((izdelek, i) => {
-      const li = document.createElement('li');
-      li.textContent = `${izdelek.ime} - ${izdelek.cena.toFixed(2)} €`;
-
-      const btnIzbrisi = document.createElement('button');
-      btnIzbrisi.textContent = 'Izbriši';
-      btnIzbrisi.style.marginLeft = '10px';
-      btnIzbrisi.style.background = '#b30000';
-      btnIzbrisi.style.color = 'white';
-      btnIzbrisi.style.border = 'none';
-      btnIzbrisi.style.borderRadius = '6px';
-      btnIzbrisi.style.cursor = 'pointer';
-      btnIzbrisi.onclick = () => {
-        kosarica.splice(i, 1);
-        localStorage.setItem('kosarica', JSON.stringify(kosarica));
-        prikaziKosarico();
-      };
-
-      li.appendChild(btnIzbrisi);
-      container.appendChild(li);
-    });
+  if (kosarica.length === 0) {
+    container.innerHTML = '<p>Košarica je prazna.</p>';
+    skupnaCenaEl.textContent = '';
+    pocistiBtn.style.display = 'none'; // skrij gumb
+    return;
   }
 
-  document.getElementById('pocistiKosaricoBtn').onclick = () => {
-    if(confirm('Ali želiš počistiti celotno košarico?')) {
-      localStorage.removeItem('kosarica');
-      prikaziKosarico();
-    }
-  };
+  pocistiBtn.style.display = 'inline-block'; // pokaži gumb
 
+  let skupnaCena = 0;
+  for (const izdelek of kosarica) {
+    const div = document.createElement('div');
+    div.className = 'kosarica-item';
+    div.innerHTML = `
+      <strong>${izdelek.ime}</strong><br>
+      Cena: ${izdelek.cena.toFixed(2)} €
+    `;
+    container.appendChild(div);
+    skupnaCena += izdelek.cena;
+  }
+
+  skupnaCenaEl.textContent = `Skupaj: ${skupnaCena.toFixed(2)} €`;
+}
+
+function pocistiKosarico() {
+  localStorage.removeItem('kosarica');
   prikaziKosarico();
+}
+
+document.addEventListener('DOMContentLoaded', prikaziKosarico);
+
 </script>
 
 </body>
