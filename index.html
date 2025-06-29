@@ -276,27 +276,5 @@
       }
     });
 
-    // Funkcija za prikaz naročil iz localStorage
-    function prikaziNarocila() {
-      const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
-      const lista = document.getElementById('lista-narocil');
-      lista.innerHTML = ''; // počisti vsebino
-
-      if (narocila.length === 0) {
-        lista.innerHTML = '<li>Trenutno ni naročil.</li>';
-        return;
-      }
-
-      narocila.forEach(narocilo => {
-        const li = document.createElement('li');
-        li.textContent = `Št. naročila: ${narocilo.id} - ${narocilo.ime} - Status: ${narocilo.status} - Datum: ${new Date(narocilo.datum).toLocaleString()}`;
-        lista.appendChild(li);
-      });
-    }
-
-    // Prikaži naročila takoj ob naložitvi strani
-    window.onload = prikaziNarocila;
-  </script>
-
 </body>
 </html>
