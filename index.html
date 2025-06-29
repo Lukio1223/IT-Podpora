@@ -248,27 +248,29 @@
   </footer>
 
   <script>
-    // Če je uporabnik prijavljen, pokaži gumb za odjavo
-    if (sessionStorage.getItem("prijavljen")) {
-      const odjavaDiv = document.getElementById("logout-container");
-      odjavaDiv.innerHTML = '<button onclick="odjavi()" style="padding: 8px 14px; background-color: #b30000; color: white; border: none; border-radius: 6px; cursor: pointer;">Odjavi se</button>';
-    }
-    function odjavi() {
-      sessionStorage.removeItem("prijavljen");
-      window.location.reload();
-    }
+  // Če je uporabnik prijavljen, pokaži gumb za odjavo
+  if (sessionStorage.getItem("prijavljen")) {
+    const odjavaDiv = document.getElementById("logout-container");
+    odjavaDiv.innerHTML = '<button onclick="odjavi()" style="padding: 8px 14px; background-color: #b30000; color: white; border: none; border-radius: 6px; cursor: pointer;">Odjavi se</button>';
+  }
+  function odjavi() {
+    sessionStorage.removeItem("prijavljen");
+    window.location.reload();
+  }
 
-    // Geslo za zaposlene in funkcija za gumb
-    const correctPassword = 'LukaAdmin2025';
+  // Geslo za zaposlene in funkcija za gumb
+  const correctPassword = 'LukaAdmin2025';
 
-    document.getElementById('employeeBtn').addEventListener('click', function() {
-      const pass = prompt('Vnesi geslo za dostop do zaposlene strani:');
-      if (pass === correctPassword) {
-        window.location.href = 'admin.html';
-      } else {
-        alert('Napačno geslo! Dostop zavrnjen.');
-      }
-    });
+  document.getElementById('employeeBtn').addEventListener('click', function() {
+    const pass = prompt('Vnesi geslo za dostop do zaposlene strani:');
+    if (pass === correctPassword) {
+      window.location.href = 'admin.html';
+    } else {
+      alert('Napačno geslo! Dostop zavrnjen.');
+    }
+  });
+</script>
+
 
 </body>
 </html>
