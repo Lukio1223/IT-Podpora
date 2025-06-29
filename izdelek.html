@@ -198,7 +198,9 @@
     kupiBtn.textContent = 'Kupi zdaj';
     kupiBtn.disabled = izdelek.zaloga <= 0;
     kupiBtn.onclick = () => {
-      alert('Hvala za nakup! Trenutno funkcija ni aktivna.');
+  location.href = 'kosarica.html';
+};
+
     };
 
     opisDiv.appendChild(naslov);
