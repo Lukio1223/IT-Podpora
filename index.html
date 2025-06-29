@@ -4,26 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Matkomp - Pomoč in popravilo računalnikov</title>
-  
-  <!-- Dodano geslo za dostop -->
-  <script>
-    const correctPassword = 'matkomp2025';
-    if (!sessionStorage.getItem('authenticated')) {
-      const pass = prompt('Vnesi geslo za dostop do Matkomp strani:');
-      if (pass === correctPassword) {
-        sessionStorage.setItem('authenticated', 'true');
-      } else {
-        alert('Napačno geslo! Dostop zavrnjen.');
-        window.location = 'https://google.com';
-      }
-    }
-  </script>
-
-  <style>
-    /* ... tvoja obstoječa CSS koda ... */
-  </style>
-</head>
-
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -218,8 +198,8 @@
         <li><strong>Discord:</strong> <a href="https://discord.gg/UMBfFC3W" target="_blank" rel="noopener" class="discord-link">https://discord.gg/UMBfFC3W</a></li>
         <li><strong>E-mail:</strong> <a href="mailto:lukacp346@gmail.com" class="discord-link">lukacp346@gmail.com</a></li>
         <li><strong>Telefon:</strong> 064 232 471</li>
-        <button class="btn-youtube" onclick="window.open('https://www.youtube.com/@Matkomp-IT', '_blank')">🎪 YouTube kanal</button>
       </ul>
+      <button class="btn btn-blog" onclick="window.open('https://www.youtube.com/@Matkomp-IT', '_blank')">🎪 YouTube kanal</button>
     </section>
     <section>
       <h2>🔒 Zasebna stran</h2>
@@ -244,29 +224,29 @@
   </footer>
 
   <script>
-  // Če je uporabnik prijavljen, pokaži gumb za odjavo
-  if (sessionStorage.getItem("prijavljen")) {
-    const odjavaDiv = document.getElementById("logout-container");
-    odjavaDiv.innerHTML = '<button onclick="odjavi()" style="padding: 8px 14px; background-color: #b30000; color: white; border: none; border-radius: 6px; cursor: pointer;">Odjavi se</button>';
-  }
-  function odjavi() {
-    sessionStorage.removeItem("prijavljen");
-    window.location.reload();
-  }
-
-  // Geslo za zaposlene in funkcija za gumb
-  const correctPassword = 'LukaAdmin2025';
-
-  document.getElementById('employeeBtn').addEventListener('click', function() {
-    const pass = prompt('Vnesi geslo za dostop do zaposlene strani:');
-    if (pass === correctPassword) {
-      window.location.href = 'admin.html';
-    } else {
-      alert('Napačno geslo! Dostop zavrnjen.');
+    // Če je uporabnik prijavljen, pokaži gumb za odjavo
+    if (sessionStorage.getItem("prijavljen")) {
+      const odjavaDiv = document.getElementById("logout-container");
+      odjavaDiv.innerHTML = '<button onclick="odjavi()" style="padding: 8px 14px; background-color: #b30000; color: white; border: none; border-radius: 6px; cursor: pointer;">Odjavi se</button>';
     }
-  });
-</script>
+    function odjavi() {
+      sessionStorage.removeItem("prijavljen");
+      window.location.reload();
+    }
 
-
+    // Geslo za zaposlene in funkcija za gumb
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('employeeBtn');
+      btn.addEventListener('click', function() {
+        const pass = prompt('Vnesi geslo za dostop do zaposlene strani:');
+        if (pass === 'LukaAdmin2025') {
+          sessionStorage.setItem('admin-authenticated', 'true');
+          window.location.href = 'admin.html';
+        } else {
+          alert('Napačno geslo! Dostop zavrnjen.');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
