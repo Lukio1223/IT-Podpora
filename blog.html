@@ -1,115 +1,132 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Blog - Matkomp</title>
-<style>
-  body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: #f2f5f9;
-    max-width: 900px;
-    margin: 2em auto;
-    padding: 1em;
-    color: #2e3a59;
-  }
-  h1 {
-    text-align: center;
-    margin-bottom: 1.5em;
-    font-weight: 700;
-    font-size: 2rem;
-  }
-  .post-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.4em;
-  }
-  .post {
-    background: white;
-    padding: 1.5em 2em;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    user-select: none;
-  }
-  .post:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-  }
-  .post h2 {
-    margin: 0 0 0.5em 0;
-    font-weight: 700;
-    color: #005577;
-    font-size: 1.5rem;
-  }
-  .post p {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #444;
-  }
-  a.back-link {
-    display: inline-block;
-    margin-bottom: 1.5em;
-    color: #005577;
-    text-decoration: none;
-    font-weight: 600;
-  }
-  a.back-link:hover {
-    text-decoration: underline;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog - Matkomp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9fbfc;
+      color: #2e3a59;
+      padding: 2em;
+      max-width: 960px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+
+    header h1 {
+      color: #1e88e5;
+      font-size: 2rem;
+      margin-bottom: 0.3em;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-bottom: 1em;
+      color: #1e88e5;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5em;
+    }
+
+    .post {
+      background: white;
+      padding: 1.5em 2em;
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .post:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .post h2 {
+      margin-bottom: 0.4em;
+      color: #1565c0;
+      font-size: 1.4rem;
+    }
+
+    .post p {
+      color: #444;
+      font-size: 1.05rem;
+    }
+  </style>
 </head>
 <body>
 
-<a href="index.html" class="back-link">← Nazaj na domov</a>
+  <a href="index.html" class="back-link">← Nazaj na domov</a>
 
-<h1>Blog Matkomp</h1>
+  <header>
+    <h1>📝 Blog Matkomp</h1>
+    <p>Vodiči in članki za vse, ki jih zanimajo računalniki</p>
+  </header>
 
-<div class="post-list" id="post-list">
-  <!-- Posts loaded here -->
-</div>
+  <div class="post-list" id="post-list"></div>
 
-<script>
-const posts = [
-  {
-    id: 'kako-izbrati-komponente',
-    title: 'Kako izbrati komponente za računalnik',
-    excerpt: 'Podroben vodič, ki ti pomaga razumeti, katere komponente izbrati glede na namen računalnika, proračun in želje.'
-  },
-  {
-    id: 'kako-zamenjati-pasto-cpu',
-    title: 'Kako zamenjati termalno pasto',
-    excerpt: 'Nauči se, kako pravilno zamenjati termalno pasto na svojem procesorju.'
-  },
-  {
-    id: 'namestitev-cpuz',
-    title: 'Namestitev in uporaba CPU-Z',
-    excerpt: 'Enostaven vodič za namestitev CPU-Z ter pregled informacij o tvojem sistemu.'
-  }
-];
+  <script>
+    const posts = [
+      {
+        id: 'kako-izbrati-komponente',
+        title: 'Kako izbrati komponente za računalnik',
+        excerpt: 'Podroben vodič, ki ti pomaga razumeti, katere komponente izbrati glede na namen računalnika, proračun in želje.'
+      },
+      {
+        id: 'kako-zamenjati-termalno-pasto',
+        title: 'Kako zamenjati termalno pasto',
+        excerpt: 'Navodila po korakih za varno odstranjevanje stare in nanašanje nove termalne paste na procesor.'
+      },
+      {
+        id: 'namestitev-cpuz',
+        title: 'Namestitev in uporaba CPU-Z',
+        excerpt: 'Hitro preveri svoj procesor, matično ploščo in RAM s pomočjo brezplačnega orodja CPU-Z.'
+      }
+    ];
 
+    const container = document.getElementById('post-list');
 
-  const container = document.getElementById('post-list');
+    for (const post of posts) {
+      const div = document.createElement('div');
+      div.className = 'post';
+      div.onclick = () => {
+        window.location.href = post.id + '.html';
+      };
 
-  for (const post of posts) {
-    const div = document.createElement('div');
-    div.className = 'post';
-    div.onclick = () => {
-      window.location.href = post.id + '.html';
-    };
+      const naslov = document.createElement('h2');
+      naslov.textContent = post.title;
 
-    const naslov = document.createElement('h2');
-    naslov.textContent = post.title;
+      const povzetek = document.createElement('p');
+      povzetek.textContent = post.excerpt;
 
-    const povzetek = document.createElement('p');
-    povzetek.textContent = post.excerpt;
-
-    div.appendChild(naslov);
-    div.appendChild(povzetek);
-    container.appendChild(div);
-  }
-</script>
+      div.appendChild(naslov);
+      div.appendChild(povzetek);
+      container.appendChild(div);
+    }
+  </script>
 
 </body>
 </html>
