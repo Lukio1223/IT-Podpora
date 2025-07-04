@@ -39,6 +39,21 @@
     a:hover {
       text-decoration: underline;
     }
+
+    /* Tukaj naj bo CSS za gumb */
+    .btn {
+      display: inline-block;
+      padding: 0.6em 1.2em;
+      background-color: #1e88e5;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #1565c0;
+    }
   </style>
 </head>
 <body>
@@ -49,16 +64,15 @@
 
   <p>Sestavljanje računalnika je odlična izkušnja, saj lahko sam izbereš komponente in sestaviš računalnik po svojih željah. Tukaj je vodič, ki te popelje skozi celoten postopek.</p>
 
-<div style="max-width: 700px; margin: 2em auto;">
-  <iframe width="100%" height="400"
-    src="https://www.youtube.com/embed/Nfrx3kbx66c?si=3-0JKYOyyiPnu3fb"
-    title="Video vodič: Kako sestaviti PC"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen>
-  </iframe>
-</div>
-
+  <div style="max-width: 700px; margin: 2em auto;">
+    <iframe width="100%" height="400"
+      src="https://www.youtube.com/embed/Nfrx3kbx66c?si=3-0JKYOyyiPnu3fb"
+      title="Video vodič: Kako sestaviti PC"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
 
   <h2>1. Izbira komponent</h2>
   <ul>
@@ -70,9 +84,10 @@
     <li><strong>Napajalnik (PSU)</strong> – napaja celoten računalnik.</li>
     <li><strong>Ohišje (Case)</strong> – ščiti komponente in omogoča hlajenje.</li>
   </ul>
+
   <p>
-  <a href="kako-izbrati-komponente.html" class="btn">Preberi več o izbiri komponent</a>
-</p>
+    <a href="kako-izbrati-komponente.html" class="btn">Preberi več o izbiri komponent</a>
+  </p>
 
 <style>
   .btn {
