@@ -88,50 +88,51 @@
 
   <div class="post-list" id="post-list"></div>
 
-  <script>
-    const posts = [
-      {
-        id: 'kako-izbrati-komponente',
-        title: 'Kako izbrati komponente za računalnik',
-        excerpt: 'Podroben vodič, ki ti pomaga razumeti, katere komponente izbrati glede na namen računalnika, proračun in želje.'
-      },
-      {
-        id: 'kako-zamenjati-termalno-pasto',
-        title: 'Kako zamenjati termalno pasto',
-        excerpt: 'Navodila po korakih za varno odstranjevanje stare in nanašanje nove termalne paste na procesor.'
-      },
-      {
-        id: 'namestitev-cpuz',
-        title: 'Namestitev in uporaba CPU-Z',
-        excerpt: 'Hitro preveri svoj procesor, matično ploščo in RAM s pomočjo brezplačnega orodja CPU-Z.'
-      },
-       {
-        id: 'kako-sestaviti-pc',
-        title: 'Kako sestaviti svoj PC',
-        excerpt: 'Navodila za sestavo računalnika'
-      } 
-    ];
-
-    const container = document.getElementById('post-list');
-
-    for (const post of posts) {
-      const div = document.createElement('div');
-      div.className = 'post';
-      div.onclick = () => {
-        window.location.href = post.id + '.html';
-      };
-
-      const naslov = document.createElement('h2');
-      naslov.textContent = post.title;
-
-      const povzetek = document.createElement('p');
-      povzetek.textContent = post.excerpt;
-
-      div.appendChild(naslov);
-      div.appendChild(povzetek);
-      container.appendChild(div);
+<script>
+  const posts = [
+    {
+      id: 'kako-izbrati-komponente',
+      title: 'Kako izbrati komponente za računalnik',
+      excerpt: 'Podroben vodič, ki ti pomaga razumeti, katere komponente izbrati glede na namen računalnika, proračun in želje.'
+    },
+    {
+      id: 'kako-zamenjati-termalno-pasto',
+      title: 'Kako zamenjati termalno pasto',
+      excerpt: 'Navodila po korakih za varno odstranjevanje stare in nanašanje nove termalne paste na procesor.'
+    },
+    {
+      id: 'namestitev-cpuz',
+      title: 'Namestitev in uporaba CPU-Z',
+      excerpt: 'Hitro preveri svoj procesor, matično ploščo in RAM s pomočjo brezplačnega orodja CPU-Z.'
+    },
+    {
+      id: 'kako-sestaviti-pc',
+      title: 'Kako sestaviti svoj PC',
+      excerpt: 'Navodila za sestavo računalnika'
     }
-  </script>
+  ]; // <- Zdaj pravilno ZAKLJUČENO
+
+  const container = document.getElementById('post-list');
+
+  for (const post of posts) {
+    const div = document.createElement('div');
+    div.className = 'post';
+    div.onclick = () => {
+      window.location.href = post.id + '.html';
+    };
+
+    const naslov = document.createElement('h2');
+    naslov.textContent = post.title;
+
+    const povzetek = document.createElement('p');
+    povzetek.textContent = post.excerpt;
+
+    div.appendChild(naslov);
+    div.appendChild(povzetek);
+    container.appendChild(div);
+  }
+</script>
+
 
 </body>
 </html>
