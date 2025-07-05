@@ -324,7 +324,7 @@
       });
     });
   </script>
-  <script>
+<script>
   function toggleTheme() {
     const body = document.body;
     const newTheme = body.classList.contains("dark") ? "light" : "dark";
@@ -333,17 +333,17 @@
     localStorage.setItem("matkomp-theme", newTheme);
   }
 
-  // Ob nalaganju strani preveri, če je bila tema že nastavljena
   window.onload = () => {
     const savedTheme = localStorage.getItem("matkomp-theme");
     if (savedTheme) {
       document.body.classList.remove("light", "dark");
       document.body.classList.add(savedTheme);
     } else {
-      document.body.classList.add("light"); // privzeta tema
+      document.body.classList.add("light");
     }
   };
 </script>
+
 
 </body>
 </html>
