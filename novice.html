@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Matkomp - Novice</title>
+  <title>Matkomp - Blog / Novice</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -12,46 +12,59 @@
       margin: 0;
       padding: 20px;
       color: #333;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
     h1, h2 {
       text-align: center;
       font-weight: 600;
       margin-bottom: 20px;
     }
-    #news {
-      max-width: 800px;
-      margin: auto;
+    .post {
       background: white;
-      padding: 25px;
       border-radius: 10px;
+      padding: 20px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 25px;
     }
-    #news ul {
-      list-style: none;
-      padding-left: 0;
+    .post h3 {
+      margin-top: 0;
+      color: #2196F3;
     }
-    #news li {
-      padding: 10px 0;
-      border-bottom: 1px solid #ddd;
-      font-size: 1.1rem;
+    .post time {
+      display: block;
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 10px;
     }
-    #news li:last-child {
-      border-bottom: none;
+    .post p {
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
 
   <h1>Matkomp</h1>
+  <h2>Blog / Novice</h2>
 
-  <section id="news">
-    <h2>Novice / Obvestila</h2>
-    <ul>
-      <li><strong>26.6.2025:</strong> Ustanovitev Matkomp spletne strani!!!🖥️</li>
-      <li><strong>1.7.2025:</strong> Posodobitev Matkomp na v1.1🔧</li>
-      <li><strong>5.7.2025:</strong> Dodali smo ekipo, orodja, storitve, novice, in odpravili še nekaj majhnih napak🤩😀</li>
-    </ul>
-  </section>
+  <article class="post">
+    <h3>Ustanovitev Matkomp spletne strani!!!🖥️</h3>
+    <time datetime="26-6-2025">26. junij 2025</time>
+    <p>Naredili smo Matkomp spletno stran za vas.😀</p>
+  </article>
+
+  <article class="post">
+    <h3>Posodobitev Matkomp na v1.1🔧</h3>
+    <time datetime="1.7.2025">1. julij 2025</time>
+    <p>Posodobili smo Matkomp spletno stran.🔧</p>
+  </article>
+
+  <article class="post">
+    <h3>Vzdrževanje</h3>
+    <time datetime="5.7.2025">5. julij 2025</time>
+    <p>Dodali smo ekipo, orodja, storitve, novice, in odpravili še nekaj majhnih napak🤩😀</p>
+  </article>
 
 </body>
 </html>
