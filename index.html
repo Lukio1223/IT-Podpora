@@ -165,45 +165,7 @@
       list-style: none;
       padding-left: 0;
     }
-<style>
-  nav {
-    text-align: left;
-    padding: 20px;
-  }
 
-  nav a {
-    text-decoration: none;
-    color: #2196F3;
-    font-weight: 600;
-    margin-right: 15px;
-    font-size: 1.1rem;
-  }
-
-  .theme-toggle {
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-
-  .theme-toggle:hover {
-    background-color: #1976D2;
-  }
-
-  .light {
-    background: #f9f9f9;
-    color: #222;
-  }
-
-  .dark {
-    background: #121212;
-    color: #eee;
-  }
-</style>
 
 </head>
 <body>
@@ -227,7 +189,6 @@
   <header>
     <div style="position: absolute; top: 15px; right: 20px;">
       <button class="btn btn-blog" onclick="location.href='blog.html'">📝 Blog</button>
-      <button class="btn theme-toggle" onclick="toggleTheme()" style="margin-left: 10px;">🌓</button>
     </div>
     <img src="Matkomp.png" alt="Logotip Matkomp" class="logo" />
     <h1 style="margin-top: 0;">Matkomp</h1>
@@ -324,25 +285,7 @@
       });
     });
   </script>
-<script>
-  function toggleTheme() {
-    const body = document.body;
-    const newTheme = body.classList.contains("dark") ? "light" : "dark";
-    body.classList.remove("light", "dark");
-    body.classList.add(newTheme);
-    localStorage.setItem("matkomp-theme", newTheme);
-  }
 
-  window.onload = () => {
-    const savedTheme = localStorage.getItem("matkomp-theme");
-    if (savedTheme) {
-      document.body.classList.remove("light", "dark");
-      document.body.classList.add(savedTheme);
-    } else {
-      document.body.classList.add("light");
-    }
-  };
-</script>
 
 
 </body>
