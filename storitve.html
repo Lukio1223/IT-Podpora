@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matkomp - Ponudba storitev</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1, h2 {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    #services {
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .service-card {
+      background: white;
+      flex: 1 1 250px;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+    .material-icons {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Matkomp</h1>
+
+  <section id="services">
+    <div class="service-card">
+      <span class="material-icons" style="color: #4CAF50;">build</span>
+      <h2>Sestavljanje računalnikov</h2>
+      <p>Individualno prilagojene rešitve po meri, za domačo uporabo ali igre.</p>
+    </div>
+    <div class="service-card">
+      <span class="material-icons" style="color: #2196F3;">settings</span>
+      <h2>Popravilo in nadgradnja</h2>
+      <p>Popravila računalnikov, zamenjava komponent, nadgradnje za boljšo zmogljivost.</p>
+    </div>
+    <div class="service-card">
+      <span class="material-icons" style="color: #FF9800;">storage</span>
+      <h2>Obnova podatkov</h2>
+      <p>Obnova izgubljenih podatkov z diskov, USB ključev in drugih medijev.</p>
+    </div>
+    <div class="service-card">
+      <span class="material-icons" style="color: #9C27B0;">support_agent</span>
+      <h2>Tehnično svetovanje</h2>
+      <p>Posveti glede nakupa, vzdrževanja in optimizacije računalnikov.</p>
+    </div>
+  </section>
+
+</body>
+</html>
