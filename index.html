@@ -11,7 +11,6 @@
       margin: 0;
       padding: 0;
       color: #2e3a59;
-      transition: background 0.3s, color 0.3s;
     }
     header {
       background: linear-gradient(135deg, #003344, #005577);
@@ -82,11 +81,6 @@
       font-size: 0.95rem;
       padding: 10px 24px;
       font-weight: 500;
-      cursor: pointer;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: background 0.3s, box-shadow 0.3s;
-      margin-left: 0.5em;
     }
     .btn-blog:hover {
       background: linear-gradient(135deg, #222, #444);
@@ -157,50 +151,92 @@
       text-decoration: underline;
       color: #1e7e34;
     }
-    nav {
-      text-align: left;
-      padding: 20px;
-      position: absolute;
-      top: 15px;
-      right: 20px;
+    /* Stil za seznam naročil */
+    #seznam-narocil {
+      max-width: 900px;
+      margin: 2em auto;
+      background: white;
+      padding: 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      font-size: 1rem;
     }
-    nav a {
-      text-decoration: none;
-      color: #2196F3;
-      font-weight: 600;
-      margin-right: 15px;
-      font-size: 1.1rem;
+    #seznam-narocil ul {
+      list-style: none;
+      padding-left: 0;
     }
-  </style>
+<style>
+  nav {
+    text-align: left;
+    padding: 20px;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: #2196F3;
+    font-weight: 600;
+    margin-right: 15px;
+    font-size: 1.1rem;
+  }
+
+  .theme-toggle {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .theme-toggle:hover {
+    background-color: #1976D2;
+  }
+
+  .light {
+    background: #f9f9f9;
+    color: #222;
+  }
+
+  .dark {
+    background: #121212;
+    color: #eee;
+  }
+</style>
+
 </head>
 <body>
+  <button class="theme-toggle" onclick="toggleTheme()">Preklopi temo</button>
   <script>
-    const sitePassword = 'matkomp2025';  // tukaj nastavi geslo za vstop na stran
+  const sitePassword = 'matkomp2025';  // tukaj nastavi geslo za vstop na stran
 
-    // Preveri, če je uporabnik že vnesel geslo
-    if (!sessionStorage.getItem('site-authenticated')) {
-      const pass = prompt('Vnesi geslo za dostop do spletne strani:');
-      if (pass === sitePassword) {
-        sessionStorage.setItem('site-authenticated', 'true');
-      } else {
-        alert('Napačno geslo! Dostop zavrnjen.');
-        window.location = 'https://google.com';
-      }
+  // Preveri, če je uporabnik že vnesel geslo
+  if (!sessionStorage.getItem('site-authenticated')) {
+    const pass = prompt('Vnesi geslo za dostop do spletne strani:');
+    if (pass === sitePassword) {
+      sessionStorage.setItem('site-authenticated', 'true');
+    } else {
+      alert('Napačno geslo! Dostop zavrnjen.');
+      // Preusmeri nekam ali zapri stran
+      window.location = 'https://google.com';
     }
-  </script>
+  }
+</script>
 
   <header>
+    <div style="position: absolute; top: 15px; right: 20px;">
+      <button class="btn btn-blog" onclick="location.href='blog.html'">📝 Blog</button>
+      <button class="btn theme-toggle" onclick="toggleTheme()" style="margin-left: 10px;">🌓</button>
+    </div>
     <img src="Matkomp.png" alt="Logotip Matkomp" class="logo" />
     <h1 style="margin-top: 0;">Matkomp</h1>
     <p class="description">Tvoji zaupanja vredni prijatelji za sestavo, popravilo in reševanje podatkov računalnikov</p>
-    <nav>
-      <a href="blog.html">Blog</a>
-    </nav>
     <button class="btn btn-itpodpora" onclick="location.href='it-podpora.html'">IT Pomoč</button>
     <button class="btn btn-trgovina" onclick="location.href='trgovina.html'">Pojdi v spletno trgovino</button>
+    <!-- Gumb za zaposlene -->
     <button class="btn-employee" id="employeeBtn">Samo za zaposlene</button>
   </header>
-
   <main>
     <section>
       <h2>💻 Naše storitve</h2>
@@ -238,24 +274,76 @@
         <li><a href="tools.html">🛠️ Orodja </a></li>
         <li><a href="storitve.html"> 👨🏻‍🔧 Storitve </a></li>
         <li><a href="novice.html"> 📰 Novice </a></li>
+      
       </ul>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Matkomp. Izdelal s ❤️ Luka in ekipa.</p>
-  </footer>
+ <footer>
+  <p>&copy; 2025 Matkomp. Izdelal s ❤️ Luka in ekipa.</p>
+</footer>
+
+<style>
+  footer {
+    margin-top: 4em;
+    padding: 1.5em;
+    background-color: #e9edf3;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2e3a59;
+    border-top: 1px solid #ccc;
+    border-radius: 0 0 12px 12px;
+  }
+</style>
+
+
 
   <script>
-    document.getElementById('employeeBtn').addEventListener('click', function() {
-      const pass = prompt('Vnesi geslo za dostop do zaposlene strani:');
-      if (pass === 'LukaAdmin2025') {
-        sessionStorage.setItem('admin-authenticated', 'true');
-        window.location.href = 'admin.html';
-      } else {
-        alert('Napačno geslo! Dostop zavrnjen.');
-      }
+    // Če je uporabnik prijavljen, pokaži gumb za odjavo
+    if (sessionStorage.getItem("prijavljen")) {
+      const odjavaDiv = document.getElementById("logout-container");
+      odjavaDiv.innerHTML = '<button onclick="odjavi()" style="padding: 8px 14px; background-color: #b30000; color: white; border: none; border-radius: 6px; cursor: pointer;">Odjavi se</button>';
+    }
+    function odjavi() {
+      sessionStorage.removeItem("prijavljen");
+      window.location.reload();
+    }
+
+    // Geslo za zaposlene in funkcija za gumb
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('employeeBtn');
+      btn.addEventListener('click', function() {
+        const pass = prompt('Vnesi geslo za dostop do zaposlene strani:');
+        if (pass === 'LukaAdmin2025') {
+          sessionStorage.setItem('admin-authenticated', 'true');
+          window.location.href = 'admin.html';
+        } else {
+          alert('Napačno geslo! Dostop zavrnjen.');
+        }
+      });
     });
   </script>
+<script>
+  function toggleTheme() {
+    const body = document.body;
+    const newTheme = body.classList.contains("dark") ? "light" : "dark";
+    body.classList.remove("light", "dark");
+    body.classList.add(newTheme);
+    localStorage.setItem("matkomp-theme", newTheme);
+  }
+
+  window.onload = () => {
+    const savedTheme = localStorage.getItem("matkomp-theme");
+    if (savedTheme) {
+      document.body.classList.remove("light", "dark");
+      document.body.classList.add(savedTheme);
+    } else {
+      document.body.classList.add("light");
+    }
+  };
+</script>
+
+
 </body>
 </html>
