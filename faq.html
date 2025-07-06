@@ -19,6 +19,15 @@
       font-weight: 700;
       font-size: 2rem;
     }
+    #searchInput {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1.5em;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
     .faq-list {
       display: flex;
       flex-direction: column;
@@ -66,6 +75,8 @@
 
 <h1>Pogosta vprašanja (FAQ)</h1>
 
+<input type="text" id="searchInput" placeholder="Išči vprašanja..." />
+
 <div class="faq-list" id="faq-list">
   <!-- Vprašanja se naložijo tukaj -->
 </div>
@@ -81,29 +92,68 @@
       id: 'ali-ponujate-garancijo',
       title: 'Ali ponujate garancijo?',
       excerpt: 'Vse o garanciji, vračilu izdelkov in podpori po nakupu.'
+    },
+    {
+      id: 'kako-se-obrniti-na-podporo',
+      title: 'Kako se obrniti na tehnično podporo?',
+      excerpt: 'Kontaktni podatki in delovni čas za pomoč uporabnikom.'
+    },
+    {
+      id: 'kako-vracilo',
+      title: 'Kakšni so pogoji vračila?',
+      excerpt: 'Informacije o pravicah in postopku vračila izdelkov.'
+    },
+    {
+      id: 'cas-dobave',
+      title: 'Kakšen je čas dobave?',
+      excerpt: 'Informacije o predvidenem času dostave naročil.'
     }
-    // Dodaj več vprašanj tukaj
+    // Dodaj več vprašanj po potrebi
   ];
 
   const container = document.getElementById('faq-list');
 
-  for (const faq of faqs) {
-    const div = document.createElement('div');
-    div.className = 'faq';
-    div.onclick = () => {
-      window.location.href = faq.id + '.html';
-    };
+  function loadFaqs(filter = '') {
+    container.innerHTML = '';
+    const filteredFaqs = faqs.filter(faq => {
+      return faq.title.toLowerCase().includes(filter) || faq.excerpt.toLowerCase().includes(filter);
+    });
 
-    const naslov = document.createElement('h2');
-    naslov.textContent = faq.title;
+    if(filteredFaqs.length === 0) {
+      const noResult = document.createElement('p');
+      noResult.textContent = 'Ni najdenih vprašanj.';
+      noResult.style.color = '#777';
+      container.appendChild(noResult);
+      return;
+    }
 
-    const povzetek = document.createElement('p');
-    povzetek.textContent = faq.excerpt;
+    for (const faq of filteredFaqs) {
+      const div = document.createElement('div');
+      div.className = 'faq';
+      div.onclick = () => {
+        window.location.href = faq.id + '.html';
+      };
 
-    div.appendChild(naslov);
-    div.appendChild(povzetek);
-    container.appendChild(div);
+      const naslov = document.createElement('h2');
+      naslov.textContent = faq.title;
+
+      const povzetek = document.createElement('p');
+      povzetek.textContent = faq.excerpt;
+
+      div.appendChild(naslov);
+      div.appendChild(povzetek);
+      container.appendChild(div);
+    }
   }
+
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', () => {
+    const filter = searchInput.value.toLowerCase();
+    loadFaqs(filter);
+  });
+
+  // Naloži vse FAQ na začetku
+  loadFaqs();
 </script>
 
 </body>
