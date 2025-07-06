@@ -107,8 +107,12 @@
       id: 'cas-dobave',
       title: 'Kakšen je čas dobave?',
       excerpt: 'Informacije o predvidenem času dostave naročil.'
+    },
+    {
+      id: 'podatki',
+      title: 'Varnost in zaščita podatkov',
+      excerpt: 'Kako skrbim za podatke, GDPR in varnost vašega računalnika.'
     }
-    // Dodaj več vprašanj po potrebi
   ];
 
   const container = document.getElementById('faq-list');
@@ -119,7 +123,7 @@
       return faq.title.toLowerCase().includes(filter) || faq.excerpt.toLowerCase().includes(filter);
     });
 
-    if(filteredFaqs.length === 0) {
+    if (filteredFaqs.length === 0) {
       const noResult = document.createElement('p');
       noResult.textContent = 'Ni najdenih vprašanj.';
       noResult.style.color = '#777';
@@ -152,7 +156,7 @@
     loadFaqs(filter);
   });
 
-  // Naloži vse FAQ na začetku
+  // Prvič naloži vsa vprašanja
   loadFaqs();
 </script>
 
