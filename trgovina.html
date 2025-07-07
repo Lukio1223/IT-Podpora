@@ -33,6 +33,19 @@
     padding: 1em;
     text-align: center;
     user-select: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .izdelek:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  }
+  .izdelek img {
+    max-width: 100%;
+    height: 160px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-bottom: 0.8em;
   }
   .izdelek h2 {
     margin: 0.2em 0;
@@ -57,12 +70,9 @@
     {
       id: 0,
       ime: "Lenovo IS6XM",
-      cena: 29.99
-    },
-    {
-      id: 1,
-      ime: "Logitech Miška M90",
-      cena: 15.50
+      cena: 29.99,
+      slika: "is6mx.jpg",
+      stran: "izdelek.html"
     }
   ];
 
@@ -72,12 +82,21 @@
     const div = document.createElement('div');
     div.className = 'izdelek';
 
+    div.onclick = () => {
+      window.location.href = izdelek.stran;
+    };
+
+    const img = document.createElement('img');
+    img.src = izdelek.slika;
+    img.alt = izdelek.ime;
+
     const naslov = document.createElement('h2');
     naslov.textContent = izdelek.ime;
 
     const cena = document.createElement('p');
     cena.textContent = `${izdelek.cena.toFixed(2)} €`;
 
+    div.appendChild(img);
     div.appendChild(naslov);
     div.appendChild(cena);
 
