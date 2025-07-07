@@ -171,16 +171,6 @@ function pocistiKosarico() {
 document.addEventListener('DOMContentLoaded', prikaziKosarico);
 
 </script>
-  <script>
-fetch('products.json')
-  .then(response => response.json())
-  .then(podatki => {
-    for (const izdelek of podatki) {
-      console.log(izdelek.ime, izdelek.zaloga);
-      // Tukaj lahko ustvariš HTML za vsak izdelek
-    }
-  });
-</script>
 
 
 </body>
