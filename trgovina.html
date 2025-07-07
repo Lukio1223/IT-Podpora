@@ -124,10 +124,13 @@
     container.appendChild(ustvariIzdelek(izdelek));
   }
 </script>
-  <script>
-  const supabaseUrl = 'https://tvojprojekt.supabase.co';  // Zamenjaj s svojim URL
-  const supabaseKey = 'tvoj_anon_ključ';                  // Zamenjaj s svojim javnim ključem
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+<script>
+  const supabaseUrl = 'https://pwuueoephshtozfynkjl.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB3dXVlb2VwaHNodG96Znlua2psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MTEwNTUsImV4cCI6MjA2NzQ4NzA1NX0.GMZZ5zLOTKiXUusePqZKm29kVkuXcYO9JFYVP8vTjx4';
   const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+</script>
+
 
   async function loadProducts() {
     const { data: products, error } = await supabase
