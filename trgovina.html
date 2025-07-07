@@ -31,24 +31,8 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     width: 280px;
     padding: 1em;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     text-align: center;
     user-select: none;
-  }
-  .izdelek:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-  }
-  .izdelek img {
-    max-width: 100%;
-    height: 160px;
-    object-fit: contain;
-    border-radius: 12px;
-    margin-bottom: 0.8em;
   }
   .izdelek h2 {
     margin: 0.2em 0;
@@ -59,53 +43,34 @@
   .izdelek p {
     font-weight: 600;
     font-size: 1.1rem;
-    margin: 0.5em 0 1em 0;
+    margin: 0.5em 0 0.3em 0;
     color: #222;
-  }
-  a.back-link {
-    display: inline-block;
-    margin-bottom: 1em;
-    color: #005577;
-    text-decoration: none;
-    font-weight: 600;
-  }
-  a.back-link:hover {
-    text-decoration: underline;
   }
 </style>
 </head>
 <body>
-  <a href="index.html" class="back-link">← Nazaj na domov</a>
   <h1>Trgovina Matkomp</h1>
-  <div class="izdelek-lista" id="izdelek-lista">
-    <!-- Izdelki se naložijo tukaj -->
-  </div>
-  <div id="product-list"></div>
-
+  <div class="izdelek-lista" id="izdelek-lista"></div>
 
 <script>
   const izdelki = [
     {
       id: 0,
       ime: "Lenovo IS6XM",
-      cena: 29.99,
-      slika: "is6mx.jpg"
+      cena: 29.99
+    },
+    {
+      id: 1,
+      ime: "Logitech Miška M90",
+      cena: 15.50
     }
-    // Kasneje lahko dodaš več izdelkov
   ];
 
   const container = document.getElementById('izdelek-lista');
 
-  function ustvariIzdelek(izdelek) {
+  for (const izdelek of izdelki) {
     const div = document.createElement('div');
     div.className = 'izdelek';
-    div.onclick = () => {
-      window.location.href = `izdelek.html?id=${izdelek.id}`;
-    };
-
-    const img = document.createElement('img');
-    img.src = izdelek.slika;
-    img.alt = izdelek.ime;
 
     const naslov = document.createElement('h2');
     naslov.textContent = izdelek.ime;
@@ -113,63 +78,11 @@
     const cena = document.createElement('p');
     cena.textContent = `${izdelek.cena.toFixed(2)} €`;
 
-    div.appendChild(img);
     div.appendChild(naslov);
     div.appendChild(cena);
 
-    return div;
-  }
-
-  for (const izdelek of izdelki) {
-    container.appendChild(ustvariIzdelek(izdelek));
-  }
-</script>
-<h2>Košarica</h2>
-<div id="kosarica-container" style="background:white; padding:1em; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05); margin-top:1em;">
-  <ul id="kosarica-seznam"></ul>
-  <button id="pocistiKosaricoBtn" style="margin-top:1em; padding:10px 20px; background:#b30000; color:white; border:none; border-radius:6px; cursor:pointer;">Počisti košarico</button>
-</div>
-
-<script>
-function prikaziKosarico() {
-  const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-  const container = document.getElementById('kosarica-seznam');
-  const skupnaCenaEl = document.getElementById('skupna-cena');
-  const pocistiBtn = document.getElementById('pocisti-kosarico');
-
-  container.innerHTML = '';
-
-  if (kosarica.length === 0) {
-    container.innerHTML = '<p>Košarica je prazna.</p>';
-    skupnaCenaEl.textContent = '';
-    pocistiBtn.style.display = 'none'; // skrij gumb
-    return;
-  }
-
-  pocistiBtn.style.display = 'inline-block'; // pokaži gumb
-
-  let skupnaCena = 0;
-  for (const izdelek of kosarica) {
-    const div = document.createElement('div');
-    div.className = 'kosarica-item';
-    div.innerHTML = `
-      <strong>${izdelek.ime}</strong><br>
-      Cena: ${izdelek.cena.toFixed(2)} €
-    `;
     container.appendChild(div);
-    skupnaCena += izdelek.cena;
   }
-
-  skupnaCenaEl.textContent = `Skupaj: ${skupnaCena.toFixed(2)} €`;
-}
-
-function pocistiKosarico() {
-  localStorage.removeItem('kosarica');
-  prikaziKosarico();
-}
-
-document.addEventListener('DOMContentLoaded', prikaziKosarico);
-
 </script>
 </body>
 </html>
