@@ -124,56 +124,6 @@
     container.appendChild(ustvariIzdelek(izdelek));
   }
 </script>
- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
-<script>
-  const supabaseUrl = 'https://pwuueoephshtozfynkjl.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB3dXVlb2VwaHNodG96Znlua2psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MTEwNTUsImV4cCI6MjA2NzQ4NzA1NX0.GMZZ5zLOTKiXUusePqZKm29kVkuXcYO9JFYVP8vTjx4';
-  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-</script>
-
-
-  async function loadProducts() {
-    const { data: products, error } = await supabase
-      .from('products')
-      .select('*');
-
-    if (error) {
-      console.error('Napaka pri nalaganju izdelkov:', error);
-      return;
-    }
-
-    const productList = document.getElementById('product-list');
-    productList.innerHTML = '';
-
-    products.forEach(product => {
-      const div = document.createElement('div');
-      div.innerHTML = `
-        <h3>${product.name}</h3>
-        <p>${product.description || ''}</p>
-        <p>Zaloga: ${product.stock}</p>
-        <button ${product.stock < 1 ? 'disabled' : ''} data-id="${product.id}">Dodaj v košarico</button>
-      `;
-      productList.appendChild(div);
-    });
-
-    productList.querySelectorAll('button').forEach(button => {
-      button.addEventListener('click', () => {
-        const id = button.getAttribute('data-id');
-        addToCart(id);
-      });
-    });
-  }
-
-  function addToCart(productId) {
-    alert('Dodano v košarico izdelek s ID: ' + productId);
-    // Kasneje tukaj dodamo logiko za shranjevanje v košarico (baza ali localStorage)
-  }
-
-  loadProducts();
-</script>
-
-  <!-- Dodaj v trgovina.html nekje spodaj, recimo pod izdelki -->
-
 <h2>Košarica</h2>
 <div id="kosarica-container" style="background:white; padding:1em; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.05); margin-top:1em;">
   <ul id="kosarica-seznam"></ul>
@@ -221,8 +171,5 @@ function pocistiKosarico() {
 document.addEventListener('DOMContentLoaded', prikaziKosarico);
 
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
-
 </body>
 </html>
