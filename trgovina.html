@@ -84,8 +84,8 @@ const izdelki = [
     div.className = 'izdelek';
 
     div.onclick = () => {
-      window.location.href = izdelek.stran;
-    };
+  window.location.href = `izdelek.html?id=${izdelek.id}`;
+};
 
     const img = document.createElement('img');
     img.src = izdelek.slika;
