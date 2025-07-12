@@ -101,7 +101,29 @@
       div.appendChild(cena);
 
       container.appendChild(div);
-    }
+    };
+   <script>
+fetch('podatki.json')
+  .then(response => response.json())
+  .then(izdelki => {
+    const trgovina = document.getElementById('trgovina');
+
+    izdelki.forEach(izdelek => {
+      const div = document.createElement('div');
+      div.className = 'izdelek';
+      div.innerHTML = `
+        <img src="${izdelek.slika}" width="150"><br>
+        <strong>${izdelek.ime}</strong><br>
+        Cena: ${izdelek.cena} €<br>
+        Zaloga: <span style="color:${izdelek.zaloga > 0 ? 'green' : 'red'}">${izdelek.zaloga > 0 ? izdelek.zaloga + ' kosov' : 'Ni na zalogi'}</span><br>
+        <button ${izdelek.zaloga === 0 ? 'disabled' : ''}>Dodaj v košarico</button>
+      `;
+      trgovina.appendChild(div);
+    });
+  });
+</script>
+
+
   </script>
 </body>
 </html>
