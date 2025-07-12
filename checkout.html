@@ -13,12 +13,10 @@
       margin: 2em auto;
       padding: 2em;
     }
-
     h1 {
       text-align: center;
       margin-bottom: 1em;
     }
-
     form {
       background: white;
       padding: 1.5em;
@@ -26,14 +24,12 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       font-size: 1rem;
     }
-
     label {
       display: block;
       margin-top: 1em;
       font-weight: 600;
       color: #2e3a59;
     }
-
     input[type="text"],
     input[type="email"],
     input[type="tel"] {
@@ -45,7 +41,6 @@
       box-sizing: border-box;
       font-size: 1rem;
     }
-
     input[type="checkbox"] {
       margin-top: 1em;
       transform: scale(1.1);
@@ -53,7 +48,6 @@
       vertical-align: middle;
       cursor: pointer;
     }
-
     button {
       margin-top: 2em;
       padding: 12px 25px;
@@ -68,12 +62,10 @@
       box-shadow: 0 4px 10px rgba(0,85,119,0.5);
       user-select: none;
     }
-
     button:hover {
       background-color: #003344;
       box-shadow: 0 6px 14px rgba(0, 51, 68, 0.7);
     }
-
     .cash-note {
       margin-top: 2em;
       font-weight: 700;
@@ -84,13 +76,24 @@
       font-size: 1rem;
       text-align: center;
     }
+    .success-message {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      padding: 1em;
+      margin-top: 1em;
+      border-radius: 6px;
+      text-align: center;
+      display: none;
+    }
   </style>
 </head>
 <body>
   <h1>Zaključi nakup</h1>
 
   <form id="checkoutForm" action="https://formspree.io/f/movwpkap" method="POST">
-    <input type="hidden" name="izdelek" id="skrivniIzdelek" value="" />
+    <!-- Skriti input za izdelke iz košarice (JSON string) -->
+    <input type="hidden" name="izdelki" id="skrivniIzdelek" value="" />
 
     <label for="ime">Ime in priimek:</label>
     <input type="text" id="ime" name="ime" required />
@@ -122,80 +125,26 @@
     <button type="submit">Pošlji naročilo</button>
   </form>
 
+  <div class="success-message" id="successMessage">
+    Hvala! Vaše sporočilo je bilo uspešno poslano.
+  </div>
+
   <script>
-    function generirajStevilkoNarocila() {
-      const znaki = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      let koda = '';
-      for (let i = 0; i < 6; i++) {
-        koda += znaki.charAt(Math.floor(Math.random() * znaki.length));
-      }
-      return koda;
-    }
-
-    function shraniNarocilo(narocilo) {
-      const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
-      narocila.push(narocilo);
-      localStorage.setItem('narocila', JSON.stringify(narocila));
-    }
-
-    const form = document.getElementById('checkoutForm');
-
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-
+    // Ko se stran naloži, naloži košarico iz localStorage in shrani v skriti input
+    window.addEventListener('DOMContentLoaded', () => {
       const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+      document.getElementById('skrivniIzdelek').value = JSON.stringify(kosarica);
+    });
 
-      if (kosarica.length === 0) {
-        alert('Vaša košarica je prazna!');
-        return;
-      }
+    // Ob oddaji forme počistimo košarico in prikažemo sporočilo
+    const form = document.getElementById('checkoutForm');
+    form.addEventListener('submit', (e) => {
+      // Pošlji formo normalno, brez e.preventDefault(), da Formspree sprejme
+      // Tukaj lahko po oddaji pokažemo sporočilo in počistimo košarico
 
-      // Naloži podatke iz JSON-a in nadaljuj
-      fetch('podatki.json')
-        .then(res => res.json())
-        .then(izdelki => {
-          const izbraniIzdelki = kosarica
-            .map(id => izdelki.find(i => i.id === id))
-            .filter(Boolean);
-
-          const ime = form.ime.value.trim();
-          const telefon = form.telefon.value.trim();
-          const email = form.email.value.trim();
-          const naslov = form.naslov.value.trim();
-          const posta = form.posta.value.trim();
-          const mesto = form.mesto.value.trim();
-          const dostava = form.dostava.checked ? 'Da' : 'Ne';
-
-          const koda = generirajStevilkoNarocila();
-
-          const novoNarocilo = {
-            koda,
-            ime,
-            telefon,
-            email,
-            naslov,
-            posta,
-            mesto,
-            dostava,
-            status: 'Obdelava naročila',
-            datum: new Date().toISOString(),
-            produkti: izbraniIzdelki
-          };
-
-          shraniNarocilo(novoNarocilo);
-          document.getElementById('skrivniIzdelek').value = JSON.stringify(izbraniIzdelki);
-
-          alert(`Hvala za nakup! Tvoja številka naročila je: ${koda}`);
-
-          setTimeout(() => {
-            form.submit(); // pošlje na Formspree
-            localStorage.removeItem('kosarica');
-            window.location.href = "index.html";
-          }, 500);
-        })
-        .catch(err => {
-          alert("Napaka pri branju izdelkov: " + err.message);
-        });
+      // Ker se stran osveži po oddaji, prikažemo sporočilo takoj in počistimo lokalno shrambo
+      alert('Hvala za nakup! Naročilo je bilo poslano.');
+      localStorage.removeItem('kosarica');
     });
   </script>
 </body>
