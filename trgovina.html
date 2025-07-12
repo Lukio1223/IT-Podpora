@@ -116,7 +116,7 @@
           const div = document.createElement('div');
           div.className = 'izdelek';
 
-          // Klik na cel izdelek pelje na izdelek.html
+          // Klik na cel izdelek pelje na izdelek.html?id=...
           div.onclick = () => {
             window.location.href = `izdelek.html?id=${izdelek.id}`;
           };
@@ -143,9 +143,14 @@
 
     function dodajVKosarico(id) {
       let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-      kosarica.push(id);
-      localStorage.setItem('kosarica', JSON.stringify(kosarica));
-      alert('Izdelek dodan v košarico!');
+
+      if (kosarica.includes(id)) {
+        alert('Izdelek je že v košarici!');
+      } else {
+        kosarica = [id]; // Košarica vsebuje samo ta izdelek
+        localStorage.setItem('kosarica', JSON.stringify(kosarica));
+        alert('Izdelek dodan v košarico!');
+      }
     }
   </script>
 </body>
