@@ -2,37 +2,175 @@
 <html lang="sl">
 <head>
   <meta charset="UTF-8" />
-  <title>Sledenje naročilom - Matkomp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zaključi nakup - Matkomp</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f5f9;
+      color: #2e3a59;
+      max-width: 600px;
+      margin: 2em auto;
+      padding: 2em;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+
+    form {
+      background: white;
+      padding: 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      font-size: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1em;
+      font-weight: 600;
+      color: #2e3a59;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+
+    input[type="checkbox"] {
+      margin-top: 1em;
+      transform: scale(1.1);
+      margin-right: 8px;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+
+    button {
+      margin-top: 2em;
+      padding: 12px 25px;
+      background-color: #005577;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,85,119,0.5);
+      user-select: none;
+    }
+
+    button:hover {
+      background-color: #003344;
+      box-shadow: 0 6px 14px rgba(0, 51, 68, 0.7);
+    }
+
+    .cash-note {
+      margin-top: 2em;
+      font-weight: 700;
+      color: #b30000;
+      background: #ffeaea;
+      padding: 1em;
+      border-radius: 6px;
+      font-size: 1rem;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <h1>Sledenje naročilom</h1>
+  <h1>Zaključi nakup</h1>
 
-  <label for="kodaInput">Vnesite vašo kodo naročila:</label><br>
-  <input type="text" id="kodaInput" maxlength="6" style="text-transform: uppercase;" />
-  <button id="preveriBtn">Preveri status</button>
+  <form id="checkoutForm" action="https://formspree.io/f/movwpkap" method="POST">
+    <input type="hidden" name="izdelek" value="Ročno dodano" />
 
-  <div id="rezultat" style="margin-top:20px; font-weight:bold;"></div>
+    <label for="ime">Ime in priimek:</label>
+    <input type="text" id="ime" name="ime" required />
+
+    <label for="telefon">Telefonska številka:</label>
+    <input type="tel" id="telefon" name="telefon" required />
+
+    <label for="email">Email naslov:</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="naslov">Naslov za dostavo:</label>
+    <input type="text" id="naslov" name="naslov" required />
+
+    <label for="posta">Poštna številka:</label>
+    <input type="text" id="posta" name="posta" required />
+
+    <label for="mesto">Mesto:</label>
+    <input type="text" id="mesto" name="mesto" required />
+
+    <label>
+      <input type="checkbox" name="dostava" value="Da" />
+      Želim dostavo na dom
+    </label>
+
+    <div class="cash-note">
+      Sprejemamo <u>samo plačilo z gotovino (denarjem)</u>.
+    </div>
+
+    <button type="submit">Pošlji naročilo</button>
+  </form>
 
   <script>
-    document.getElementById('preveriBtn').addEventListener('click', () => {
-      const koda = document.getElementById('kodaInput').value.toUpperCase().trim();
+    function generirajStevilkoNarocila() {
+      return Math.floor(10000 + Math.random() * 90000).toString();
+    }
+
+    function shraniNarocilo(narocilo) {
       const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
+      narocila.push(narocilo);
+      localStorage.setItem('narocila', JSON.stringify(narocila));
+    }
 
-      const narocilo = narocila.find(n => n.koda === koda);
+    const form = document.getElementById('checkoutForm');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
 
-      if (narocilo) {
-        let produktiHTML = narocilo.produkti.map(p => `<li>${p.ime} - ${p.cena.toFixed(2)} €</li>`).join('');
-        document.getElementById('rezultat').innerHTML = `
-          <p>Naročilo <strong>${koda}</strong></p>
-          <p>Status: <strong>${narocilo.status}</strong></p>
-          <p>Datum: ${new Date(narocilo.datum).toLocaleString()}</p>
-          <p>Izdelki:</p>
-          <ul>${produktiHTML}</ul>
-        `;
-      } else {
-        document.getElementById('rezultat').textContent = 'Naročilo s to kodo ni bilo najdeno.';
-      }
+      const ime = form.ime.value.trim();
+      const telefon = form.telefon.value.trim();
+      const email = form.email.value.trim();
+      const naslov = form.naslov.value.trim();
+      const posta = form.posta.value.trim();
+      const mesto = form.mesto.value.trim();
+      const dostava = form.dostava.checked ? 'Da' : 'Ne';
+
+      const stevilka = generirajStevilkoNarocila();
+
+      const novoNarocilo = {
+        id: stevilka,
+        ime,
+        telefon,
+        email,
+        naslov,
+        posta,
+        mesto,
+        dostava,
+        status: 'Obdelava naročila',
+        datum: new Date().toISOString()
+      };
+
+      shraniNarocilo(novoNarocilo);
+
+      alert(`Hvala za nakup! Tvoja številka naročila je: ${stevilka}`);
+
+      // Počakaj malo, potem oddaj formo in preusmeri na index.html
+      setTimeout(() => {
+        form.submit(); // pošlje na Formspree
+        window.location.href = "index.html";
+      }, 500);
     });
   </script>
 </body>
 </html>
+
