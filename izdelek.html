@@ -3,111 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Izdelek - Matkomp</title>
+  <title>Podrobnosti izdelka - Matkomp</title>
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       max-width: 700px;
       margin: 2em auto;
       padding: 1em;
-      background: #f9fafc;
+      background: #f2f5f9;
       color: #2e3a59;
     }
     h1 {
-      font-weight: 700;
-      font-size: 2rem;
-      margin-bottom: 1em;
       color: #005577;
+      font-weight: 700;
+      margin-bottom: 0.5em;
     }
-    .izdelek-container {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      padding: 1.5em;
-      text-align: center;
+    .opis {
+      margin: 1em 0;
+      font-size: 1.1rem;
+      line-height: 1.4;
     }
-    img {
-      max-width: 100%;
-      height: 300px;
-      object-fit: contain;
-      border-radius: 12px;
-      margin-bottom: 1em;
-    }
-    p {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-top: 0.5em;
-    }
-    #opis {
-      margin-top: 1em;
-      font-size: 1rem;
-      font-weight: 400;
-      color: #444;
-      text-align: left;
-      white-space: pre-wrap;
+    .cena {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 0.5em 0;
     }
     button {
-      margin-top: 2em;
-      padding: 0.7em 2em;
-      font-size: 1.1rem;
-      border-radius: 6px;
-      border: none;
       background-color: #005577;
       color: white;
+      border: none;
+      padding: 0.6em 1.2em;
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 1rem;
       transition: background-color 0.3s ease;
     }
     button:hover {
       background-color: #004466;
     }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 1em;
+    }
   </style>
 </head>
 <body>
 
-  <div class="izdelek-container" id="izdelek-container">
-    <h1>Nalagam...</h1>
+  <div id="izdelek-container">
+    <h1 id="ime"></h1>
+    <img id="slika" src="" alt="" />
+    <div class="cena" id="cena"></div>
+    <div class="opis" id="opis"></div>
+    <button id="dodaj-v-kosarico">Dodaj v košarico</button>
   </div>
 
   <script>
-    function getIdFromURL() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('id');
-    }
+    // Dobimo ID izdelka iz URL-ja, npr. izdelek.html?id=0
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
 
+    // Prikaži podatke o izdelku
     fetch('podatki.json')
       .then(res => res.json())
       .then(izdelki => {
-        const container = document.getElementById('izdelek-container');
-        const id = parseInt(getIdFromURL());
-
-        if (isNaN(id)) {
-          container.innerHTML = '<p>Neveljaven ID izdelka.</p>';
-          return;
-        }
-
-        const izdelek = izdelki.find(i => i.id === id);
-
+        const izdelek = izdelki.find(i => i.id == id);
         if (!izdelek) {
-          container.innerHTML = '<p>Izdelek ni najden.</p>';
+          document.getElementById('izdelek-container').innerHTML = '<p>Izdelek ni najden.</p>';
           return;
         }
-
-        container.innerHTML = `
-          <h1>${izdelek.ime}</h1>
-          <img src="${izdelek.slika}" alt="${izdelek.ime}">
-          <p><strong>Cena:</strong> ${izdelek.cena.toFixed(2)} €</p>
-          <p><strong>Zaloga:</strong> ${izdelek.zaloga > 0 ? izdelek.zaloga + ' kosov' : 'Ni na zalogi'}</p>
-          <div id="opis">${izdelek.opis || ''}</div>
-          <button id="kupi-gumb" ${izdelek.zaloga === 0 ? 'disabled' : ''}>Kupi zdaj</button>
-        `;
-
-        document.getElementById('kupi-gumb').addEventListener('click', () => {
-          // Shrani samo ta izdelek v košarico (prepiše)
-          localStorage.setItem('kosarica', JSON.stringify([izdelek.id]));
-          // Preusmeri na checkout
-          window.location.href = 'checkout.html';
-        });
+        document.getElementById('ime').textContent = izdelek.ime;
+        document.getElementById('slika').src = izdelek.slika;
+        document.getElementById('slika').alt = izdelek.ime;
+        document.getElementById('cena').textContent = izdelek.cena.toFixed(2) + ' €';
+        document.getElementById('opis').textContent = izdelek.opis || 'Opis ni na voljo.';
       });
+
+    // Dodaj izdelek v košarico
+    document.getElementById('dodaj-v-kosarico').addEventListener('click', () => {
+      let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+      kosarica.push(id);
+      localStorage.setItem('kosarica', JSON.stringify(kosarica));
+      alert('Izdelek je bil dodan v košarico!');
+    });
   </script>
 </body>
 </html>
