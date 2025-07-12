@@ -2,27 +2,122 @@
 <html lang="sl">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sledenje naročilom - Matkomp</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f9fc;
+      color: #2e3a59;
+      margin: 0;
+      padding: 2em;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      max-width: 480px;
+      width: 100%;
+      padding: 2em;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5em;
+      font-weight: 700;
+      color: #005577;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.5em;
+      color: #444;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.6em 1em;
+      font-size: 1.1rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
+      text-transform: uppercase;
+      box-sizing: border-box;
+    }
+    input[type="text"]:focus {
+      border-color: #005577;
+    }
+    button {
+      margin-top: 1.2em;
+      width: 100%;
+      background-color: #005577;
+      color: white;
+      border: none;
+      padding: 0.75em;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #004466;
+    }
+    .rezultat {
+      margin-top: 1.8em;
+      font-size: 1rem;
+      line-height: 1.5;
+      background-color: #eaf1f8;
+      padding: 1.2em 1.5em;
+      border-radius: 10px;
+      color: #2e3a59;
+    }
+    .rezultat ul {
+      padding-left: 1.2em;
+      margin-top: 0.5em;
+      color: #005577;
+      font-weight: 600;
+    }
+    .rezultat p strong {
+      color: #004466;
+    }
+    .napaka {
+      color: #b00020;
+      font-weight: 700;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <h1>Sledenje naročilom</h1>
+  <div class="container">
+    <h1>Sledenje naročilom</h1>
+    <label for="kodaInput">Vnesite vašo kodo naročila:</label>
+    <input type="text" id="kodaInput" maxlength="6" placeholder="Npr. AB12CD" />
 
-  <label for="kodaInput">Vnesite vašo kodo naročila:</label><br>
-  <input type="text" id="kodaInput" maxlength="6" style="text-transform: uppercase;" />
-  <button id="preveriBtn">Preveri status</button>
+    <button id="preveriBtn">Preveri status</button>
 
-  <div id="rezultat" style="margin-top:20px; font-weight:bold;"></div>
+    <div id="rezultat" class="rezultat" aria-live="polite"></div>
+  </div>
 
   <script>
     document.getElementById('preveriBtn').addEventListener('click', () => {
       const koda = document.getElementById('kodaInput').value.toUpperCase().trim();
+      const rezultat = document.getElementById('rezultat');
       const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
+
+      if (!koda) {
+        rezultat.innerHTML = '<p class="napaka">Prosim, vnesite kodo naročila.</p>';
+        return;
+      }
 
       const narocilo = narocila.find(n => n.koda === koda);
 
       if (narocilo) {
         let produktiHTML = narocilo.produkti.map(p => `<li>${p.ime} - ${p.cena.toFixed(2)} €</li>`).join('');
-        document.getElementById('rezultat').innerHTML = `
+        rezultat.innerHTML = `
           <p>Naročilo <strong>${koda}</strong></p>
           <p>Status: <strong>${narocilo.status}</strong></p>
           <p>Datum: ${new Date(narocilo.datum).toLocaleString()}</p>
@@ -30,7 +125,7 @@
           <ul>${produktiHTML}</ul>
         `;
       } else {
-        document.getElementById('rezultat').textContent = 'Naročilo s to kodo ni bilo najdeno.';
+        rezultat.innerHTML = '<p class="napaka">Naročilo s to kodo ni bilo najdeno.</p>';
       }
     });
   </script>
