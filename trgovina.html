@@ -59,84 +59,39 @@
       margin: 0.5em 0 0.3em 0;
       color: #222;
     }
-    #trgovina {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.izdelek {
-  border: 1px solid #ccc;
-  padding: 1rem;
-  width: 200px;
-  border-radius: 10px;
-}
   </style>
 </head>
 <body>
-  <div id="trgovina"></div>
-
   <h1>Trgovina Matkomp</h1>
-  <div class="izdelek-lista" id="izdelek-lista"></div>
+  <div id="izdelek-lista" class="izdelek-lista"></div>
 
   <script>
-    const izdelki = [
-      {
-        id: 0,
-        ime: "Lenovo IS6XM",
-        cena: 29.99,
-        slika: "is6mx.jpg",
-        stran: "izdelek.html"
-      }
-    ];
+    fetch('podatki.json')
+      .then(response => response.json())
+      .then(izdelki => {
+        const container = document.getElementById('izdelek-lista');
 
-    const container = document.getElementById('izdelek-lista');
+        izdelki.forEach(izdelek => {
+          const div = document.createElement('div');
+          div.className = 'izdelek';
 
-    for (const izdelek of izdelki) {
-      const div = document.createElement('div');
-      div.className = 'izdelek';
+          div.onclick = () => {
+            window.location.href = `izdelek.html?id=${izdelek.id}`;
+          };
 
-      div.onclick = () => {
-        window.location.href = `izdelek.html?id=${izdelek.id}`;
-      };
+          div.innerHTML = `
+            <img src="${izdelek.slika}" alt="${izdelek.ime}">
+            <h2>${izdelek.ime}</h2>
+            <p>${izdelek.cena.toFixed(2)} €</p>
+            <p>Zaloga: <span style="color:${izdelek.zaloga > 0 ? 'green' : 'red'}">
+              ${izdelek.zaloga > 0 ? izdelek.zaloga + ' kosov' : 'Ni na zalogi'}
+            </span></p>
+            <button ${izdelek.zaloga === 0 ? 'disabled' : ''}>Dodaj v košarico</button>
+          `;
 
-      const img = document.createElement('img');
-      img.src = izdelek.slika;
-      img.alt = izdelek.ime;
-
-      const naslov = document.createElement('h2');
-      naslov.textContent = izdelek.ime;
-
-      const cena = document.createElement('p');
-      cena.textContent = `${izdelek.cena.toFixed(2)} €`;
-
-      div.appendChild(img);
-      div.appendChild(naslov);
-      div.appendChild(cena);
-
-      container.appendChild(div);
-    };
-   <script>
-fetch('podatki.json')
-  .then(response => response.json())
-  .then(izdelki => {
-    const trgovina = document.getElementById('trgovina');
-
-    izdelki.forEach(izdelek => {
-      const div = document.createElement('div');
-      div.className = 'izdelek';
-      div.innerHTML = `
-        <img src="${izdelek.slika}" width="150"><br>
-        <strong>${izdelek.ime}</strong><br>
-        Cena: ${izdelek.cena} €<br>
-        Zaloga: <span style="color:${izdelek.zaloga > 0 ? 'green' : 'red'}">${izdelek.zaloga > 0 ? izdelek.zaloga + ' kosov' : 'Ni na zalogi'}</span><br>
-        <button ${izdelek.zaloga === 0 ? 'disabled' : ''}>Dodaj v košarico</button>
-      `;
-      trgovina.appendChild(div);
-    });
-  });
-</script>
-
-
+          container.appendChild(div);
+        });
+      });
   </script>
 </body>
 </html>
