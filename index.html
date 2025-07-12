@@ -47,6 +47,14 @@
       margin-left: auto;
       margin-right: auto;
     }
+    /* Tukaj sem dodal container za gumbe in jih centriral */
+    .header-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1em;
+      margin-top: 1em;
+      flex-wrap: wrap;
+    }
     .btn {
       padding: 12px 30px;
       font-size: 1.2rem;
@@ -58,9 +66,9 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       transition: background 0.3s, box-shadow 0.3s;
       user-select: none;
-      margin: 0 0.5em;
-      display: inline-block;
       min-width: 180px;
+      display: inline-block;
+      text-align: center;
     }
     .btn-trgovina {
       background: linear-gradient(135deg, #005577, #003344);
@@ -81,28 +89,11 @@
       font-size: 0.95rem;
       padding: 10px 24px;
       font-weight: 500;
+      margin-top: 1em;
     }
     .btn-blog:hover {
       background: linear-gradient(135deg, #222, #444);
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
-    }
-    .btn-employee {
-      background: linear-gradient(135deg, #aa5500, #774400);
-      font-size: 1rem;
-      padding: 10px 24px;
-      font-weight: 600;
-      margin-top: 1em;
-      border-radius: 12px;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(170, 85, 0, 0.7);
-      transition: background 0.3s, box-shadow 0.3s;
-      user-select: none;
-      display: inline-block;
-    }
-    .btn-employee:hover {
-      background: linear-gradient(135deg, #774400, #aa5500);
-      box-shadow: 0 6px 14px rgba(119, 68, 0, 0.9);
     }
     main {
       max-width: 900px;
@@ -165,7 +156,7 @@
       list-style: none;
       padding-left: 0;
     }
-</style>
+  </style>
 </head>
 <body>
   <script>
@@ -191,10 +182,14 @@
     <img src="Matkomp.png" alt="Logotip Matkomp" class="logo" />
     <h1 style="margin-top: 0;">Matkomp</h1>
     <p class="description">Tvoji zaupanja vredni prijatelji za sestavo, popravilo in reševanje podatkov računalnikov</p>
-    <button class="btn btn-itpodpora" onclick="location.href='it-podpora.html'">IT Pomoč</button>
-    <button class="btn btn-trgovina" onclick="location.href='trgovina.html'">Pojdi v spletno trgovino</button>
-    <!-- Gumb za zaposlene -->
-    <button class="btn-employee" id="employeeBtn">Samo za zaposlene</button>
+
+    <div class="header-buttons">
+      <button class="btn btn-itpodpora" onclick="location.href='it-podpora.html'">IT Pomoč</button>
+      <button class="btn btn-trgovina" onclick="location.href='trgovina.html'">Pojdi v spletno trgovino</button>
+    </div>
+
+    <!-- Gumb "Samo za zaposlene" sem odstranil -->
+
   </header>
   <main>
     <section>
@@ -268,32 +263,20 @@
   }
 </style>
 
-
-
   <script>
     // Če je uporabnik prijavljen, pokaži gumb za odjavo
     if (sessionStorage.getItem("prijavljen")) {
       const odjavaDiv = document.getElementById("logout-container");
-      odjavaDiv.innerHTML = '<button onclick="odjavi()" style="padding: 8px 14px; background-color: #b30000; color: white; border: none; border-radius: 6px; cursor: pointer;">Odjavi se</button>';
+      if (odjavaDiv) {
+        odjavaDiv.innerHTML = '<button onclick="odjavi()" style="padding: 8px 14px; background-color: #b30000; color: white; border: none; border-radius: 6px; cursor: pointer;">Odjavi se</button>';
+      }
     }
     function odjavi() {
       sessionStorage.removeItem("prijavljen");
       window.location.reload();
     }
 
-    // Geslo za zaposlene in funkcija za gumb
-    document.addEventListener('DOMContentLoaded', () => {
-      const btn = document.getElementById('employeeBtn');
-      btn.addEventListener('click', function() {
-        const pass = prompt('Vnesi geslo za dostop do zaposlene strani:');
-        if (pass === 'LukaAdmin2025') {
-          sessionStorage.setItem('admin-authenticated', 'true');
-          window.location.href = 'admin.html';
-        } else {
-          alert('Napačno geslo! Dostop zavrnjen.');
-        }
-      });
-    });
+    // Gumb "Samo za zaposlene" odstranjeno, zato ni več te funkcije
   </script>
 </body>
 </html>
