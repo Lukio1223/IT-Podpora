@@ -2,96 +2,60 @@
 <html lang="sl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Podrobnosti izdelka - Matkomp</title>
+  <title>Izdelek - Matkomp</title>
   <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      max-width: 700px;
-      margin: 2em auto;
-      padding: 1em;
-      background: #f2f5f9;
-      color: #2e3a59;
-    }
-    h1 {
-      color: #005577;
-      font-weight: 700;
-      margin-bottom: 0.5em;
-    }
-    .opis {
-      margin: 1em 0;
-      font-size: 1.1rem;
-      line-height: 1.4;
-    }
-    .cena {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin: 0.5em 0 1em 0;
-    }
+    body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 2em auto; padding: 1em; }
+    img { max-width: 100%; height: auto; border-radius: 12px; }
     button {
-      background-color: #005577;
-      color: white;
+      margin: 10px 10px 10px 0;
+      padding: 0.6em 1.2em;
       border: none;
-      padding: 0.6em 1.5em;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
+      font-weight: 700;
       font-size: 1rem;
-      margin-right: 1em;
+      color: white;
       transition: background-color 0.3s ease;
     }
-    button:hover {
-      background-color: #004466;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 12px;
-      margin-bottom: 1em;
-    }
+    #addToCartBtn { background-color: #005577; }
+    #addToCartBtn:hover { background-color: #004466; }
+    #buyNowBtn { background-color: #28a745; }
+    #buyNowBtn:hover { background-color: #1e7e34; }
   </style>
 </head>
 <body>
+  <h1 id="imeIzdelka">Lenovo IS6XM</h1>
+  <img id="slikaIzdelka" src="is6mx.jpg" alt="Lenovo IS6XM">
+  <p id="opisIzdelka">MicroATX matična plošča z Intel Q67 chipsetom, podpira do 32GB DDR3 RAM.</p>
+  <p><strong>Cena:</strong> <span id="cenaIzdelka">29.99</span> €</p>
 
-  <div id="izdelek-container">
-    <h1 id="ime"></h1>
-    <img id="slika" src="" alt="" />
-    <div class="cena" id="cena"></div>
-    <div class="opis" id="opis"></div>
-
-    <button id="dodaj-v-kosarico">Dodaj v košarico</button>
-    <button id="kupi-zdaj">Kupi zdaj</button>
-  </div>
+  <button id="addToCartBtn">Dodaj v košarico</button>
+  <button id="buyNowBtn">Kupi zdaj</button>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
+    // Podatki o izdelku (lahko dobiš iz URL ali pa statično za demo)
+    const izdelek = {
+      id: 0,
+      ime: document.getElementById('imeIzdelka').textContent,
+      cena: parseFloat(document.getElementById('cenaIzdelka').textContent),
+      slika: document.getElementById('slikaIzdelka').src,
+      opis: document.getElementById('opisIzdelka').textContent
+    };
 
-    fetch('podatki.json')
-      .then(res => res.json())
-      .then(izdelki => {
-        const izdelek = izdelki.find(i => i.id == id);
-        if (!izdelek) {
-          document.getElementById('izdelek-container').innerHTML = '<p>Izdelek ni najden.</p>';
-          return;
-        }
-        document.getElementById('ime').textContent = izdelek.ime;
-        document.getElementById('slika').src = izdelek.slika;
-        document.getElementById('slika').alt = izdelek.ime;
-        document.getElementById('cena').textContent = izdelek.cena.toFixed(2) + ' €';
-        document.getElementById('opis').textContent = izdelek.opis || 'Opis ni na voljo.';
-      });
-
-    document.getElementById('dodaj-v-kosarico').addEventListener('click', () => {
+    function shraniVKosarico(izdelek) {
       let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-      kosarica.push(id);
+      // Če želiš, lahko tu dodaš preverjanje, da ne podvajaš izdelka, ampak za zdaj samo push
+      kosarica.push(izdelek);
       localStorage.setItem('kosarica', JSON.stringify(kosarica));
+    }
+
+    document.getElementById('addToCartBtn').addEventListener('click', () => {
+      shraniVKosarico(izdelek);
       alert('Izdelek je bil dodan v košarico!');
     });
 
-    document.getElementById('kupi-zdaj').addEventListener('click', () => {
-      let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-      kosarica.push(id);
-      localStorage.setItem('kosarica', JSON.stringify(kosarica));
+    document.getElementById('buyNowBtn').addEventListener('click', () => {
+      shraniVKosarico(izdelek);
       window.location.href = 'checkout.html';
     });
   </script>
