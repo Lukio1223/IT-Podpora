@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "ime": "Retro PC ATX",
+    "cena": 80,
+    "zaloga": 4,
+    "slika": "slike/retro-pc.jpg"
+  },
+  {
+    "id": 2,
+    "ime": "Grafična GTX 960",
+    "cena": 50,
+    "zaloga": 2,
+    "slika": "slike/gtx960.jpg"
+  },
+  {
+    "id": 3,
+    "ime": "Miška PS/2",
+    "cena": 5,
+    "zaloga": 0,
+    "slika": "slike/miska.jpg"
+  }
+]
