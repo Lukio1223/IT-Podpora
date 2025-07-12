@@ -1,23 +1,16 @@
 [
   {
+    "id": 0,
+    "ime": "Lenovo IS6XM",
+    "cena": 29.99,
+    "slika": "is6mx.jpg",
+    "zaloga": 10
+  },
+  {
     "id": 1,
-    "ime": "Retro PC ATX",
-    "cena": 80,
-    "zaloga": 4,
-    "slika": "slike/retro-pc.jpg"
-  },
-  {
-    "id": 2,
-    "ime": "Grafična GTX 960",
-    "cena": 50,
-    "zaloga": 2,
-    "slika": "slike/gtx960.jpg"
-  },
-  {
-    "id": 3,
-    "ime": "Miška PS/2",
-    "cena": 5,
-    "zaloga": 0,
-    "slika": "slike/miska.jpg"
+    "ime": "Drugi izdelek",
+    "cena": 45.50,
+    "slika": "drugi.jpg",
+    "zaloga": 0
   }
 ]
