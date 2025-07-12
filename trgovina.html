@@ -59,6 +59,24 @@
       margin: 0.5em 0 0.3em 0;
       color: #222;
     }
+    button {
+      margin-top: 1em;
+      padding: 0.5em 1em;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+      background-color: #005577;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background-color: #004466;
+    }
   </style>
 </head>
 <body>
@@ -75,6 +93,7 @@
           const div = document.createElement('div');
           div.className = 'izdelek';
 
+          // Klik na cel izdelek pelje na izdelek.html (lahko spremeniš)
           div.onclick = () => {
             window.location.href = `izdelek.html?id=${izdelek.id}`;
           };
@@ -86,12 +105,26 @@
             <p>Zaloga: <span style="color:${izdelek.zaloga > 0 ? 'green' : 'red'}">
               ${izdelek.zaloga > 0 ? izdelek.zaloga + ' kosov' : 'Ni na zalogi'}
             </span></p>
-            <button ${izdelek.zaloga === 0 ? 'disabled' : ''}>Dodaj v košarico</button>
+            <button id="btn-${izdelek.id}" ${izdelek.zaloga === 0 ? 'disabled' : ''}>Dodaj v košarico</button>
           `;
 
           container.appendChild(div);
+
+          // Dodaj event samo na gumb, da ne zajame tudi klik na cel div
+          const btn = document.getElementById(`btn-${izdelek.id}`);
+          btn.addEventListener('click', (ev) => {
+            ev.stopPropagation(); // prepreči redirect na izdelek.html
+            dodajVKosarico(izdelek.id);
+          });
         });
       });
+
+    function dodajVKosarico(id) {
+      let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+      kosarica.push(id);
+      localStorage.setItem('kosarica', JSON.stringify(kosarica));
+      alert('Izdelek dodan v košarico!');
+    }
   </script>
 </body>
 </html>
