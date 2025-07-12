@@ -76,7 +76,7 @@
       font-size: 1rem;
       text-align: center;
     }
-    .success-message {
+    .success-message, .error-message {
       background: #d4edda;
       border: 1px solid #c3e6cb;
       color: #155724;
@@ -86,13 +86,25 @@
       text-align: center;
       display: none;
     }
+    .error-message {
+      background: #f8d7da;
+      border-color: #f5c6cb;
+      color: #721c24;
+    }
+    .tracking-code {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-top: 0.5em;
+      color: #004466;
+      user-select: all;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <h1>Zaključi nakup</h1>
 
-  <form id="checkoutForm" action="https://formspree.io/f/movwpkap" method="POST">
-    <!-- Skriti input za izdelke iz košarice (JSON string) -->
+  <form id="checkoutForm">
     <input type="hidden" name="izdelki" id="skrivniIzdelek" value="" />
 
     <label for="ime">Ime in priimek:</label>
@@ -126,25 +138,94 @@
   </form>
 
   <div class="success-message" id="successMessage">
-    Hvala! Vaše sporočilo je bilo uspešno poslano.
+    Hvala za nakup! Vaša številka za sledenje je:
+    <div class="tracking-code" id="trackingCode" title="Klikni za kopiranje"></div>
   </div>
 
+  <div class="error-message" id="errorMessage"></div>
+
   <script>
-    // Ko se stran naloži, naloži košarico iz localStorage in shrani v skriti input
+    function generirajStevilkoNarocila() {
+      const znaki = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let koda = '';
+      for(let i=0; i<6; i++) {
+        koda += znaki.charAt(Math.floor(Math.random() * znaki.length));
+      }
+      return koda;
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
       document.getElementById('skrivniIzdelek').value = JSON.stringify(kosarica);
     });
 
-    // Ob oddaji forme počistimo košarico in prikažemo sporočilo
     const form = document.getElementById('checkoutForm');
-    form.addEventListener('submit', (e) => {
-      // Pošlji formo normalno, brez e.preventDefault(), da Formspree sprejme
-      // Tukaj lahko po oddaji pokažemo sporočilo in počistimo košarico
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    const trackingCodeEl = document.getElementById('trackingCode');
 
-      // Ker se stran osveži po oddaji, prikažemo sporočilo takoj in počistimo lokalno shrambo
-      alert('Hvala za nakup! Naročilo je bilo poslano.');
-      localStorage.removeItem('kosarica');
+    trackingCodeEl.addEventListener('click', () => {
+      navigator.clipboard.writeText(trackingCodeEl.textContent)
+        .then(() => alert('Številka za sledenje je kopirana!'))
+        .catch(() => alert('Kopiranje ni uspelo, ročno označite in kopirajte.'));
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      errorMessage.style.display = 'none';
+      successMessage.style.display = 'none';
+
+      const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+      if (kosarica.length === 0) {
+        errorMessage.textContent = 'Vaša košarica je prazna!';
+        errorMessage.style.display = 'block';
+        return;
+      }
+
+      const stevilka = generirajStevilkoNarocila();
+
+      // Dodamo kodo naročila v formData
+      const formData = new FormData(form);
+      formData.append('kodaNarocila', stevilka);
+
+      try {
+        const response = await fetch('https://formspree.io/f/movwpkap', {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          // Shrani naročilo lokalno
+          const novoNarocilo = {
+            koda: stevilka,
+            ime: form.ime.value.trim(),
+            telefon: form.telefon.value.trim(),
+            email: form.email.value.trim(),
+            naslov: form.naslov.value.trim(),
+            posta: form.posta.value.trim(),
+            mesto: form.mesto.value.trim(),
+            dostava: form.dostava.checked ? 'Da' : 'Ne',
+            status: 'Obdelava naročila',
+            datum: new Date().toISOString(),
+            produkti: kosarica
+          };
+          const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
+          narocila.push(novoNarocilo);
+          localStorage.setItem('narocila', JSON.stringify(narocila));
+
+          localStorage.removeItem('kosarica');
+          successMessage.style.display = 'block';
+          trackingCodeEl.textContent = stevilka;
+          form.reset();
+        } else {
+          throw new Error('Napaka pri pošiljanju naročila.');
+        }
+      } catch(err) {
+        errorMessage.textContent = err.message;
+        errorMessage.style.display = 'block';
+      }
     });
   </script>
 </body>
