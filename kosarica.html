@@ -53,6 +53,7 @@
       font-size: 1rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      margin-left: 0.5em;
     }
     button:hover {
       background-color: #c9302c;
@@ -63,6 +64,17 @@
       color: gray;
       margin-top: 2em;
     }
+    .actions {
+      text-align: center;
+      margin-top: 2em;
+    }
+    .actions button.kupi {
+      background-color: #005577;
+      padding: 0.7em 2em;
+    }
+    .actions button.kupi:hover {
+      background-color: #004466;
+    }
   </style>
 </head>
 <body>
@@ -70,24 +82,29 @@
   <h1>Vaša košarica</h1>
   <div id="kosarica-container"></div>
 
+  <div class="actions" id="actions"></div>
+
   <script>
     fetch('podatki.json')
       .then(res => res.json())
       .then(izdelki => {
         const container = document.getElementById('kosarica-container');
+        const actions = document.getElementById('actions');
         const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
 
         if (kosarica.length === 0) {
           container.innerHTML = '<p class="prazna">Košarica je prazna.</p>';
+          actions.innerHTML = '';
           return;
         }
 
-        // Ker je samo en izdelek, vzamemo prvi id
+        // Samo en izdelek
         const id = kosarica[0];
         const izdelek = izdelki.find(i => i.id === id);
 
         if (!izdelek) {
           container.innerHTML = '<p class="prazna">Izdelek ni najden.</p>';
+          actions.innerHTML = '';
           return;
         }
 
@@ -105,6 +122,12 @@
         document.getElementById('btn-izbrisi').addEventListener('click', () => {
           localStorage.removeItem('kosarica');
           container.innerHTML = '<p class="prazna">Košarica je prazna.</p>';
+          actions.innerHTML = '';
+        });
+
+        actions.innerHTML = '<button class="kupi">Kupi</button>';
+        document.querySelector('.kupi').addEventListener('click', () => {
+          window.location.href = 'checkout.html';
         });
       });
   </script>
