@@ -38,6 +38,28 @@
       font-weight: 600;
       margin-top: 0.5em;
     }
+    #opis {
+      margin-top: 1em;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #444;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+    button {
+      margin-top: 2em;
+      padding: 0.7em 2em;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      border: none;
+      background-color: #005577;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #004466;
+    }
   </style>
 </head>
 <body>
@@ -73,9 +95,18 @@
         container.innerHTML = `
           <h1>${izdelek.ime}</h1>
           <img src="${izdelek.slika}" alt="${izdelek.ime}">
-          <p>Cena: ${izdelek.cena.toFixed(2)} €</p>
-          <p>Zaloga: ${izdelek.zaloga > 0 ? izdelek.zaloga + ' kosov' : 'Ni na zalogi'}</p>
+          <p><strong>Cena:</strong> ${izdelek.cena.toFixed(2)} €</p>
+          <p><strong>Zaloga:</strong> ${izdelek.zaloga > 0 ? izdelek.zaloga + ' kosov' : 'Ni na zalogi'}</p>
+          <div id="opis">${izdelek.opis || ''}</div>
+          <button id="kupi-gumb" ${izdelek.zaloga === 0 ? 'disabled' : ''}>Kupi zdaj</button>
         `;
+
+        document.getElementById('kupi-gumb').addEventListener('click', () => {
+          // Shrani samo ta izdelek v košarico (prepiše)
+          localStorage.setItem('kosarica', JSON.stringify([izdelek.id]));
+          // Preusmeri na checkout
+          window.location.href = 'checkout.html';
+        });
       });
   </script>
 </body>
