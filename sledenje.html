@@ -119,9 +119,11 @@
         let produktiHTML = '';
 
         if (narocilo.produkti && narocilo.produkti.length > 0) {
-          produktiHTML = narocilo.produkti.map(p =>
-            `<li>${p.ime} - ${typeof p.cena === 'number' ? p.cena.toFixed(2) + ' €' : 'Cena ni na voljo'}</li>`
-          ).join('');
+          produktiHTML = narocilo.produkti.map(p => {
+            const cena = (typeof p.cena === 'number') ? p.cena.toFixed(2) + ' €' : 'Cena ni na voljo';
+            const ime = p.ime || 'Brez imena';
+            return `<li>${ime} - ${cena}</li>`;
+          }).join('');
         } else {
           produktiHTML = '<li>Ni izdelkov v naročilu.</li>';
         }
