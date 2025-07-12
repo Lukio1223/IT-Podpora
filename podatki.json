@@ -5,15 +5,7 @@
     "cena": 29.99,
     "slika": "is6mx.jpg",
     "zaloga": 10,
-    "opis": "Lenovo IS6XM je kompaktna in zmogljiva MicroATX matična plošča, zasnovana za stabilno in učinkovito delovanje z Intel procesorji generacije Socket H2 (LGA1155). Temelji na Intel Q67 čipovju (Cougar Point), ki zagotavlja zanesljivo povezljivost in podporo za sodobne komponente.
-
-Plošča podpira do 32 GB DDR3 UDIMM RAM-a, kar zadostuje za večino domačih in poslovnih aplikacij. Povezave vključujejo kar 10 USB 2.0 vrat, DisplayPort in VGA za različne možnosti prikaza, ter RJ-45 omrežni vmesnik za hitre Ethernet povezave.
-
-Za shranjevanje so na voljo 2 x SATA II in 2 x SATA III priključki, ki omogočajo priklop SSD in HDD diskov. Razširitvene možnosti so zagotovljene z dvema 32-bitnima PCI režama, en PCIe x1 in en PCIe x16 režo, kar omogoča dodajanje grafičnih kartic, zvočnih kartic ali drugih dodatkov.
-
-Napajanje matične plošče poteka preko standardnih ATX 2.x 24-pinskih in 4-pinskih P4 konektorjev, kar zagotavlja stabilno energijo tudi za zahtevnejše sisteme.
-
-Lenovo IS6XM je odlična izbira za tiste, ki iščejo zanesljivo matično ploščo za srednje zmogljiv računalnik z dobrimi možnostmi nadgradnje."
+    "opis": "Lenovo IS6XM je kompaktna MicroATX matična plošča z Intel Q67 čipovjem. Podpira Intel procesorje LGA1155 in do 32GB DDR3 RAM. Ima USB, DisplayPort, VGA, LAN, SATA II/III in različne PCI reže za dodatke. Zanesljiva izbira za domače in pisarniške računalnike.."
   },
   {
     "id": 1,
