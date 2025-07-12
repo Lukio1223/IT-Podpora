@@ -7,102 +7,106 @@
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f2f5f9;
-      max-width: 700px;
+      max-width: 600px;
       margin: 2em auto;
-      padding: 2em;
+      padding: 1em;
+      background: #f9fafc;
       color: #2e3a59;
     }
     h1 {
       text-align: center;
-      margin-bottom: 0.5em;
-    }
-    a.back-link {
-      display: inline-block;
-      margin-bottom: 1.5em;
-      color: #005577;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1em;
-    }
-    a.back-link:hover {
-      text-decoration: underline;
+      margin-bottom: 2em;
+      font-weight: 700;
+      font-size: 2rem;
     }
     .izdelek {
       background: white;
+      border-radius: 10px;
       padding: 1em;
-      border-radius: 8px;
-      margin-bottom: 1em;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      margin-bottom: 1.5em;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .izbrisi {
-      background: #d9534f;
+    .izdelek a {
+      color: #005577;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+    .izdelek a:hover {
+      text-decoration: underline;
+    }
+    .cena {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-right: 1em;
+      white-space: nowrap;
+    }
+    button {
+      background-color: #d9534f;
       color: white;
       border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1em;
-    }
-    .izbrisi:hover {
-      background: #c9302c;
-    }
-    .kupi {
-      margin-top: 2em;
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background: #007bff;
-      color: white;
-      border: none;
-      font-size: 1.1em;
+      padding: 0.5em 1em;
       border-radius: 6px;
+      font-size: 1rem;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
-    .kupi:hover {
-      background: #0056b3;
+    button:hover {
+      background-color: #c9302c;
+    }
+    .prazna {
+      text-align: center;
+      font-size: 1.2rem;
+      color: gray;
+      margin-top: 2em;
     }
   </style>
 </head>
 <body>
-  <h1>🛒 Tvoja košarica</h1>
-  <a href="trgovina.html" class="back-link">← Nazaj v trgovino</a>
 
-  <div id="kosarica"></div>
-  <button class="kupi" onclick="window.location.href='checkout.html'">Kupi zdaj</button>
+  <h1>Vaša košarica</h1>
+  <div id="kosarica-container"></div>
 
   <script>
-    const kosaricaDiv = document.getElementById('kosarica');
-    const izdelki = JSON.parse(localStorage.getItem('kosarica')) || [];
+    fetch('podatki.json')
+      .then(res => res.json())
+      .then(izdelki => {
+        const container = document.getElementById('kosarica-container');
+        const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
 
-    function prikaziIzdelke() {
-      kosaricaDiv.innerHTML = '';
-      if (izdelki.length === 0) {
-        kosaricaDiv.innerHTML = '<p>Košarica je prazna.</p>';
-        return;
-      }
+        if (kosarica.length === 0) {
+          container.innerHTML = '<p class="prazna">Košarica je prazna.</p>';
+          return;
+        }
 
-      izdelki.forEach((izdelek, index) => {
+        // Ker je samo en izdelek, vzamemo prvi id
+        const id = kosarica[0];
+        const izdelek = izdelki.find(i => i.id === id);
+
+        if (!izdelek) {
+          container.innerHTML = '<p class="prazna">Izdelek ni najden.</p>';
+          return;
+        }
+
         const div = document.createElement('div');
         div.className = 'izdelek';
+
         div.innerHTML = `
-          <span>${izdelek.ime} - ${izdelek.cena.toFixed(2)} €</span>
-          <button class="izbrisi" onclick="odstrani(${index})">✖</button>
+          <a href="izdelek.html?id=${izdelek.id}">${izdelek.ime}</a>
+          <span class="cena">${izdelek.cena.toFixed(2)} €</span>
+          <button id="btn-izbrisi">Izbriši</button>
         `;
-        kosaricaDiv.appendChild(div);
+
+        container.appendChild(div);
+
+        document.getElementById('btn-izbrisi').addEventListener('click', () => {
+          localStorage.removeItem('kosarica');
+          container.innerHTML = '<p class="prazna">Košarica je prazna.</p>';
+        });
       });
-    }
-
-    function odstrani(index) {
-      izdelki.splice(index, 1);
-      localStorage.setItem('kosarica', JSON.stringify(izdelki));
-      prikaziIzdelke();
-    }
-
-    prikaziIzdelke();
   </script>
 </body>
 </html>
