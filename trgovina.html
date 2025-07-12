@@ -19,6 +19,24 @@
       font-weight: 700;
       font-size: 2rem;
     }
+    .top-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1em;
+    }
+    .cart-button {
+      background-color: #005577;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5em 1em;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .cart-button:hover {
+      background-color: #004466;
+    }
     .izdelek-lista {
       display: flex;
       flex-wrap: wrap;
@@ -80,6 +98,11 @@
   </style>
 </head>
 <body>
+
+  <div class="top-bar">
+    <button class="cart-button" onclick="window.location.href='kosarica.html'">Košarica</button>
+  </div>
+
   <h1>Trgovina Matkomp</h1>
   <div id="izdelek-lista" class="izdelek-lista"></div>
 
@@ -93,7 +116,7 @@
           const div = document.createElement('div');
           div.className = 'izdelek';
 
-          // Klik na cel izdelek pelje na izdelek.html (lahko spremeniš)
+          // Klik na cel izdelek pelje na izdelek.html
           div.onclick = () => {
             window.location.href = `izdelek.html?id=${izdelek.id}`;
           };
@@ -110,10 +133,9 @@
 
           container.appendChild(div);
 
-          // Dodaj event samo na gumb, da ne zajame tudi klik na cel div
           const btn = document.getElementById(`btn-${izdelek.id}`);
           btn.addEventListener('click', (ev) => {
-            ev.stopPropagation(); // prepreči redirect na izdelek.html
+            ev.stopPropagation();
             dodajVKosarico(izdelek.id);
           });
         });
