@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sledenje naročilom - Matkomp</title>
+</head>
+<body>
+  <h1>Sledenje naročilom</h1>
+
+  <label for="kodaInput">Vnesite vašo kodo naročila:</label><br>
+  <input type="text" id="kodaInput" maxlength="6" style="text-transform: uppercase;" />
+  <button id="preveriBtn">Preveri status</button>
+
+  <div id="rezultat" style="margin-top:20px; font-weight:bold;"></div>
+
+  <script>
+    document.getElementById('preveriBtn').addEventListener('click', () => {
+      const koda = document.getElementById('kodaInput').value.toUpperCase().trim();
+      const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
+
+      const narocilo = narocila.find(n => n.koda === koda);
+
+      if (narocilo) {
+        let produktiHTML = narocilo.produkti.map(p => `<li>${p.ime} - ${p.cena.toFixed(2)} €</li>`).join('');
+        document.getElementById('rezultat').innerHTML = `
+          <p>Naročilo <strong>${koda}</strong></p>
+          <p>Status: <strong>${narocilo.status}</strong></p>
+          <p>Datum: ${new Date(narocilo.datum).toLocaleString()}</p>
+          <p>Izdelki:</p>
+          <ul>${produktiHTML}</ul>
+        `;
+      } else {
+        document.getElementById('rezultat').textContent = 'Naročilo s to kodo ni bilo najdeno.';
+      }
+    });
+  </script>
+</body>
+</html>
