@@ -26,16 +26,17 @@
     .cena {
       font-size: 1.3rem;
       font-weight: 700;
-      margin: 0.5em 0;
+      margin: 0.5em 0 1em 0;
     }
     button {
       background-color: #005577;
       color: white;
       border: none;
-      padding: 0.6em 1.2em;
+      padding: 0.6em 1.5em;
       border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
+      margin-right: 1em;
       transition: background-color 0.3s ease;
     }
     button:hover {
@@ -56,15 +57,15 @@
     <img id="slika" src="" alt="" />
     <div class="cena" id="cena"></div>
     <div class="opis" id="opis"></div>
+
     <button id="dodaj-v-kosarico">Dodaj v košarico</button>
+    <button id="kupi-zdaj">Kupi zdaj</button>
   </div>
 
   <script>
-    // Dobimo ID izdelka iz URL-ja, npr. izdelek.html?id=0
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
-    // Prikaži podatke o izdelku
     fetch('podatki.json')
       .then(res => res.json())
       .then(izdelki => {
@@ -80,12 +81,18 @@
         document.getElementById('opis').textContent = izdelek.opis || 'Opis ni na voljo.';
       });
 
-    // Dodaj izdelek v košarico
     document.getElementById('dodaj-v-kosarico').addEventListener('click', () => {
       let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
       kosarica.push(id);
       localStorage.setItem('kosarica', JSON.stringify(kosarica));
       alert('Izdelek je bil dodan v košarico!');
+    });
+
+    document.getElementById('kupi-zdaj').addEventListener('click', () => {
+      let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+      kosarica.push(id);
+      localStorage.setItem('kosarica', JSON.stringify(kosarica));
+      window.location.href = 'checkout.html';
     });
   </script>
 </body>
