@@ -103,30 +103,42 @@
   </div>
 
   <script>
-    document.getElementById('preveriBtn').addEventListener('click', () => {
-      const koda = document.getElementById('kodaInput').value.toUpperCase().trim();
+    document.addEventListener('DOMContentLoaded', () => {
+      const preveriBtn = document.getElementById('preveriBtn');
+      const kodaInput = document.getElementById('kodaInput');
       const rezultat = document.getElementById('rezultat');
-      const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
 
-      if (!koda) {
-        rezultat.innerHTML = '<p class="napaka">Prosim, vnesite kodo naročila.</p>';
-        return;
-      }
+      preveriBtn.addEventListener('click', () => {
+        const koda = kodaInput.value.toUpperCase().trim();
+        if (!koda) {
+          rezultat.innerHTML = '<p class="napaka">Prosim, vnesite kodo naročila.</p>';
+          return;
+        }
 
-      const narocilo = narocila.find(n => n.koda === koda);
+        const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
+        const narocilo = narocila.find(n => n.koda === koda);
 
-      if (narocilo) {
-        let produktiHTML = narocilo.produkti.map(p => `<li>${p.ime} - ${p.cena.toFixed(2)} €</li>`).join('');
+        if (!narocilo) {
+          rezultat.innerHTML = '<p class="napaka">Naročilo s to kodo ni bilo najdeno.</p>';
+          return;
+        }
+
+        // Pripravi HTML za izdelke, če obstajajo
+        let produktiHTML = '';
+        if (Array.isArray(narocilo.produkti) && narocilo.produkti.length > 0) {
+          produktiHTML = narocilo.produkti.map(p => `<li>${p.ime} - ${p.cena.toFixed(2)} €</li>`).join('');
+        } else {
+          produktiHTML = '<li>(Ni podatkov o izdelkih)</li>';
+        }
+
         rezultat.innerHTML = `
           <p>Naročilo <strong>${koda}</strong></p>
-          <p>Status: <strong>${narocilo.status}</strong></p>
-          <p>Datum: ${new Date(narocilo.datum).toLocaleString()}</p>
+          <p>Status: <strong>${narocilo.status || 'Ni statusa'}</strong></p>
+          <p>Datum: ${narocilo.datum ? new Date(narocilo.datum).toLocaleString() : 'Ni datuma'}</p>
           <p>Izdelki:</p>
           <ul>${produktiHTML}</ul>
         `;
-      } else {
-        rezultat.innerHTML = '<p class="napaka">Naročilo s to kodo ni bilo najdeno.</p>';
-      }
+      });
     });
   </script>
 </body>
