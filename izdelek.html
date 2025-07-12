@@ -6,69 +6,77 @@
   <title>Izdelek - Matkomp</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f2f5f9;
-      max-width: 800px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 700px;
       margin: 2em auto;
       padding: 1em;
+      background: #f9fafc;
       color: #2e3a59;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 1em;
+      color: #005577;
+    }
+    .izdelek-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      padding: 1.5em;
+      text-align: center;
     }
     img {
       max-width: 100%;
-      border-radius: 10px;
+      height: 300px;
+      object-fit: contain;
+      border-radius: 12px;
       margin-bottom: 1em;
-    }
-    h1 {
-      color: #1565c0;
-      font-size: 2rem;
-      margin-bottom: 0.5em;
     }
     p {
       font-size: 1.2rem;
-    }
-    .nazaj {
-      margin-top: 2em;
-      display: inline-block;
-      color: #1e88e5;
-      text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
+      margin-top: 0.5em;
     }
   </style>
 </head>
 <body>
 
-<div id="izdelek"></div>
+  <div class="izdelek-container" id="izdelek-container">
+    <h1>Nalagam...</h1>
+  </div>
 
-<a class="nazaj" href="trgovina.html">← Nazaj v trgovino</a>
-
-<script>
-  const izdelki = [
-    {
-      id: 0,
-      ime: "Lenovo IS6XM",
-      cena: 29.99,
-      slika: "is6mx.jpg",
-      opis: "Stabilna matična plošča iz obdobja pisarniških legend. DDR3 podpora, Intel čipovje, odlična za obnovljene sisteme."
+  <script>
+    function getIdFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('id');
     }
-  ];
 
-  const params = new URLSearchParams(window.location.search);
-  const id = parseInt(params.get("id"));
+    fetch('podatki.json')
+      .then(res => res.json())
+      .then(izdelki => {
+        const container = document.getElementById('izdelek-container');
+        const id = parseInt(getIdFromURL());
 
-  const izdelek = izdelki.find(i => i.id === id);
-  const container = document.getElementById("izdelek");
+        if (isNaN(id)) {
+          container.innerHTML = '<p>Neveljaven ID izdelka.</p>';
+          return;
+        }
 
-  if (izdelek) {
-    container.innerHTML = `
-      <img src="${izdelek.slika}" alt="${izdelek.ime}" />
-      <h1>${izdelek.ime}</h1>
-      <p><strong>Cena:</strong> ${izdelek.cena.toFixed(2)} €</p>
-      <p>${izdelek.opis}</p>
-    `;
-  } else {
-    container.innerHTML = `<p>Izdelek ni najden.</p>`;
-  }
-</script>
+        const izdelek = izdelki.find(i => i.id === id);
 
+        if (!izdelek) {
+          container.innerHTML = '<p>Izdelek ni najden.</p>';
+          return;
+        }
+
+        container.innerHTML = `
+          <h1>${izdelek.ime}</h1>
+          <img src="${izdelek.slika}" alt="${izdelek.ime}">
+          <p>Cena: ${izdelek.cena.toFixed(2)} €</p>
+          <p>Zaloga: ${izdelek.zaloga > 0 ? izdelek.zaloga + ' kosov' : 'Ni na zalogi'}</p>
+        `;
+      });
+  </script>
 </body>
 </html>
