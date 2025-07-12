@@ -115,29 +115,52 @@
 
       const narocilo = narocila.find(n => n.koda === koda);
 
-      if (narocilo) {
-        let produktiHTML = '';
-
-        if (narocilo.produkti && narocilo.produkti.length > 0) {
-          produktiHTML = narocilo.produkti.map(p => {
-            const cena = (typeof p.cena === 'number') ? p.cena.toFixed(2) + ' €' : 'Cena ni na voljo';
-            const ime = p.ime || 'Brez imena';
-            return `<li>${ime} - ${cena}</li>`;
-          }).join('');
-        } else {
-          produktiHTML = '<li>Ni izdelkov v naročilu.</li>';
-        }
-
-        rezultat.innerHTML = `
-          <p>Naročilo <strong>${koda}</strong></p>
-          <p>Status: <strong>${narocilo.status}</strong></p>
-          <p>Datum: ${new Date(narocilo.datum).toLocaleString()}</p>
-          <p>Izdelki:</p>
-          <ul>${produktiHTML}</ul>
-        `;
-      } else {
+      if (!narocilo) {
         rezultat.innerHTML = '<p class="napaka">Naročilo s to kodo ni bilo najdeno.</p>';
+        return;
       }
+
+      // Naloži vse izdelke iz podatki.json, da dobimo imena in cene
+      fetch('podatki.json')
+        .then(res => res.json())
+        .then(vsiIzdelki => {
+          let produktiHTML = '';
+
+          if (narocilo.produkti && narocilo.produkti.length > 0) {
+            produktiHTML = narocilo.produkti.map(p => {
+              // Če so produkti samo ID-ji:
+              let praviIzdelek = null;
+
+              if (typeof p === 'string' || typeof p === 'number') {
+                // p je ID, poiščemo pravi izdelek
+                praviIzdelek = vsiIzdelki.find(i => i.id == p);
+              } else if (typeof p === 'object' && p.id) {
+                // p je objekt z id poljem
+                praviIzdelek = vsiIzdelki.find(i => i.id == p.id);
+              } else {
+                praviIzdelek = p; // če je že objekt
+              }
+
+              const ime = praviIzdelek?.ime || 'Brez imena';
+              const cena = (praviIzdelek && typeof praviIzdelek.cena === 'number') ? praviIzdelek.cena.toFixed(2) + ' €' : 'Cena ni na voljo';
+
+              return `<li>${ime} - ${cena}</li>`;
+            }).join('');
+          } else {
+            produktiHTML = '<li>Ni izdelkov v naročilu.</li>';
+          }
+
+          rezultat.innerHTML = `
+            <p>Naročilo <strong>${koda}</strong></p>
+            <p>Status: <strong>${narocilo.status}</strong></p>
+            <p>Datum: ${new Date(narocilo.datum).toLocaleString()}</p>
+            <p>Izdelki:</p>
+            <ul>${produktiHTML}</ul>
+          `;
+        })
+        .catch(() => {
+          rezultat.innerHTML = '<p class="napaka">Napaka pri nalaganju podatkov o izdelkih.</p>';
+        });
     });
   </script>
 </body>
