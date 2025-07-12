@@ -4,13 +4,15 @@
     "ime": "Lenovo IS6XM",
     "cena": 29.99,
     "slika": "is6mx.jpg",
-    "zaloga": 10
+    "zaloga": 10,
+    "opis": "Lenovo IS6XM je zmogljiv in zanesljiv prenosnik, primeren za vsakdanjo uporabo in delo."
   },
   {
     "id": 1,
     "ime": "Drugi izdelek",
     "cena": 45.50,
     "slika": "drugi.jpg",
-    "zaloga": 0
+    "zaloga": 0,
+    "opis": "Opis drugega izdelka, ki trenutno ni na zalogi."
   }
 ]
