@@ -64,6 +64,46 @@
     .nazaj a:hover {
       background-color: #003344;
     }
+    /* Dodano za pakete */
+    .paketi {
+      margin-top: 3em;
+    }
+    .paketi h2 {
+      text-align: center;
+      color: #005577;
+      margin-bottom: 1em;
+      font-weight: 700;
+    }
+    .paket-lista {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 1.5em;
+    }
+    .paket {
+      background: #eaf1f8;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,85,119,0.2);
+      padding: 1.5em;
+      flex: 1 1 250px;
+      max-width: 280px;
+      text-align: center;
+      color: #003344;
+    }
+    .paket h3 {
+      margin-top: 0;
+      margin-bottom: 0.5em;
+      font-weight: 700;
+    }
+    .paket p {
+      font-size: 1.1rem;
+      margin: 0.3em 0 1em 0;
+    }
+    .paket .cena {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #004466;
+    }
   </style>
 </head>
 <body>
@@ -115,6 +155,44 @@
         </tr>
       </tbody>
     </table>
+
+    <div class="paketi">
+      <h2>🎁 Paketi storitev</h2>
+      <div class="paket-lista">
+        <div class="paket">
+          <h3>Osnovni paket</h3>
+          <p>Idealno za manjše popravke in nadgradnje.</p>
+          <p class="cena">20€</p>
+          <ul style="text-align:left; padding-left: 1.2em;">
+            <li>Sestava osnovnega PC</li>
+            <li>Namestitev OS</li>
+            <li>Čiščenje računalnika</li>
+          </ul>
+        </div>
+        <div class="paket">
+          <h3>Sestavni paket</h3>
+          <p>Za tiste, ki želijo celovito rešitev.</p>
+          <p class="cena">50€</p>
+          <ul style="text-align:left; padding-left: 1.2em;">
+            <li>Sestava novega PC z izbiro komponent</li>
+            <li>Namestitev OS in gonilnikov</li>
+            <li>Diagnostika in optimizacija sistema</li>
+            <li>Čiščenje in termalna pasta</li>
+          </ul>
+        </div>
+        <div class="paket">
+          <h3>Premium paket</h3>
+          <p>Za zahtevnejše uporabnike in poslovne stranke.</p>
+          <p class="cena">100€</p>
+          <ul style="text-align:left; padding-left: 1.2em;">
+            <li>Sestava in konfiguracija gaming ali delovne postaje</li>
+            <li>Napredna diagnostika in optimizacija</li>
+            <li>Redno vzdrževanje in podpora</li>
+            <li>Reševanje podatkov</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
     <div class="nazaj">
       <a href="index.html">🔙 Nazaj na domačo stran</a>
