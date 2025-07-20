@@ -1,120 +1,117 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kako sestaviti računalnik – Za začetnike</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vodič za Sestavo Računalnika za Začetnike</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 750px;
-      margin: auto;
-      padding: 20px;
-      background: #f4f8fc;
-      color: #222;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1em;
-      color: #005577;
-    }
-    .korak {
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-      margin-bottom: 20px;
-    }
-    .korak h2 {
-      font-size: 1.3em;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f2f2f2;
       color: #333;
-      margin-bottom: 0.5em;
     }
-    .korak img {
-      width: 100%;
-      max-width: 300px;
+    h1, h2 {
+      color: #005a9c;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    .section {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
       border-radius: 10px;
-      display: block;
-      margin-bottom: 1em;
-    }
-    .korak p {
-      font-size: 1.1em;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
 
-  <h1>Kako sestaviti računalnik (čisto preprosto)</h1>
+  <h1>Vodič za Sestavo Računalnika za Začetnike</h1>
 
-  <div class="korak">
-    <h2>1. Poišči vse dele</h2>
-    <img src="deli.jpg" alt="Računalniški deli" />
-    <p>Računalnik je sestavljen iz več delov. Za začetek potrebuješ: ohišje, matično ploščo, procesor, RAM, disk, napajalnik in kable.</p>
+  <div class="section">
+    <h2>1. Kaj Potrebuješ za Začetek</h2>
+    <ul>
+      <li><strong>Orodje:</strong> križni izvijač (PH2), vezice, termalno pasto (odvisno od hladilnika ki ga boš uporabil). </li>
+      <li><strong>Dober prostor:</strong> čista miza brez preprog, z dobro osvetlitvijo</li>
+      <li><strong>Čas:</strong> približno 1 do 3 uri, če je to tvoja prva sestava</li>
+    </ul>
   </div>
 
-  <div class="korak">
-    <h2>2. Odpri ohišje</h2>
-    <img src="case.jpg" alt="Odprto ohišje" />
-    <p>Odvij vijake in odpri škatlo (ohišje), kjer boš vse sestavil.</p>
+  <div class="section">
+    <h2>2. Komponente in Njihov Namen</h2>
+    <ul>
+      <li><strong>Ohišje (Case):</strong> Lupina računalnika. Mini, midi ali full tower.</li>
+      <li><strong>Napajalnik (PSU):</strong> Napaja vse dele. Bodi pozoren na moč (W) in certifikate (koliko so dobri) (80+ Bronze itd.)</li>
+      <li><strong>Matična plošča (Motherboard):</strong> Glavna plošča, kamor vse povežeš. ATX, mATX, ITX formati.</li>
+      <li><strong>Procesor (CPU):</strong> Možgani računalnika. Intel ali AMD. Pazljivo izberi glede na podnožje (socket).</li>
+      <li><strong>RAM (Pomnilnik):</strong> Začasni spomin. 8 GB je minimum, 16+ GB priporočeno za igrice in operacijski sistem.</li>
+      <li><strong>Disk (SSD/HDD):</strong> SSD za hitrost, HDD za prostor. Priporočam SSD za sistem, hitrejše nalaganje OS-a in igrice.</li>
+      <li><strong>Grafična kartica (GPU):</strong> Za igre in grafične naloge. Če imaš vgrajeno grafiko, ni nujno.</li>
+      <li><strong>Hlajenje:</strong> Ventilatorji ali hladilniki za CPU (stock ali aftermarket).</li>
+    </ul>
   </div>
 
-  <div class="korak">
-    <h2>3. Vstavi matično ploščo</h2>
-    <img src="kf-img.png" alt="Matična plošča" />
-    <p>Matična plošča je "glavna plošča", kjer bodo vsi drugi deli. Privij jo v ohišje.</p>
+  <div class="section">
+    <h2>3. Postopek Sestave (Korak za Korakom)</h2>
+    <ol>
+      <li><strong>Pripravi ohišje:</strong> Odstrani stranici, preveri kam gredo ventilatorji in PSU.</li>
+      <li><strong>Namesti CPU na matično ploščo:</strong> Previdno odpri ležišče, vstavi CPU pravilno (trikotnik!)</li>
+      <li><strong>Namesti hladilnik:</strong> Če je box hladilnik, ga samo zategni. Ne pozabi termalne paste (če ni že na hladilniku).</li>
+      <li><strong>Vstavi RAM:</strong> Klik v pravo režo, z obeh strani mora klikniti. Poglej navodila matične za najboljše pare.</li>
+      <li><strong>Matično ploščo privijači v ohišje:</strong> Najprej I/O ščit na zadnji strani, potem vijake.</li>
+      <li><strong>Namesti napajalnik:</strong> Privijači in vodi kable tja, kjer jih boš potreboval.</li>
+      <li><strong>Namesti SSD/HDD:</strong> Vstavitev v kletko, priklop SATA kabla in napajanja.</li>
+      <li><strong>Vstavi grafično kartico (če jo imaš):</strong> V PCIe režo, z vijakom fiksiraj.</li>
+      <li><strong>Poveži kable:</strong>
+        <ul>
+          <li>24-pin ATX v matično</li>
+          <li>8-pin CPU v zgornji del matične</li>
+          <li>SATA napajalni in podatkovni kabli</li>
+          <li>Front panel konektorji (power switch, LED itd.) – poglej navodila ali spodaj pod pini na matični plošči!</li>
+        </ul>
+      </li>
+      <li><strong>Priklop ventilatorjev:</strong> V matično ploščo (SYS_FAN, CPU_FAN). Odvisno od matičnbe plošče poglej v navodila!</li>
+    </ol>
   </div>
 
-  <div class="korak">
-    <h2>4. Dodaj procesor</h2>
-    <img src="cpu.jpg" alt="Procesor" />
-    <p>Procesor je kot možgani računalnika. Previdno ga vstavi na matično ploščo. Ne sili – mora lepo pasti notri.</p>
+  <div class="section">
+    <h2>4. Prvi Zagon in BIOS</h2>
+    <ul>
+      <li>Priklopi monitor, tipkovnico, miš, napajalni kabel</li>
+      <li>Ne pozabi na zadnji strani na PSU-ju klikniti gumb za napajanje zadaj mora biti gumb na I strani ne na 0!!
+      <li>Pritisni power. Če se vse vrti in vidiš zaslon z logotipom, super!</li>
+      <li>Vstopi v BIOS (navadno DEL ali F2 med zagonom)</li>
+      <li>Preveri če BIOS zazna CPU, RAM in disk</li>
+      <li>Nastavi boot vrstni red (npr. najprej USB za namestitev Windows)</li>
+    </ul>
   </div>
 
-  <div class="korak">
-    <h2>5. Dodaj hladilnik</h2>
-    <img src="cooler.jpg" alt="Hladilnik za CPU" />
-    <p>Na procesor daš hladilnik (ventilator), da se ne pregreje. Priklopiš ga tudi z majhnim kablom na matično ploščo.</p>
+  <div class="section">
+    <h2>5. Namestitev Operacijskega Sistema</h2>
+    <ul>
+      <li>Uporabi USB ključ z Windows 10/11 ali XP/7 za retro build</li>
+      <li>Sledi navodilom na zaslonu</li>
+      <li>Po namestitvi: namesti gonilnike, preveri Windows Update</li>
+    </ul>
   </div>
 
-  <div class="korak">
-    <h2>6. Vstavi RAM</h2>
-    <img src="ram.jpg" alt="RAM" />
-    <p>RAM je spomin računalnika. Samo pritisneš ga v dolg utor na matični plošči – klikne, ko je prav.</p>
+  <div class="section">
+    <h2>6. Dodatni Nasveti</h2>
+    <ul>
+      <li>Če računalnik ne prižge: preveri napajalne kable in RAM</li>
+      <li>Uporabi "stresni test" za preverjanje stabilnosti (npr. Prime95, FurMark)</li>
+      <li>Namesti programe kot so CPU-Z, HWMonitor za spremljanje komponent</li>
+      <li>Za čiščenje kablov uporabi vezice</li>
+      <li>Vodi si dokumentacijo sestave za lažje nadgradnje</li>
+    </ul>
   </div>
-
-  <div class="korak">
-    <h2>7. Dodaj disk (SSD ali HDD)</h2>
-    <img src="images.jpg" alt="Disk" />
-    <p>Disk shrani tvoje podatke. Vstavi ga v kovinski prostor in poveži s kablom na matično ploščo in napajalnik.</p>
+  
+  <div class="section">
+    <h2>7. Če kaj ne gre nas pokliči ali pa nam piši.😁</h2>
   </div>
-
-  <div class="korak">
-    <h2>8. Vstavi napajalnik</h2>
-    <img src="psu.jpg" alt="Napajalnik" />
-    <p>Napajalnik daje elektriko vsem delom. Privij ga zadaj v ohišje in poveži kable: glavni kabel v matično, enega v grafično, enega v disk.</p>
-  </div>
-
-  <div class="korak">
-    <h2>9. Poveži gumbe in zaslon</h2>
-    <img src="cables.jpg" alt="Zaslon, miška, tipkovnica" />
-    <p>Na koncu poveži tipkovnico, miško in monitor. Na sprednji strani ohišja moraš povezati gumb za vklop.</p>
-  </div>
-
-  <div class="korak">
-    <h2>10. Vklopi!</h2>
-    <p>Vklopi računalnik. Če se prižge – super! Če ne, preveri kable in RAM.</p>
-  </div>
-  <div>Če ti kaj ne gre nam pa piši ali nas pokliči.😁👍</div>
-  <div class="post">
-  <h2>Video vodič</h2>
-  <p>Navodila za sestavo računalnika.</p>
-
-  <!-- Tukaj daš gumb -->
-  <button onclick="window.location.href='kako-sestaviti-pc.html'" 
-          style="padding: 10px 20px; font-size: 1rem; cursor: pointer; border-radius: 8px; background-color: #005577; color: white; border: none;">
-    Video vodič
-  </button>
-</div>
 
 </body>
 </html>
