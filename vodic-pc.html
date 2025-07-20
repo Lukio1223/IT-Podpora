@@ -1,6 +1,172 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vodič za Sestavo Računalnika za Začetnike</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
+      background-color: #eaf2f8;
+      color: #2c3e50;
+    }
+
+    header {
+      background-color: #005a9c;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .section {
+      background-color: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+    }
+
+    h2 {
+      color: #005a9c;
+      margin-top: 0;
+    }
+
+    ul, ol {
+      padding-left: 25px;
+    }
+
+    ul li, ol li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #1a5276;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 1.1em;
+      color: #555;
+    }
+
+    .section:last-child {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Vodič za Sestavo Računalnika – Za Čiste Začetnike 🛠️</h1>
+  </header>
+
+  <div class="container">
+
+    <div class="section">
+      <h2>1. Kaj Potrebuješ za Začetek</h2>
+      <ul>
+        <li><strong>Orodje:</strong> križni izvijač (PH2), vezice, termalna pasta (če hladilnik nima že nameščene).</li>
+        <li><strong>Prostor za delo:</strong> čista, ravna površina brez preprog in z dobro osvetlitvijo.</li>
+        <li><strong>Čas:</strong> računaj 1 do 3 ure za prvo sestavljanje.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>2. Komponente in Njihov Namen</h2>
+      <ul>
+        <li><strong>Ohišje (Case):</strong> Lupina, ki drži vse komponente. Na voljo so ATX, mATX, mini ITX itd.</li>
+        <li><strong>Napajalnik (PSU):</strong> Napaja vse komponente. Pozorni bodi na moč (W) in certifikat (npr. 80+ Bronze).</li>
+        <li><strong>Matična plošča (Motherboard):</strong> Glavna vezava za vse komponente.</li>
+        <li><strong>Procesor (CPU):</strong> Glavna obdelovalna enota. Upoštevaj podnožje (socket) za združljivost z matično ploščo.</li>
+        <li><strong>RAM:</strong> Delovni pomnilnik. Za osnovno uporabo 8 GB, priporočljivo pa 16 GB ali več.</li>
+        <li><strong>Disk (SSD/HDD):</strong> SSD za hitrost, HDD za več prostora. Naj bo sistem nameščen na SSD-ju.</li>
+        <li><strong>Grafična kartica (GPU):</strong> Za igranje iger ali delo z grafiko – sicer jo CPU lahko nadomesti z integrirano grafiko.</li>
+        <li><strong>Hlajenje:</strong> Ventilatorji za ohišje + hladilnik za CPU. Priložen pri večini procesorjev.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>3. Postopek Sestave – Korak za Korakom</h2>
+      <ol>
+        <li><strong>Pripravi ohišje:</strong> Odstrani stranice, pripravi prostor za PSU in ventilatorje.</li>
+        <li><strong>Namesti CPU:</strong> Previdno ga vstavi v podnožje. Trikotnik naj se ujema!</li>
+        <li><strong>Dodaj hladilnik:</strong> Privij in priklopi ventilator. Termalna pasta naj bo že na hladilniku ali jo dodaj ročno.</li>
+        <li><strong>Vstavi RAM:</strong> Klikne na obeh straneh. Poglej navodila za optimalne reže (dual channel).</li>
+        <li><strong>Vstavi matično ploščo:</strong> Najprej namesti I/O ploščico, nato jo privij v ohišje.</li>
+        <li><strong>Napajalnik:</strong> Namesti v spodnji ali zgornji del (odvisno od ohišja) in pripravi kable.</li>
+        <li><strong>Namesti SSD/HDD:</strong> Privij v kletko in poveži s SATA kablom + napajanjem.</li>
+        <li><strong>Dodaj grafično kartico:</strong> V PCIe režo. Privij s stranskim vijakom.</li>
+        <li><strong>Poveži kable:</strong>
+          <ul>
+            <li>24-pin ATX (glavni napajalni kabel)</li>
+            <li>8-pin CPU kabel (zgoraj levo na matični)</li>
+            <li>SATA kabli za diske</li>
+            <li>Front panel: Power SW, Reset SW, Power LED, HDD LED</li>
+          </ul>
+        </li>
+        <li><strong>Poveži ventilatorje:</strong> Na priključke CPU_FAN in SYS_FAN.</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>4. Prvi Zagon in BIOS Nastavitve</h2>
+      <ul>
+        <li>Poveži monitor, tipkovnico, miško in vklopi PSU.</li>
+        <li>Prepričaj se, da je stikalo PSU na položaju "I" (vklopljeno).</li>
+        <li>Če se računalnik prižge, pojdi v BIOS (tipka DEL ali F2).</li>
+        <li>Preveri: CPU, RAM, SSD/HDD – vse mora biti zaznano.</li>
+        <li>Nastavi boot vrstni red (npr. USB ključ naj bo prvi).</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>5. Namestitev Operacijskega Sistema</h2>
+      <ul>
+        <li>Pripravi USB z Windows 10, 11 ali XP/7 za retro računalnike.</li>
+        <li>Sledi korakom na zaslonu za namestitev sistema.</li>
+        <li>Po namestitvi: dodaj gonilnike in posodobi sistem.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>6. Koristni Nasveti</h2>
+      <ul>
+        <li>Če se računalnik ne prižge – preveri vse kable, RAM in napajalnik.</li>
+        <li>Stresni test: Prime95 (CPU), FurMark (GPU) za preverjanje stabilnosti.</li>
+        <li>Programi za nadzor: CPU-Z, HWMonitor, CrystalDiskInfo.</li>
+        <li>Za urejenost kablov uporabi vezice – izboljša hlajenje.</li>
+        <li>Shrani si serijske številke, navodila in dokumentacijo.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      Če ti karkoli ne uspe – piši ali pokliči. Pomagamo z veseljem! 😁
+    </div>
+
+  </div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="sl">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vodič za Sestavo Računalnika za Začetnike</title>
