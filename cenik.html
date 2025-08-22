@@ -2,210 +2,146 @@
 <html lang="sl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cenik storitev – Matkomp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog - Matkomp</title>
+  <meta name="color-scheme" content="light dark" />
   <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f2f5f9;
-      color: #2e3a59;
-      margin: 0;
-      padding: 0;
+    :root{
+      --bg: #0f172a;
+      --bg-soft:#111827;
+      --card:#0b1224;
+      --text:#e5e7eb;
+      --muted:#a7b0c3;
+      --brand:#06b6d4;
+      --brand-2:#14b8a6;
+      --accent:#22c55e;
+      --shadow: 0 10px 35px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius-lg: 28px;
+      --container: 1100px;
     }
-    header {
-      background: linear-gradient(135deg, #003344, #005577);
-      color: white;
-      padding: 2em 1em;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg: #f2f5f9;
+        --bg-soft:#e9edf3;
+        --card:#ffffff;
+        --text:#1f2937;
+        --muted:#4b5563;
+        --shadow: 0 12px 30px rgba(2,6,23,.08);
+      }
     }
-    h1 {
-      margin: 0;
-      font-size: 2em;
-    }
-    main {
-      max-width: 800px;
-      margin: 2em auto;
-      background: white;
-      padding: 2em;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1em;
-    }
-    th, td {
-      text-align: left;
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-    }
-    th {
-      background-color: #005577;
-      color: white;
-    }
-    tr:hover {
-      background-color: #f0f8ff;
-    }
-    .nazaj {
-      text-align: center;
-      margin-top: 2em;
-    }
-    .nazaj a {
-      background-color: #005577;
-      color: white;
-      padding: 0.7em 1.5em;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
-    .nazaj a:hover {
-      background-color: #003344;
-    }
-    /* Dodano za paketne storitve */
-    .paket-table {
-      margin-top: 3em;
-    }
-    .paket-table th {
-      background-color: #2e7d32; /* zelena barva */
-    }
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; background:var(--bg); color:var(--text); font-family:"Inter","Segoe UI",Tahoma,Geneva,Verdana,sans-serif; line-height:1.6;}
+    a{color:inherit; text-decoration:none;}
+
+    .container{width:100%; max-width:var(--container); margin:auto; padding: 0 20px}
+
+    /* —— Topbar —— */
+    .topbar{position:sticky; top:0; z-index:40; backdrop-filter:saturate(160%) blur(8px); background:linear-gradient(180deg, rgba(6,182,212,.15), rgba(20,184,166,.08) 60%, transparent); border-bottom: 1px solid rgba(255,255,255,.08)}
+    .topbar-inner{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:10px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
+    .brand img{width:40px; height:40px; border-radius:50%; box-shadow:0 6px 20px rgba(6,182,212,.35)}
+    nav ul{display:flex; gap:10px; list-style:none; margin:0; padding:0}
+    .chip{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(6,182,212,.12); border:1px solid rgba(6,182,212,.35)}
+
+    /* —— Blog —— */
+    header{text-align:center; margin:40px 0;}
+    header h1{font-size:clamp(28px,4vw,42px); margin-bottom:8px;}
+    header p{color:var(--muted);}
+    .post-list{display:grid; gap:24px; margin-bottom:50px;}
+    .post{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:24px 28px; cursor:pointer; transition: transform .15s ease, box-shadow .15s ease;}
+    .post:hover{transform:translateY(-5px); box-shadow:0 16px 45px rgba(6,182,212,.25);}
+    .post h2{margin:0 0 8px; color:var(--brand); font-size:1.3rem;}
+    .post p{margin:0; color:var(--muted); font-size:1.05rem;}
+
+    /* —— Footer —— */
+    footer{margin:60px 0 24px; color:var(--muted); text-align:center}
+    .foot{padding:22px; border-radius: var(--radius); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.08)}
   </style>
 </head>
 <body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="brand">
+      <img src="Matkomp.png" alt="Matkomp logo"/>
+      <span>Matkomp</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a class="chip" href="index.html">🏠 Domov</a></li>
+        <li><a class="chip" href="trgovina.html">🛒 Trgovina</a></li>
+        <li><a class="chip" href="faq.html">❓ FAQ</a></li>
+        <li><a class="chip" href="kontakt.html">📞 Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<main class="container">
   <header>
-    <h1>💰 Cenik storitev – Matkomp</h1>
-    <p>Pregled naših najbolj pogostih storitev in njihovih cen</p>
+    <h1>📝 Blog Matkomp</h1>
+    <p>Vodiči in članki za vse, ki jih zanimajo računalniki</p>
   </header>
 
-  <main>
-    <table>
-      <thead>
-        <tr>
-          <th>🛠️ Storitev</th>
-          <th>💶 Cena</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Sestava novega računalnika</td>
-          <td>12€</td>
-        </tr>
-        <tr>
-          <td>Nadgradnja komponent (RAM, SSD, GPU itd.)</td>
-          <td>9-12€</td>
-        </tr>
-        <tr>
-          <td>Namestitev operacijskega sistema (Windows, Linux)</td>
-          <td>9€</td>
-        </tr>
-        <tr>
-          <td>Popravilo programske opreme (virusi, počasnost)</td>
-          <td>3€</td>
-        </tr>
-        <tr>
-          <td>Diagnostika težav</td>
-          <td>3€</td>
-        </tr>
-        <tr>
-          <td>Reševanje podatkov (HDD, SSD, USB)</td>
-          <td>od 3€</td>
-        </tr>
-        <tr>
-          <td>Čiščenje računalnika</td>
-          <td>6€</td>
-        </tr>
-        <tr>
-          <td>Reševanje podatkov z diska/USB</td>
-          <td>od 3€</td>
-        </tr>
-        <tr>
-          <td>Kloniranje diska</td>
-          <td>3€</td>
-        </tr>
-        <tr>
-          <td>Menjava termalne paste</td>
-          <td>3€</td>
-          <tr>
-          <td>Menjava ventilatorja ali kabla</td>
-          <td>3€</td>
-          </tr>
-        <tr>
-          <td>Namestitev gonilnikov in programov</td>
-          <td>3€</td>
-        </tr>
-        <tr>
-          <td>Odstranitev virusov/malwara</td>
-          <td>6€</td>
-          <tr>
-            <td>Diagnostika internetne povezave</td>
-            <td>3€</td>
-          </tr>
-        <tr>
-          <td>Povezava naprav (tiskalnik, skener...)</td>
-        <td>3-6€</td>
-        </tr>
-        <tr>
-          <td>Namestitev Wi-Fi usmerjevalnika</td>
-          <td>3€</td>
-          <tr>
-            <td>Osnovna optimizacija sistema</td>
-            <td>6€</td>
-          </tr>
-        </tr>
-      </tbody>
-    </table>
+  <div class="post-list" id="post-list"></div>
+</main>
 
-    <!-- Paketne storitve -->
-    <h2>🧰 Paketne storitve</h2>
-    <table class="paket-table">
-      <thead>
-        <tr>
-          <th>Paket</th>
-          <th>Vsebuje</th>
-          <th>Cena (€)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>🧱 Sestavni paket</td>
-          <td>Sestava računalnika + Windows + gonilniki + programi</td>
-          <td>20 €</td>
-        </tr>
-        <tr>
-          <td>🧼 Čisti PC paket</td>
-          <td>Diagnostika + fizično čiščenje + osnovna optimizacija sistema</td>
-          <td>12 €</td>
-        </tr>
-        <tr>
-          <td>🔐 Varna uporaba paket</td>
-          <td>Antivirus + nastavitve za varnost + razlaga za uporabo</td>
-          <td>6€ €</td>
-        </tr>
-        <tr>
-          <td>🚀 Turbo start paket</td>
-          <td>Windows + gonilniki + programi + optimizacija + čiščenje</td>
-          <td>20 €</td>
-        </tr>
-      </tbody>
-    </table>
+<footer class="container">
+  <div class="foot">
+    &copy; 2025 Matkomp. Izdelano z ❤️ Luka & ekipa.
+  </div>
+</footer>
 
-    
-<h2>ℹ️ Opombe</h2>
-    <table class="paket-table">
-      <tbody>
-        <tr>
-          <td>Plačilo možno le z gotovino, komponente kupujete sami.</td>
-        </tr>
-      </tbody>
-    </table>
+<script>
+  const posts = [
+    {
+      id: 'kako-izbrati-komponente',
+      title: 'Kako izbrati komponente za računalnik',
+      excerpt: 'Podroben vodič, ki ti pomaga razumeti, katere komponente izbrati glede na namen računalnika, proračun in želje.'
+    },
+    {
+      id: 'kako-zamenjati-pasto-cpu',
+      title: 'Kako zamenjati termalno pasto',
+      excerpt: 'Navodila po korakih za varno odstranjevanje stare in nanašanje nove termalne paste na procesor.'
+    },
+    {
+      id: 'namestitev-cpuz',
+      title: 'Namestitev in uporaba CPU-Z',
+      excerpt: 'Hitro preveri svoj procesor, matično ploščo in RAM s pomočjo brezplačnega orodja CPU-Z.'
+    },
+    {
+      id: 'kako-sestaviti-pc',
+      title: 'Kako sestaviti svoj PC',
+      excerpt: 'Navodila za sestavo računalnika.'
+    },
+    {
+      id: 'vodic-pc',
+      title: 'Kako sestaviti svoj PC (za začetnike)',
+      excerpt: 'Poenostavljena navodila za sestavo računalnika.'
+    }
+  ];
 
+  const container = document.getElementById('post-list');
 
-    
-    <div class="nazaj">
-      <a href="index.html">🔙 Nazaj na domačo stran</a>
-    </div>
-  </main>
+  for (const post of posts) {
+    const div = document.createElement('div');
+    div.className = 'post';
+    div.onclick = () => {
+      window.location.href = post.id + '.html';
+    };
+
+    const naslov = document.createElement('h2');
+    naslov.textContent = post.title;
+
+    const povzetek = document.createElement('p');
+    povzetek.textContent = post.excerpt;
+
+    div.appendChild(naslov);
+    div.appendChild(povzetek);
+    container.appendChild(div);
+  }
+</script>
+
 </body>
 </html>
