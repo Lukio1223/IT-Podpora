@@ -3,165 +3,185 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vodič za Sestavo Računalnika za Začetnike</title>
+  <title>Vodič za Sestavo Računalnika – Začetniki</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.7;
+      font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #eaf2f8;
-      color: #2c3e50;
+      background: #f2f5f9;
+      color: #2c3a59;
+      line-height: 1.6;
     }
 
     header {
       background-color: #005a9c;
       color: white;
-      padding: 30px 20px;
       text-align: center;
+      padding: 2em 1em;
     }
 
-    h1 {
+    header h1 {
       margin: 0;
-      font-size: 2em;
+      font-size: 2rem;
     }
 
     .container {
       max-width: 900px;
-      margin: auto;
-      padding: 20px;
+      margin: 2em auto;
+      padding: 0 1em;
     }
 
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+    .step-card {
+      background: white;
+      border-left: 5px solid #005a9c;
+      border-radius: 12px;
+      padding: 1.5em 1em;
+      margin-bottom: 1.5em;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      transition: transform 0.2s ease;
     }
 
-    h2 {
+    .step-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .step-card h2 {
+      display: flex;
+      align-items: center;
+      font-size: 1.4rem;
       color: #005a9c;
       margin-top: 0;
     }
 
+    .material-icons {
+      margin-right: 0.5em;
+      color: #ff9800;
+    }
+
     ul, ol {
-      padding-left: 25px;
+      margin: 0.5em 0 0 1.5em;
     }
 
     ul li, ol li {
-      margin-bottom: 8px;
+      margin-bottom: 0.7em;
     }
 
-    strong {
-      color: #1a5276;
+    .note {
+      background: #eaf2f8;
+      border-left: 4px solid #005a9c;
+      padding: 1em;
+      border-radius: 8px;
+      margin-top: 1em;
+      font-weight: 500;
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      font-size: 1.1em;
+      padding: 2em 1em;
+      font-size: 1rem;
       color: #555;
     }
 
-    .section:last-child {
-      text-align: center;
-      font-weight: bold;
-      font-size: 1.2em;
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 2em;
+      color: #005a9c;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Vodič za Sestavo Računalnika – Za Čiste Začetnike 🛠️</h1>
-  </header>
+<header>
+  <h1>Vodič za Sestavo Računalnika – Začetniki 🛠️</h1>
+</header>
 
-  <div class="container">
+<div class="container">
 
-    <div class="section">
-      <h2>1. Kaj Potrebuješ za Začetek</h2>
-      <ul>
-        <li><strong>Orodje:</strong> križni izvijač (PH2), vezice, termalna pasta (če hladilnik nima že nameščene).</li>
-        <li><strong>Prostor za delo:</strong> čista, ravna površina brez preprog in z dobro osvetlitvijo.</li>
-        <li><strong>Čas:</strong> računaj 1 do 3 ure za prvo sestavljanje.</li>
-      </ul>
-    </div>
+  <a href="vodniki.html" class="back-btn">← Nazaj na vse vodnike</a>
 
-    <div class="section">
-      <h2>2. Komponente in Njihov Namen</h2>
-      <ul>
-        <li><strong>Ohišje (Case):</strong> Lupina, ki drži vse komponente. Na voljo so ATX, mATX, mini ITX itd.</li>
-        <li><strong>Napajalnik (PSU):</strong> Napaja vse komponente. Pozorni bodi na moč (W) in certifikat (npr. 80+ Bronze).</li>
-        <li><strong>Matična plošča (Motherboard):</strong> Glavna vezava za vse komponente.</li>
-        <li><strong>Procesor (CPU):</strong> Glavna obdelovalna enota. Upoštevaj podnožje (socket) za združljivost z matično ploščo.</li>
-        <li><strong>RAM:</strong> Delovni pomnilnik. Za osnovno uporabo 8 GB, priporočljivo pa 16 GB ali več.</li>
-        <li><strong>Disk (SSD/HDD):</strong> SSD za hitrost, HDD za več prostora. Naj bo sistem nameščen na SSD-ju.</li>
-        <li><strong>Grafična kartica (GPU):</strong> Za igranje iger ali delo z grafiko – sicer jo CPU lahko nadomesti z integrirano grafiko.</li>
-        <li><strong>Hlajenje:</strong> Ventilatorji za ohišje + hladilnik za CPU. Priložen pri večini procesorjev.</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>3. Postopek Sestave – Korak za Korakom</h2>
-      <ol>
-        <li><strong>Pripravi ohišje:</strong> Odstrani stranice, pripravi prostor za PSU in ventilatorje.</li>
-        <li><strong>Namesti CPU:</strong> Previdno ga vstavi v podnožje. Trikotnik naj se ujema!</li>
-        <li><strong>Dodaj hladilnik:</strong> Privij in priklopi ventilator. Termalna pasta naj bo že na hladilniku ali jo dodaj ročno.</li>
-        <li><strong>Vstavi RAM:</strong> Klikne na obeh straneh. Poglej navodila za optimalne reže (dual channel).</li>
-        <li><strong>Vstavi matično ploščo:</strong> Najprej namesti I/O ploščico, nato jo privij v ohišje.</li>
-        <li><strong>Napajalnik:</strong> Namesti v spodnji ali zgornji del (odvisno od ohišja) in pripravi kable.</li>
-        <li><strong>Namesti SSD/HDD:</strong> Privij v kletko in poveži s SATA kablom + napajanjem.</li>
-        <li><strong>Dodaj grafično kartico:</strong> V PCIe režo. Privij s stranskim vijakom.</li>
-        <li><strong>Poveži kable:</strong>
-          <ul>
-            <li>24-pin ATX (glavni napajalni kabel)</li>
-            <li>8-pin CPU kabel (zgoraj levo na matični)</li>
-            <li>SATA kabli za diske</li>
-            <li>Front panel: Power SW, Reset SW, Power LED, HDD LED</li>
-          </ul>
-        </li>
-        <li><strong>Poveži ventilatorje:</strong> Na priključke CPU_FAN in SYS_FAN.</li>
-      </ol>
-    </div>
-
-    <div class="section">
-      <h2>4. Prvi Zagon in BIOS Nastavitve</h2>
-      <ul>
-        <li>Poveži monitor, tipkovnico, miško in vklopi PSU.</li>
-        <li>Prepričaj se, da je stikalo PSU na položaju "I" (vklopljeno).</li>
-        <li>Če se računalnik prižge, pojdi v BIOS (tipka DEL ali F2).</li>
-        <li>Preveri: CPU, RAM, SSD/HDD – vse mora biti zaznano.</li>
-        <li>Nastavi boot vrstni red (npr. USB ključ naj bo prvi).</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>5. Namestitev Operacijskega Sistema</h2>
-      <ul>
-        <li>Pripravi USB z Windows 10, 11 ali XP/7 za retro računalnike.</li>
-        <li>Sledi korakom na zaslonu za namestitev sistema.</li>
-        <li>Po namestitvi: dodaj gonilnike in posodobi sistem.</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>6. Koristni Nasveti</h2>
-      <ul>
-        <li>Če se računalnik ne prižge – preveri vse kable, RAM in napajalnik.</li>
-        <li>Stresni test: Prime95 (CPU), FurMark (GPU) za preverjanje stabilnosti.</li>
-        <li>Programi za nadzor: CPU-Z, HWMonitor, CrystalDiskInfo.</li>
-        <li>Za urejenost kablov uporabi vezice – izboljša hlajenje.</li>
-        <li>Shrani si serijske številke, navodila in dokumentacijo.</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      Če ti karkoli ne uspe – piši ali pokliči. Pomagamo z veseljem! 😁
-    </div>
-
+  <div class="step-card">
+    <h2><span class="material-icons">construction</span>1. Kaj potrebuješ za začetek</h2>
+    <ul>
+      <li><strong>Orodje:</strong> križni izvijač (PH2), vezice, termalna pasta (če hladilnik nima že nameščene).</li>
+      <li><strong>Prostor za delo:</strong> čista, ravna površina brez preprog in dobra osvetlitev.</li>
+      <li><strong>Čas:</strong> 1–3 ure za prvo sestavljanje.</li>
+    </ul>
   </div>
+
+  <div class="step-card">
+    <h2><span class="material-icons">memory</span>2. Komponente in njihov namen</h2>
+    <ul>
+      <li><strong>Ohišje (Case):</strong> držalo vseh komponent.</li>
+      <li><strong>Napajalnik (PSU):</strong> napaja sistem; bodi pozoren na moč in certifikat (80+ Bronze itd.).</li>
+      <li><strong>Matična plošča (Motherboard):</strong> glavna vezava za vse komponente.</li>
+      <li><strong>Procesor (CPU):</strong> glavni "možgani"; preveri združljivost s podnožjem.</li>
+      <li><strong>RAM:</strong> delovni pomnilnik, priporočljivo 16 GB ali več.</li>
+      <li><strong>Disk (SSD/HDD):</strong> SSD za sistem, HDD za več prostora.</li>
+      <li><strong>Grafična kartica (GPU):</strong> za igre ali grafiko; integrirana grafika je dovolj za osnovno uporabo.</li>
+      <li><strong>Hlajenje:</strong> ventilatorji + CPU hladilnik.</li>
+    </ul>
+  </div>
+
+  <div class="step-card">
+    <h2><span class="material-icons">precision_manufacturing</span>3. Postopek sestave</h2>
+    <ol>
+      <li>Pripravi ohišje: odstrani stranice, pripravi prostor za PSU in ventilatorje.</li>
+      <li>Namesti CPU v podnožje (trikotnik se ujema).</li>
+      <li>Dodaj hladilnik, privij in priklopi ventilator.</li>
+      <li>Vstavi RAM (dual channel, preveri navodila).</li>
+      <li>Namesti matično ploščo z I/O ploščico.</li>
+      <li>Namesti napajalnik in pripravi kable.</li>
+      <li>Namesti SSD/HDD in poveži SATA + napajanje.</li>
+      <li>Dodaj grafično kartico v PCIe režo.</li>
+      <li>Poveži vse kable (24-pin ATX, 8-pin CPU, SATA, front panel).</li>
+      <li>Poveži ventilatorje na CPU_FAN in SYS_FAN.</li>
+    </ol>
+  </div>
+
+  <div class="step-card">
+    <h2><span class="material-icons">settings</span>4. Prvi zagon in BIOS nastavitve</h2>
+    <ul>
+      <li>Poveži monitor, tipkovnico, miško in vklopi PSU.</li>
+      <li>Preveri BIOS (DEL ali F2): CPU, RAM, SSD/HDD.</li>
+      <li>Nastavi boot vrstni red (USB prvi).</li>
+    </ul>
+  </div>
+
+  <div class="step-card">
+    <h2><span class="material-icons">system_update_alt</span>5. Namestitev operacijskega sistema</h2>
+    <ul>
+      <li>Pripravi USB z Windows (10, 11 ali XP/7 za retro PC-je).</li>
+      <li>Sledi korakom za namestitev.</li>
+      <li>Po namestitvi dodaj gonilnike in posodobi sistem.</li>
+    </ul>
+  </div>
+
+  <div class="step-card">
+    <h2><span class="material-icons">tips_and_updates</span>6. Koristni nasveti</h2>
+    <ul>
+      <li>Če se računalnik ne prižge – preveri kable, RAM in PSU.</li>
+      <li>Stresni testi: Prime95 (CPU), FurMark (GPU).</li>
+      <li>Programi za nadzor: CPU-Z, HWMonitor, CrystalDiskInfo.</li>
+      <li>Uredi kable z vezicami za boljše hlajenje.</li>
+      <li>Shrani serijske številke in navodila.</li>
+    </ul>
+    <div class="note">Če ti karkoli ne uspe – piši ali pokliči. Pomagamo z veseljem! 😁</div>
+  </div>
+
+</div>
+
+<footer>
+  © 2025 Matkomp – Vodič za začetnike
+</footer>
 
 </body>
 </html>
-
