@@ -3,64 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matkomp – Trgovina</title>
+  <title>Kako izbrati komponente - Matkomp</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #f9fbfc;
       color: #2e3a59;
-      padding: 2em;
+      line-height: 1.7;
+      padding: 1em;
       max-width: 960px;
       margin: auto;
-      line-height: 1.6;
     }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2em;
-    }
-
-    header h1 {
+    a.back-link {
+      display: inline-block;
+      margin-bottom: 1.5em;
       color: #1e88e5;
-      font-size: 2em;
-    }
-
-    nav a {
-      margin-left: 1em;
       text-decoration: none;
-      color: #1e88e5;
       font-weight: 600;
+    }
+    a.back-link:hover {
+      text-decoration: underline;
     }
 
     section {
-      background: #ffffff;
+      background: #fff;
       padding: 2em;
       border-radius: 16px;
       box-shadow: 0 4px 14px rgba(0,0,0,0.06);
       margin-bottom: 2em;
     }
 
+    h1 {
+      color: #1e88e5;
+      font-size: 2rem;
+      margin-bottom: 0.5em;
+      text-align: center;
+    }
+
     h2 {
       color: #1e88e5;
-      font-weight: 600;
       margin-bottom: 1em;
+      font-weight: 600;
+    }
+
+    h3 {
+      color: #1565c0;
+      margin-bottom: 0.5em;
+      font-weight: 600;
     }
 
     p, li {
       margin-bottom: 0.8em;
+      font-size: 1.05rem;
     }
 
     ul {
-      padding-left: 1.2em;
+      padding-left: 1.5em;
+      margin-bottom: 1em;
+    }
+
+    li {
+      transition: color 0.2s ease;
+    }
+
+    li:hover {
+      color: #1e88e5;
     }
 
     button {
@@ -73,75 +84,80 @@
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-top: 1em;
     }
 
     button:hover {
       background: #1565c0;
       transform: scale(1.03);
     }
+
+    @media (max-width: 600px) {
+      section { padding: 1.5em; }
+      h1 { font-size: 1.6rem; }
+      h2 { font-size: 1.3rem; }
+      h3 { font-size: 1.1rem; }
+      p, li { font-size: 1rem; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Matkomp</h1>
-    <nav>
-      <a href="index.html">Domov</a>
-      <a href="trgovina.html">Trgovina</a>
-      <a href="blog.html">Blog</a>
-      <a href="faq.html">FAQ</a>
-    </nav>
-  </header>
+
+  <a href="blog.html" class="back-link">← Nazaj na blog</a>
 
   <section>
-    <h2>Kako izbrati komponente za računalnik</h2>
-    <p>Izbira komponent za računalnik je pomemben korak pri sestavljanju ali nadgradnji sistema. V tem vodiču bomo pokrili ključne dele računalnika in podali nasvete, kako izbrati najboljše komponente za vaše potrebe.</p>
+    <h1>Kako izbrati komponente za računalnik</h1>
+    <p>Izbira komponent za računalnik je ključna pri sestavljanju ali nadgradnji sistema. V tem vodiču bomo pokrili osnovne dele računalnika in dali nasvete, kako izbrati najboljše komponente za vaše potrebe.</p>
 
-    <h3>1. Procesor (CPU)</h3>
+    <h2>1. Procesor (CPU)</h2>
     <ul>
-      <li>Izberite glede na namen: igre, pisarniško delo, urejanje videov ...</li>
+      <li>Izberite glede na namen: igre, pisarniško delo, urejanje videov …</li>
       <li>AMD Ryzen in Intel Core serije so najbolj razširjene.</li>
     </ul>
 
-    <h3>2. Matična plošča (Motherboard)</h3>
+    <h2>2. Matična plošča (Motherboard)</h2>
     <ul>
-      <li>Mora biti kompatibilna s procesorjem (AM4, LGA1700, itd.).</li>
-      <li>Preverite, koliko RAM slotov in priključkov ima.</li>
+      <li>Mora biti kompatibilna s procesorjem (AM4, LGA1700 itd.).</li>
+      <li>Preverite število RAM slotov in priključkov.</li>
     </ul>
 
-    <h3>3. Pomnilnik (RAM)</h3>
+    <h2>3. Pomnilnik (RAM)</h2>
     <ul>
       <li>Za osnovno uporabo je dovolj 8 GB, za igre in večopravilnost priporočamo 16 GB ali več.</li>
-      <li>DDR4 je še vedno standard, DDR5 je nov in hitrejši.</li>
+      <li>DDR4 je standard, DDR5 pa hitrejši in novejši.</li>
     </ul>
 
-    <h3>4. Grafična kartica (GPU)</h3>
+    <h2>4. Grafična kartica (GPU)</h2>
     <ul>
       <li>Nujna za igre, 3D modeliranje in zahtevno obdelavo videa.</li>
-      <li>Za osnovne naloge je dovolj integrirana grafika.</li>
+      <li>Za osnovne naloge zadostuje integrirana grafika.</li>
     </ul>
 
-    <h3>5. Shramba (SSD/HDD)</h3>
+    <h2>5. Shramba (SSD/HDD)</h2>
     <ul>
       <li>SSD je veliko hitrejši kot HDD. Priporočamo vsaj 250 GB SSD za OS + dodatni HDD za podatke.</li>
     </ul>
 
-    <h3>6. Napajalnik (PSU)</h3>
+    <h2>6. Napajalnik (PSU)</h2>
     <ul>
-      <li>Naj ima dovolj moči za celoten sistem (računaj z rezervo!).</li>
-      <li>Izberi kvalitetno znamko z 80+ certifikatom.</li>
+      <li>Naj ima dovolj moči za celoten sistem (z rezervo!).</li>
+      <li>Izberite kvalitetno znamko z 80+ certifikatom.</li>
     </ul>
 
-    <h3>7. Ohišje</h3>
+    <h2>7. Ohišje</h2>
     <ul>
       <li>Naj bo prostorno, z dobro zračenjem in možnostjo upravljanja kablov.</li>
     </ul>
 
-    <h3>8. Hlajenje</h3>
+    <h2>8. Hlajenje</h2>
     <ul>
-      <li>Stock hladilnik je OK za osnovno rabo, za boljše hlajenje priporočamo aftermarket hladilnik.</li>
+      <li>Stock hladilnik je zadosten za osnovno rabo, za boljše hlajenje priporočamo aftermarket hladilnik.</li>
     </ul>
 
-    <p>Če nisi prepričan, nam lahko pišeš in ti bomo pomagali izbrati prave komponente.</p>
+    <p>Če niste prepričani, nam lahko pišete in pomagali vam bomo izbrati prave komponente.</p>
+
+    <button onclick="window.location.href='it-podpora.html'">Piši nam za pomoč</button>
   </section>
+
 </body>
 </html>
