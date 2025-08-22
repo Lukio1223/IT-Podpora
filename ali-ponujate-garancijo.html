@@ -4,45 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ali ponujate garancijo? – Matkomp</title>
+  <meta name="color-scheme" content="light dark" />
   <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f2f5f9;
-      max-width: 900px;
-      margin: 2em auto;
-      padding: 1.5em;
-      color: #2e3a59;
+    :root{
+      --bg: #0f172a;
+      --bg-soft:#111827;
+      --card:#0b1224;
+      --text:#e5e7eb;
+      --muted:#a7b0c3;
+      --brand:#06b6d4;
+      --brand-2:#14b8a6;
+      --accent:#22c55e;
+      --shadow: 0 10px 35px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius-lg: 28px;
+      --container: 900px;
     }
-    h1 {
-      font-size: 2rem;
-      color: #005577;
-      margin-bottom: 1em;
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg: #f2f5f9;
+        --bg-soft:#e9edf3;
+        --card:#ffffff;
+        --text:#1f2937;
+        --muted:#4b5563;
+        --shadow: 0 12px 30px rgba(2,6,23,.08);
+      }
     }
-    p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-    a.back-link {
-      display: inline-block;
-      margin-bottom: 1.5em;
-      color: #005577;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    a.back-link:hover {
-      text-decoration: underline;
-    }
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; background:var(--bg); color:var(--text); font-family:"Inter","Segoe UI",Tahoma,Geneva,Verdana,sans-serif; line-height:1.6;}
+    a{color:inherit; text-decoration:none;}
+
+    .container{width:100%; max-width:var(--container); margin:auto; padding: 0 20px}
+
+    /* —— Topbar —— */
+    .topbar{position:sticky; top:0; z-index:40; backdrop-filter:saturate(160%) blur(8px); background:linear-gradient(180deg, rgba(6,182,212,.15), rgba(20,184,166,.08) 60%, transparent); border-bottom: 1px solid rgba(255,255,255,.08)}
+    .topbar-inner{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:10px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
+    .brand img{width:40px; height:40px; border-radius:50%; box-shadow:0 6px 20px rgba(6,182,212,.35)}
+    nav ul{display:flex; gap:10px; list-style:none; margin:0; padding:0}
+    .chip{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(6,182,212,.12); border:1px solid rgba(6,182,212,.35)}
+
+    /* —— Content —— */
+    h1{text-align:center; margin:30px 0; font-size:clamp(26px,4vw,38px);}
+    .content-card{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:28px; margin-bottom:40px;}
+    .content-card p{margin-bottom:1em; color:var(--muted); font-size:1.05rem;}
+    .back-link{display:inline-block; margin-bottom:20px; color:var(--brand); font-weight:600;}
+    .back-link:hover{text-decoration:underline;}
+
+    /* —— Footer —— */
+    footer{margin:60px 0 24px; color:var(--muted); text-align:center}
+    .foot{padding:22px; border-radius: var(--radius); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.08)}
   </style>
 </head>
 <body>
 
-<a href="faq.html" class="back-link">← Nazaj na FAQ</a>
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="brand">
+      <img src="Matkomp.png" alt="Matkomp logo"/>
+      <span>Matkomp</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a class="chip" href="index.html">🏠 Domov</a></li>
+        <li><a class="chip" href="trgovina.html">🛒 Trgovina</a></li>
+        <li><a class="chip" href="faq.html">❓ FAQ</a></li>
+        <li><a class="chip" href="kontakt.html">📞 Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
 
-<h1>Ali ponujate garancijo?</h1>
+<main class="container">
+  <h1>📜 Ali ponujate garancijo?</h1>
+  <div class="content-card">
+    <a href="faq.html" class="back-link">← Nazaj na FAQ</a>
+    <p>Da! Na vse naše izdelke nudimo osnovno 30-dnevno garancijo na delovanje. Če izdelek ne deluje, kot bi moral, nas kontaktiraj in skupaj bomo poiskali rešitev – zamenjavo, popravilo ali vračilo denarja.</p>
+    <p>Za rabljene komponente je garancija odvisna od stanja in predhodnega dogovora.</p>
+  </div>
+</main>
 
-<p>Da! Na vse naše izdelke nudimo osnovno 30-dnevno garancijo na delovanje. Če izdelek ne deluje, kot bi moral, nas kontaktiraj in skupaj bomo poiskali rešitev – zamenjavo, popravilo ali vračilo denarja.</p>
-
-<p>Za rabljene komponente je garancija odvisna od stanja in predhodnega dogovora.</p>
+<footer class="container">
+  <div class="foot">
+    &copy; 2025 Matkomp. Izdelano z ❤️ Luka & ekipa.
+  </div>
+</footer>
 
 </body>
 </html>
