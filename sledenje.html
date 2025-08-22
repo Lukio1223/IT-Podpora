@@ -1,167 +1,210 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sledenje naročilom - Matkomp</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f7f9fc;
-      color: #2e3a59;
-      margin: 0;
-      padding: 2em;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-    }
-    .container {
-      background: white;
-      max-width: 480px;
-      width: 100%;
-      padding: 2em;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1.5em;
-      font-weight: 700;
-      color: #005577;
-    }
-    label {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 0.5em;
-      color: #444;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 0.6em 1em;
-      font-size: 1.1rem;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      outline-offset: 2px;
-      transition: border-color 0.3s ease;
-      text-transform: uppercase;
-      box-sizing: border-box;
-    }
-    input[type="text"]:focus {
-      border-color: #005577;
-    }
-    button {
-      margin-top: 1.2em;
-      width: 100%;
-      background-color: #005577;
-      color: white;
-      border: none;
-      padding: 0.75em;
-      font-size: 1.1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #004466;
-    }
-    .rezultat {
-      margin-top: 1.8em;
-      font-size: 1rem;
-      line-height: 1.5;
-      background-color: #eaf1f8;
-      padding: 1.2em 1.5em;
-      border-radius: 10px;
-      color: #2e3a59;
-    }
-    .rezultat ul {
-      padding-left: 1.2em;
-      margin-top: 0.5em;
-      color: #005577;
-      font-weight: 600;
-    }
-    .rezultat p strong {
-      color: #004466;
-    }
-    .napaka {
-      color: #b00020;
-      font-weight: 700;
-      text-align: center;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sledenje naročilom - Matkomp</title>
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f9fc;
+    color: #2e3a59;
+    margin: 0;
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  .container {
+    background: white;
+    max-width: 500px;
+    width: 100%;
+    padding: 2em;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: #005577;
+  }
+  label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5em;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 0.6em 1em;
+    font-size: 1.1rem;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline-offset: 2px;
+    text-transform: uppercase;
+    box-sizing: border-box;
+  }
+  input[type="text"]:focus {
+    border-color: #005577;
+  }
+  button {
+    margin-top: 1.2em;
+    width: 100%;
+    background-color: #005577;
+    color: white;
+    border: none;
+    padding: 0.75em;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #004466;
+  }
+  .rezultat {
+    margin-top: 1.8em;
+    font-size: 1rem;
+    line-height: 1.5;
+    background-color: #eaf1f8;
+    padding: 1.2em 1.5em;
+    border-radius: 10px;
+    color: #2e3a59;
+  }
+  .izdelek-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 8px;
+    padding: 0.5em;
+    margin-bottom: 0.8em;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    border: 1px solid #cce0f5;
+  }
+  .izdelek-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 1em;
+  }
+  .izdelek-info {
+    flex: 1;
+  }
+  .izdelek-info p {
+    margin: 0.2em 0;
+  }
+  .izdelek-info .ime {
+    font-weight: 700;
+    color: #005577;
+  }
+  .btn-izdelek {
+    background-color: #1e88e5;
+    color: white;
+    padding: 0.4em 0.8em;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    text-decoration: none;
+  }
+  .btn-izdelek:hover {
+    background-color: #1565c0;
+  }
+  .napaka {
+    color: #b00020;
+    font-weight: 700;
+    text-align: center;
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Sledenje naročilom</h1>
-    <label for="kodaInput">Vnesite vašo kodo naročila:</label>
-    <input type="text" id="kodaInput" maxlength="6" placeholder="Npr. AB12CD" />
+<div class="container">
+  <h1>Sledenje naročilom</h1>
+  <label for="kodaInput">Vnesite vašo kodo naročila:</label>
+  <input type="text" id="kodaInput" maxlength="6" placeholder="Npr. AB12CD" />
+  <button id="preveriBtn">Preveri status</button>
 
-    <button id="preveriBtn">Preveri status</button>
+  <div id="rezultat" class="rezultat" aria-live="polite"></div>
+</div>
 
-    <div id="rezultat" class="rezultat" aria-live="polite"></div>
-  </div>
+<script>
+const kodaInput = document.getElementById('kodaInput');
+const rezultat = document.getElementById('rezultat');
 
-  <script>
-    document.getElementById('preveriBtn').addEventListener('click', () => {
-      const koda = document.getElementById('kodaInput').value.toUpperCase().trim();
-      const rezultat = document.getElementById('rezultat');
-      const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
+function preveriNaročilo() {
+  const koda = kodaInput.value.toUpperCase().trim();
+  const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
 
-      if (!koda) {
-        rezultat.innerHTML = '<p class="napaka">Prosim, vnesite kodo naročila.</p>';
-        return;
-      }
+  if (!koda) {
+    rezultat.innerHTML = '<p class="napaka">Prosim, vnesite kodo naročila.</p>';
+    return;
+  }
 
-      const narocilo = narocila.find(n => n.koda === koda);
+  if (narocila.length === 0) {
+    rezultat.innerHTML = '<p class="napaka">Trenutno ni shranjenih naročil.</p>';
+    return;
+  }
 
-      if (!narocilo) {
-        rezultat.innerHTML = '<p class="napaka">Naročilo s to kodo ni bilo najdeno.</p>';
-        return;
-      }
+  const narocilo = narocila.find(n => n.koda === koda);
+  if (!narocilo) {
+    rezultat.innerHTML = '<p class="napaka">Naročilo s to kodo ni bilo najdeno.</p>';
+    return;
+  }
 
-      // Naloži vse izdelke iz podatki.json, da dobimo imena in cene
-      fetch('podatki.json')
-        .then(res => res.json())
-        .then(vsiIzdelki => {
-          let produktiHTML = '';
-
-          if (narocilo.produkti && narocilo.produkti.length > 0) {
-            produktiHTML = narocilo.produkti.map(p => {
-              // Če so produkti samo ID-ji:
-              let praviIzdelek = null;
-
-              if (typeof p === 'string' || typeof p === 'number') {
-                // p je ID, poiščemo pravi izdelek
-                praviIzdelek = vsiIzdelki.find(i => i.id == p);
-              } else if (typeof p === 'object' && p.id) {
-                // p je objekt z id poljem
-                praviIzdelek = vsiIzdelki.find(i => i.id == p.id);
-              } else {
-                praviIzdelek = p; // če je že objekt
-              }
-
-              const ime = praviIzdelek?.ime || 'Brez imena';
-              const cena = (praviIzdelek && typeof praviIzdelek.cena === 'number') ? praviIzdelek.cena.toFixed(2) + ' €' : 'Cena ni na voljo';
-
-              return `<li>${ime} - ${cena}</li>`;
-            }).join('');
+  fetch('podatki.json')
+    .then(res => res.json())
+    .then(vsiIzdelki => {
+      let produktiHTML = '';
+      if (narocilo.produkti && narocilo.produkti.length > 0) {
+        produktiHTML = narocilo.produkti.map(p => {
+          let praviIzdelek = null;
+          if (typeof p === 'string' || typeof p === 'number') {
+            praviIzdelek = vsiIzdelki.find(i => i.id == p);
+          } else if (typeof p === 'object' && p.id) {
+            praviIzdelek = vsiIzdelki.find(i => i.id == p.id);
           } else {
-            produktiHTML = '<li>Ni izdelkov v naročilu.</li>';
+            praviIzdelek = p;
           }
+          const ime = praviIzdelek?.ime || 'Brez imena';
+          const cena = (praviIzdelek && typeof praviIzdelek.cena === 'number') ? praviIzdelek.cena.toFixed(2) + ' €' : 'Cena ni na voljo';
+          const slika = praviIzdelek?.slika || 'placeholder.png';
+          return `
+            <div class="izdelek-card">
+              <img src="${slika}" alt="${ime}">
+              <div class="izdelek-info">
+                <p class="ime">${ime}</p>
+                <p>${cena}</p>
+              </div>
+              <a class="btn-izdelek" href="izdelek.html?id=${praviIzdelek.id}">Ogled</a>
+            </div>`;
+        }).join('');
+      } else {
+        produktiHTML = '<p>Ni izdelkov v naročilu.</p>';
+      }
 
-          rezultat.innerHTML = `
-            <p>Naročilo <strong>${koda}</strong></p>
-            <p>Status: <strong>${narocilo.status}</strong></p>
-            <p>Datum: ${new Date(narocilo.datum).toLocaleString()}</p>
-            <p>Izdelki:</p>
-            <ul>${produktiHTML}</ul>
-          `;
-        })
-        .catch(() => {
-          rezultat.innerHTML = '<p class="napaka">Napaka pri nalaganju podatkov o izdelkih.</p>';
-        });
+      let barvaStatus = '#005577';
+      const statusLower = narocilo.status.toLowerCase();
+      if (statusLower === 'dostavljeno') barvaStatus = '#2e7d32';
+      if (statusLower === 'v obdelavi') barvaStatus = '#f9a825';
+      if (statusLower === 'preklicano') barvaStatus = '#b00020';
+
+      rezultat.innerHTML = `
+        <p>Naročilo <strong>${koda}</strong></p>
+        <p>Status: <strong style="color:${barvaStatus}">${narocilo.status}</strong></p>
+        <p>Datum: ${new Date(narocilo.datum).toLocaleString()}</p>
+        <p>Izdelki:</p>
+        ${produktiHTML}
+      `;
+    })
+    .catch(() => {
+      rezultat.innerHTML = '<p class="napaka">Napaka pri nalaganju podatkov o izdelkih.</p>';
     });
-  </script>
+}
+
+document.getElementById('preveriBtn').addEventListener('click', preveriNaročilo);
+kodaInput.addEventListener('keyup', e => { if(e.key==='Enter') preveriNaročilo(); });
+</script>
 </body>
 </html>
