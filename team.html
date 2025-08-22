@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ekipa – Matkomp</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -35,6 +34,12 @@
       padding: 1.5rem;
       max-width: 300px;
       text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .team-member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
     }
 
     .team-member img {
@@ -48,11 +53,36 @@
 
     h2 {
       color: #0078d7;
+      margin-bottom: 0.5rem;
     }
 
     p {
       font-size: 15px;
       color: #333;
+      line-height: 1.4;
+    }
+
+    .contact a {
+      display: inline-block;
+      margin: 0.3rem;
+      padding: 0.4em 0.8em;
+      background: #0078d7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+
+    .contact a:hover {
+      background: #005ea3;
+    }
+
+    @media (max-width: 650px) {
+      .team-container {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
@@ -65,17 +95,27 @@
     <div class="team-member">
       <img src="luka.jpg" alt="Luka">
       <h2>Luka</h2>
-      <p>💾Ustanovitelj Matkomp, dizajner, editor, retro navdušenec, mojster za Windows, sestavo PC-jev, sestavo starih PC-jev, izbira komponent, varnost sistemov. Kontakt: Email:lukacp346@gmail.com Telefon: 064 232 471 </p>
+      <p>💾Ustanovitelj Matkomp, dizajner, editor, retro navdušenec, mojster za Windows, sestavo PC-jev, sestavo starih PC-jev, izbira komponent, varnost sistemov.</p>
+      <div class="contact">
+        <a href="mailto:lukacp346@gmail.com">Email</a>
+        <a href="tel:+38664232471">Telefon</a>
+      </div>
     </div>
     <div class="team-member">
-      <img src="nai.jpg" alt="kolega">
+      <img src="nai.jpg" alt="Nai">
       <h2>Nai</h2>
-      <p>🛠️Ustanovitelj. Sestava PC-jev, izbira komponent, pomoč pri spletni strani, igrice, varnost sistemov, mojster za fizična dela. Kontakt: 064 208 206 </p>
+      <p>🛠️Ustanovitelj. Sestava PC-jev, izbira komponent, pomoč pri spletni strani, igrice, varnost sistemov, mojster za fizična dela.</p>
+      <div class="contact">
+        <a href="tel:+38664208206">Telefon</a>
+      </div>
     </div>
     <div class="team-member">
-      <img src="samo.jpg" alt="kolega">
+      <img src="samo.jpg" alt="Samo">
       <h2>Samo</h2>
-      <p>🧰Zaposlen. Igrice, sestava PC-jev, videi. Kontakt: 071 349 136 </p>
+      <p>🧰Zaposlen. Igrice, sestava PC-jev, videi.</p>
+      <div class="contact">
+        <a href="tel:+38671349136">Telefon</a>
+      </div>
     </div>
   </section>
 </body>
