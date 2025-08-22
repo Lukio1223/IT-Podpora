@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Top 3 brezplačni programi za testiranje računalnika - Matkomp</title>
+  <title>Top 4 brezplačni programi za testiranje računalnika - Matkomp</title>
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -26,43 +26,65 @@
     a.back-link:hover {
       text-decoration: underline;
     }
-    section {
+    .program {
       background: white;
       padding: 1.5em;
       border-radius: 12px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      line-height: 1.6;
       margin-bottom: 1.5em;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    h2 {
+    .program:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+    .program h2 {
       color: #005577;
       margin-top: 0;
+    }
+    .program a {
+      display: inline-block;
+      margin-top: 0.5em;
+      padding: 0.4em 0.8em;
+      background: #005577;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .program a:hover {
+      background: #004466;
     }
   </style>
 </head>
 <body>
   <a href="blog.html" class="back-link">← Nazaj na blog</a>
-  <h1>Top 3 brezplačni programi za testiranje računalnika</h1>
+  <h1>Top 4 brezplačni programi za testiranje računalnika</h1>
 
-  <section>
+  <div class="program">
     <h2>1. HWiNFO</h2>
-    <p>HWiNFO je zmogljiv program za diagnostiko, ki ponuja podrobne informacije o strojni opremi računalnika in spremljanje delovanja v realnem času.</p>
-  </section>
+    <p>HWiNFO ponuja podrobne informacije o strojni opremi računalnika in spremljanje delovanja v realnem času.</p>
+    <a href="https://www.hwinfo.com/" target="_blank">Odpri HWiNFO</a>
+  </div>
 
-  <section>
+  <div class="program">
     <h2>2. CrystalDiskInfo</h2>
-    <p>CrystalDiskInfo je orodje za spremljanje stanja trdih diskov, ki omogoča pregled SMART parametrov in opozori na morebitne težave.</p>
-  </section>
+    <p>Orodje za spremljanje stanja trdih diskov in pregled SMART parametrov.</p>
+    <a href="https://crystalmark.info/en/software/crystaldiskinfo/" target="_blank">Odpri CrystalDiskInfo</a>
+  </div>
 
-  <section>
+  <div class="program">
     <h2>3. OCCT</h2>
-    <p>OCCT je program za stresno testiranje CPU-ja, grafične kartice in napajalnika, kar pomaga preveriti stabilnost sistema pod obremenitvijo.</p>
-  </section>
+    <p>Program za stresno testiranje CPU-ja, grafične kartice in napajalnika, da preveri stabilnost sistema.</p>
+    <a href="https://www.ocbase.com/" target="_blank">Odpri OCCT</a>
+  </div>
 
-  <section>
- <h2>4. CPU-Z</h2>
-    <p>CPU-Z je brezplačni program za podrobno diagnostiko računalniškega procesorja, RAM-a, matične plošče in grafične kartice. Prikaže natančne tehnične podatke, kot so naziv CPU, hitrost, število jeder, takt RAM-a in še več — zelo uporaben za testiranje in preverjanje strojne opreme.</p>
-    </section>
-  
+  <div class="program">
+    <h2>4. CPU-Z</h2>
+    <p>Brezplačni program za diagnostiko procesorja, RAM-a, matične plošče in grafične kartice.</p>
+    <a href="https://www.cpuid.com/softwares/cpu-z.html" target="_blank">Odpri CPU-Z</a>
+  </div>
+
 </body>
 </html>
