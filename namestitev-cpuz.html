@@ -16,10 +16,19 @@
       line-height: 1.6;
     }
 
+    a {
+      color: #1e88e5;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
     h1 {
       color: #1e88e5;
-      margin-bottom: 1em;
       font-size: 1.8rem;
+      margin-bottom: 1em;
     }
 
     h3 {
@@ -35,13 +44,20 @@
       margin-bottom: 0.8em;
     }
 
-    a {
-      color: #1e88e5;
+    .btn-download {
+      display: inline-block;
+      margin: 1em 0;
+      padding: 0.6em 1.2em;
+      background-color: #1e88e5;
+      color: white;
+      border-radius: 6px;
+      font-weight: 600;
       text-decoration: none;
+      transition: background-color 0.3s ease;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .btn-download:hover {
+      background-color: #1565c0;
     }
 
     iframe {
@@ -50,38 +66,60 @@
       border: none;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      width: 100%;
+      height: 400px;
+    }
+
+    .note {
+      background: #e8f0fe;
+      padding: 1em;
+      border-left: 4px solid #1e88e5;
+      margin: 1em 0;
+      border-radius: 6px;
+      font-size: 0.95rem;
     }
   </style>
 </head>
 <body>
 
   <a href="blog.html">← Nazaj na blog</a>
+
   <h1>Namestitev in uporaba CPU-Z</h1>
 
-  <p><strong>CPU-Z</strong> je brezplačen program, ki prikaže podrobne informacije o vašem procesorju, matični plošči, RAM-u in več.</p>
+  <p><strong>CPU-Z</strong> je brezplačen program, ki prikaže podrobne informacije o vašem procesorju, matični plošči, RAM-u in drugih komponentah računalnika. Idealen je za hitro diagnostiko in preverjanje stabilnosti sistema.</p>
+
+  <h3>Prenos programa:</h3>
+  <a href="https://download.cpuid.com/cpu-z/cpu-z_2.04-en.exe" target="_blank" class="btn-download">Prenesi CPU-Z (EXE)</a>
+
+  <div class="note">
+    ⚠️ Priporočamo EXE različico za enostavno namestitev. ZIP različica je primerna za prenosno uporabo brez namestitve.
+  </div>
 
   <h3>Namestitev:</h3>
   <ul>
-    <li>Obišči uradno stran: <a href="https://www.cpuid.com/softwares/cpu-z.html" target="_blank">cpuid.com</a></li>
-    <li>Prenesi ZIP ali EXE različico (priporočamo EXE installer).</li>
-    <li>Zaženi namestitveni program in sledite navodilom.</li>
+    <li>Zaženi preneseni EXE installer.</li>
+    <li>Sledi korakom namestitvenega čarovnika.</li>
+    <li>Izberi privzete nastavitve, če nisi napreden uporabnik.</li>
   </ul>
 
   <h3>Uporaba:</h3>
   <ul>
     <li>Odpri CPU-Z po namestitvi.</li>
-    <li>Preveri zavihek <strong>CPU</strong> za podatke o procesorju.</li>
-    <li>Zavihek <strong>Mainboard</strong> ti pove, katero matično ploščo imaš.</li>
-    <li>Zavihek <strong>Memory</strong> pokaže podatke o tvojem RAM-u.</li>
+    <li>Zavihek <strong>CPU</strong> – podatki o procesorju (model, frekvenca, jedra).</li>
+    <li>Zavihek <strong>Mainboard</strong> – informacije o matični plošči.</li>
+    <li>Zavihek <strong>Memory</strong> – podatki o RAM-u (tip, hitrost, velikost).</li>
+    <li>Zavihek <strong>SPD</strong> – podrobnosti vsakega RAM modula.</li>
   </ul>
+
+  <div class="note">
+    💡 Nasvet: CPU-Z je zelo lahek program in ne potrebuje veliko prostora. Odličen je tudi za preverjanje, če je RAM pravilno konfiguriran in ali XMP profil deluje.
+  </div>
 
   <h3>Video vodič:</h3>
   <p>Če želiš videti celoten postopek, si lahko ogledaš moj YouTube video spodaj:</p>
+  <iframe src="https://www.youtube.com/embed/MtMR-K5Do1w" allowfullscreen></iframe>
 
-  <!-- 🔴 Zamenjaj "YOUTUBE_VIDEO_ID" z ID-jem tvojega videa -->
-  <iframe width="100%" height="400" src="https://www.youtube.com/embed/MtMR-K5Do1w" allowfullscreen></iframe>
-
-  <p>Program je zelo lahek in ne potrebuje veliko prostora. Idealno za hitro diagnostiko.</p>
+  <p>Po ogledu in namestitvi boš lahko hitro preveril vse ključne informacije o svojem računalniku.</p>
 
 </body>
 </html>
