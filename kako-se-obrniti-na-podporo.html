@@ -12,12 +12,14 @@
       margin: 2em auto;
       padding: 1em;
       color: #2e3a59;
+      line-height: 1.6;
     }
     h1 {
       text-align: center;
       margin-bottom: 1.5em;
       font-weight: 700;
       font-size: 2rem;
+      color: #005577;
     }
     .faq-section {
       background: white;
@@ -26,26 +28,49 @@
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
     }
     h2 {
-      color: #005577;
+      color: #1e88e5;
       font-size: 1.3rem;
       margin-top: 1.5em;
     }
     p {
       font-size: 1.05rem;
       color: #444;
-      margin: 0.5em 0 1.5em;
+      margin: 0.5em 0 1em;
     }
     a {
-      color: #005577;
+      color: #1e88e5;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
     a.back-link {
       display: inline-block;
       margin-bottom: 1.5em;
-      text-decoration: none;
       font-weight: 600;
     }
-    a.back-link:hover {
-      text-decoration: underline;
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      margin-top: 0.5em;
+    }
+    .contact-buttons a {
+      padding: 10px 16px;
+      background-color: #1e88e5;
+      color: white;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    .contact-buttons a:hover {
+      background-color: #1565c0;
+    }
+    ul {
+      padding-left: 1.2em;
+    }
+    li {
+      margin-bottom: 0.5em;
     }
   </style>
 </head>
@@ -58,10 +83,13 @@
 <div class="faq-section">
 
   <h2>Kontakt</h2>
-  <p>Na spletni strani najdeš kontakt. Pokliči ali piši odgovorim ti čim prej, običajno še isti dan.</p>
+  <p>Pokliči ali piši, odgovorili ti bomo čim prej, običajno še isti dan.</p>
 
   <h2>E-pošta</h2>
-  <p>Piši mi na: <a href="mailto:lukacp346@gmail.com">lukacp346@gmail.com</a></p>
+  <p>Piši na: <a href="mailto:lukacp346@gmail.com">lukacp346@gmail.com</a></p>
+  <div class="contact-buttons">
+    <a href="mailto:lukacp346@gmail.com">Pošlji e-pošto</a>
+  </div>
 
   <h2>Telefon</h2>
   <p>Lahko me kontaktiraš tudi preko telefona:</p>
@@ -70,9 +98,14 @@
     <li><strong>064 208 206</strong></li>
     <li><strong>071 349 136</strong></li>
   </ul>
+  <div class="contact-buttons">
+    <a href="tel:064232471">Pokliči 064 232 471</a>
+    <a href="tel:064208206">Pokliči 064 208 206</a>
+    <a href="tel:071349136">Pokliči 071 349 136</a>
+  </div>
 
   <h2>Delovni čas</h2>
-  <p>Odvisno od dneva in obveznosti.</p> 
+  <p>Odvisno od dneva in obveznosti, običajno pa med 9:00 in 18:00.</p> 
 
 </div>
 
