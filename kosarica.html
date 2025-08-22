@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      max-width: 600px;
+      max-width: 900px;
       margin: 2em auto;
       padding: 1em;
       background: #f9fafc;
@@ -20,42 +20,47 @@
       font-size: 2rem;
     }
     .izdelek {
-      background: white;
-      border-radius: 10px;
-      padding: 1em;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      margin-bottom: 1.5em;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      background: white;
+      border-radius: 12px;
+      padding: 1em;
+      margin-bottom: 1em;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     }
-    .izdelek a {
-      color: #005577;
+    .izdelek img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 1em;
+    }
+    .izdelek-info {
+      flex-grow: 1;
+    }
+    .izdelek-info a {
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      color: #005577;
       text-decoration: none;
     }
-    .izdelek a:hover {
+    .izdelek-info a:hover {
       text-decoration: underline;
     }
     .cena {
       font-weight: 600;
-      font-size: 1.1rem;
       margin-right: 1em;
-      white-space: nowrap;
     }
-    button {
+    .izdelek button {
       background-color: #d9534f;
       color: white;
       border: none;
       padding: 0.5em 1em;
       border-radius: 6px;
-      font-size: 1rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      margin-left: 0.5em;
     }
-    button:hover {
+    .izdelek button:hover {
       background-color: #c9302c;
     }
     .prazna {
@@ -65,12 +70,19 @@
       margin-top: 2em;
     }
     .actions {
-      text-align: center;
+      text-align: right;
       margin-top: 2em;
+      font-size: 1.2rem;
     }
     .actions button.kupi {
       background-color: #005577;
       padding: 0.7em 2em;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 0.5em;
     }
     .actions button.kupi:hover {
       background-color: #004466;
@@ -81,7 +93,6 @@
 
   <h1>Vaša košarica</h1>
   <div id="kosarica-container"></div>
-
   <div class="actions" id="actions"></div>
 
   <script>
@@ -98,38 +109,47 @@
           return;
         }
 
-        // Samo en izdelek
-        const id = kosarica[0];
-        const izdelek = izdelki.find(i => i.id === id);
+        let skupnaCena = 0;
 
-        if (!izdelek) {
-          container.innerHTML = '<p class="prazna">Izdelek ni najden.</p>';
-          actions.innerHTML = '';
-          return;
-        }
+        kosarica.forEach((id, index) => {
+          const izdelek = izdelki.find(i => i.id === id);
+          if (!izdelek) return;
 
-        const div = document.createElement('div');
-        div.className = 'izdelek';
+          skupnaCena += izdelek.cena;
 
-        div.innerHTML = `
-          <a href="izdelek.html?id=${izdelek.id}">${izdelek.ime}</a>
-          <span class="cena">${izdelek.cena.toFixed(2)} €</span>
-          <button id="btn-izbrisi">Izbriši</button>
-        `;
-
-        container.appendChild(div);
-
-        document.getElementById('btn-izbrisi').addEventListener('click', () => {
-          localStorage.removeItem('kosarica');
-          container.innerHTML = '<p class="prazna">Košarica je prazna.</p>';
-          actions.innerHTML = '';
+          const div = document.createElement('div');
+          div.className = 'izdelek';
+          div.innerHTML = `
+            <img src="${izdelek.slika}" alt="${izdelek.ime}">
+            <div class="izdelek-info">
+              <a href="izdelek.html?id=${izdelek.id}">${izdelek.ime}</a><br>
+              <span class="cena">${izdelek.cena.toFixed(2)} €</span>
+            </div>
+            <button data-index="${index}">Izbriši</button>
+          `;
+          container.appendChild(div);
         });
 
-        actions.innerHTML = '<button class="kupi">Kupi</button>';
+        actions.innerHTML = `
+          <strong>Skupna cena: ${skupnaCena.toFixed(2)} €</strong><br>
+          <button class="kupi">Kupi</button>
+        `;
+
+        // Brisanje posameznega izdelka
+        container.addEventListener('click', (e) => {
+          if (e.target.tagName === 'BUTTON') {
+            const idx = e.target.getAttribute('data-index');
+            kosarica.splice(idx, 1);
+            localStorage.setItem('kosarica', JSON.stringify(kosarica));
+            window.location.reload();
+          }
+        });
+
         document.querySelector('.kupi').addEventListener('click', () => {
           window.location.href = 'checkout.html';
         });
       });
   </script>
+
 </body>
 </html>
