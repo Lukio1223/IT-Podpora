@@ -1,143 +1,115 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FAQ – Matkomp</title>
   <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f2f5f9;
-      max-width: 900px;
-      margin: 2em auto;
-      padding: 1em;
-      color: #2e3a59;
+    :root{
+      --bg:#f9fbfc; --card:#fff; --text:#2e3a59; --muted:#6b7280; 
+      --brand:#1e88e5; --brand-hover:#1565c0; --shadow:0 8px 20px rgba(0,0,0,.08); 
+      --radius:16px; --radius-lg:24px; --container:960px;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 1.5em;
-      font-weight: 700;
-      font-size: 2rem;
-    }
-    #searchInput {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 1.5em;
-      font-size: 1rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-    .faq-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1.4em;
-    }
-    .faq {
-      background: white;
-      padding: 1.5em 2em;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-      transition: transform 0.3s ease;
-      cursor: pointer;
-      user-select: none;
-    }
-    .faq:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-    }
-    .faq h2 {
-      margin: 0 0 0.5em 0;
-      font-weight: 700;
-      color: #005577;
-      font-size: 1.4rem;
-    }
-    .faq p {
-      margin: 0;
-      font-size: 1.05rem;
-      color: #444;
-    }
-    a.back-link {
-      display: inline-block;
-      margin-bottom: 1.5em;
-      color: #005577;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    a.back-link:hover {
-      text-decoration: underline;
-    }
+    *{box-sizing:border-box;}
+    body{margin:0;padding:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+    a{text-decoration:none;color:inherit;}
+
+    /* Topbar */
+    .topbar{position:sticky;top:0;background:linear-gradient(180deg, rgba(30,136,229,.15), rgba(21,101,192,.08));backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid rgba(0,0,0,.08);z-index:50;}
+    .topbar-inner{display:flex;justify-content:space-between;align-items:center;max-width:var(--container);margin:auto;padding:10px 20px;}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;}
+    .brand img{width:40px;height:40px;border-radius:50%;box-shadow:0 6px 20px rgba(30,136,229,.35);}
+    nav ul{display:flex;gap:10px;list-style:none;margin:0;padding:0;}
+    .chip{padding:8px 12px;border-radius:999px;background:rgba(30,136,229,.12);border:1px solid rgba(30,136,229,.35);font-weight:600;}
+
+    .container{max-width:var(--container);margin:auto;padding:20px;}
+    h1{text-align:center;margin-bottom:24px;color:var(--brand);}
+
+    #searchInput{width:100%;padding:12px;margin-bottom:24px;font-size:1rem;border-radius:12px;border:1px solid #ccc;box-sizing:border-box;}
+
+    .faq-list{display:flex;flex-direction:column;gap:1.5em;}
+    .faq{background:var(--card);padding:1.5em 2em;border-radius:var(--radius-lg);box-shadow:var(--shadow);cursor:pointer;transition:transform 0.3s ease;}
+    .faq:hover{transform:translateY(-5px);box-shadow:0 12px 30px rgba(0,0,0,0.12);}
+    .faq h2{margin:0 0 0.5em 0;font-weight:700;color:var(--brand);font-size:1.4rem;}
+    .faq p{margin:0;color:#444;font-size:1.05rem;}
+
+    a.back-link{display:inline-block;margin-bottom:1.5em;color:var(--brand);font-weight:600;}
+    a.back-link:hover{text-decoration:underline;}
+
+    footer{margin:60px 0 24px;text-align:center;color:var(--muted);}
+    .foot{padding:22px;border-radius: var(--radius); background: rgba(30,136,229,.05);}
   </style>
 </head>
 <body>
 
-<a href="index.html" class="back-link">← Nazaj na domov</a>
-
-<h1>Pogosta vprašanja (FAQ)</h1>
-
-<input type="text" id="searchInput" placeholder="Išči vprašanja..." />
-
-<div class="faq-list" id="faq-list">
-  <!-- Vprašanja se naložijo tukaj -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <img src="Matkomp.png" alt="Matkomp logo"/>
+      <span>Matkomp</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a class="chip" href="index.html">🏠 Domov</a></li>
+        <li><a class="chip" href="trgovina.html">🛒 Trgovina</a></li>
+        <li><a class="chip" href="faq.html">❓ FAQ</a></li>
+        <li><a class="chip" href="kontakt.html">📞 Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
 </div>
 
+<div class="container">
+  <a href="index.html" class="back-link">← Nazaj na domov</a>
+
+  <h1>Pogosta vprašanja (FAQ)</h1>
+
+  <input type="text" id="searchInput" placeholder="Išči vprašanja..." />
+
+  <div class="faq-list" id="faq-list"></div>
+</div>
+
+<footer class="container">
+  <div class="foot">
+    &copy; 2025 Matkomp. Izdelano z ❤️ Luka & ekipa.
+  </div>
+</footer>
+
 <script>
-  const faqs = [
-    {
-      id: 'kako-narociti',
-      title: 'Kako naročim izdelek?',
-      excerpt: 'Hiter postopek naročila iz spletne trgovine Matkomp.'
-    },
-    {
-      id: 'ali-ponujate-garancijo',
-      title: 'Ali ponujate garancijo?',
-      excerpt: 'Vse o garanciji, vračilu izdelkov in podpori po nakupu.'
-    },
-    {
-      id: 'kako-se-obrniti-na-podporo',
-      title: 'Kako se obrniti na tehnično podporo?',
-      excerpt: 'Kontaktni podatki in delovni čas za pomoč uporabnikom.'
-    },
-    {
-      id: 'kako-vracilo',
-      title: 'Kakšni so pogoji vračila?',
-      excerpt: 'Informacije o pravicah in postopku vračila izdelkov.'
-    },
-    {
-      id: 'podatki',
-      title: 'Varnost in zaščita podatkov',
-      excerpt: 'Kako skrbim za podatke, GDPR in varnost vašega računalnika.'
-    }
+  const faqs=[
+    {id:'kako-narociti',title:'Kako naročim izdelek?',excerpt:'Hiter postopek naročila iz spletne trgovine Matkomp.'},
+    {id:'ali-ponujate-garancijo',title:'Ali ponujate garancijo?',excerpt:'Vse o garanciji, vračilu izdelkov in podpori po nakupu.'},
+    {id:'kako-se-obrniti-na-podporo',title:'Kako se obrniti na tehnično podporo?',excerpt:'Kontaktni podatki in delovni čas za pomoč uporabnikom.'},
+    {id:'kako-vracilo',title:'Kakšni so pogoji vračila?',excerpt:'Informacije o pravicah in postopku vračila izdelkov.'},
+    {id:'podatki',title:'Varnost in zaščita podatkov',excerpt:'Kako skrbim za podatke, GDPR in varnost vašega računalnika.'}
   ];
 
-  const container = document.getElementById('faq-list');
+  const container=document.getElementById('faq-list');
 
-  function loadFaqs(filter = '') {
-    container.innerHTML = '';
-    const filteredFaqs = faqs.filter(faq => {
-      return faq.title.toLowerCase().includes(filter) || faq.excerpt.toLowerCase().includes(filter);
+  function loadFaqs(filter=''){
+    container.innerHTML='';
+    const filteredFaqs=faqs.filter(faq=>{
+      return faq.title.toLowerCase().includes(filter)||faq.excerpt.toLowerCase().includes(filter);
     });
 
-    if (filteredFaqs.length === 0) {
-      const noResult = document.createElement('p');
-      noResult.textContent = 'Ni najdenih vprašanj.';
-      noResult.style.color = '#777';
+    if(filteredFaqs.length===0){
+      const noResult=document.createElement('p');
+      noResult.textContent='Ni najdenih vprašanj.';
+      noResult.style.color='#777';
       container.appendChild(noResult);
       return;
     }
 
-    for (const faq of filteredFaqs) {
-      const div = document.createElement('div');
-      div.className = 'faq';
-      div.onclick = () => {
-        window.location.href = faq.id + '.html';
-      };
+    for(const faq of filteredFaqs){
+      const div=document.createElement('div');
+      div.className='faq';
+      div.onclick=()=>{window.location.href=faq.id+'.html';};
 
-      const naslov = document.createElement('h2');
-      naslov.textContent = faq.title;
+      const naslov=document.createElement('h2');
+      naslov.textContent=faq.title;
 
-      const povzetek = document.createElement('p');
-      povzetek.textContent = faq.excerpt;
+      const povzetek=document.createElement('p');
+      povzetek.textContent=faq.excerpt;
 
       div.appendChild(naslov);
       div.appendChild(povzetek);
@@ -145,13 +117,8 @@
     }
   }
 
-  const searchInput = document.getElementById('searchInput');
-  searchInput.addEventListener('input', () => {
-    const filter = searchInput.value.toLowerCase();
-    loadFaqs(filter);
-  });
-
-  // Prvič naloži vsa vprašanja
+  const searchInput=document.getElementById('searchInput');
+  searchInput.addEventListener('input',()=>{loadFaqs(searchInput.value.toLowerCase());});
   loadFaqs();
 </script>
 
