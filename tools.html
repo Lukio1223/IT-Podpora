@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Orodja – Matkomp</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -33,6 +32,12 @@
       padding: 1rem;
       margin-bottom: 1.5rem;
       box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .tool-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
 
     .tool-box h3 {
@@ -40,14 +45,32 @@
       color: #0078d7;
     }
 
+    .tool-box p {
+      margin: 0.5em 0 1em 0;
+    }
+
     .tool-box a {
-      color: #005a9e;
-      font-weight: bold;
+      display: inline-block;
+      padding: 0.5em 1em;
+      background: #0078d7;
+      color: white;
       text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.3s;
     }
 
     .tool-box a:hover {
-      text-decoration: underline;
+      background: #005a9e;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        padding: 1em;
+      }
+      .tool-box {
+        padding: 1em;
+      }
     }
   </style>
 </head>
