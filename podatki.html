@@ -2,39 +2,27 @@
 <html lang="sl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Varnost podatkov – Matkomp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f2f5f9;
-      max-width: 900px;
-      margin: 2em auto;
-      padding: 1em;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f2f5f9;
       color: #2e3a59;
+      padding: 2em;
+      max-width: 960px;
+      margin: auto;
+      line-height: 1.6;
     }
+
     h1 {
       text-align: center;
-      margin-bottom: 1.5em;
-      font-weight: 700;
       font-size: 2rem;
-    }
-    .faq-section {
-      background: white;
-      padding: 2em;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
-    }
-    h2 {
+      margin-bottom: 2em;
       color: #005577;
-      font-size: 1.3rem;
-      margin-top: 1.5em;
     }
-    p {
-      font-size: 1.05rem;
-      color: #444;
-      margin: 0.5em 0 1.5em;
-    }
+
     a.back-link {
       display: inline-block;
       margin-bottom: 1.5em;
@@ -44,6 +32,50 @@
     }
     a.back-link:hover {
       text-decoration: underline;
+    }
+
+    .faq-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5em;
+    }
+
+    .faq-card {
+      background: #ffffff;
+      padding: 1.8em 2em;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .faq-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+
+    .faq-card h2 {
+      font-size: 1.3rem;
+      color: #1e88e5;
+      margin-bottom: 0.8em;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    .faq-card p {
+      font-size: 1.05rem;
+      color: #444;
+      margin: 0;
+    }
+
+    .icon {
+      font-size: 1.3rem;
+      color: #1565c0;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1em;
+      }
     }
   </style>
 </head>
@@ -55,23 +87,35 @@
 
 <div class="faq-section">
 
-  <h2>Kako skrbim za varnost vaših podatkov med servisom?</h2>
-  <p>Vaši osebni podatki so pri meni varni. Med popravilom računalnika spoštujem stroge postopke, da ne pride do nenamernega razkritja ali zlorabe informacij.</p>
+  <div class="faq-card">
+    <h2><span class="icon">🔒</span> Kako skrbim za varnost vaših podatkov med servisom?</h2>
+    <p>Vaši osebni podatki so pri meni varni. Med popravilom računalnika spoštujem stroge postopke, da ne pride do nenamernega razkritja ali zlorabe informacij.</p>
+  </div>
 
-  <h2>Ali bodo moji podatki varno izbrisani z diska?</h2>
-  <p>Če želite, vam lahko varno izbrišem vse podatke z vašega diska z uporabo specializiranih orodij, ki preprečijo njihovo obnovitev.</p>
+  <div class="faq-card">
+    <h2><span class="icon">💾</span> Ali bodo moji podatki varno izbrisani z diska?</h2>
+    <p>Če želite, vam lahko varno izbrišem vse podatke z vašega diska z uporabo specializiranih orodij, ki preprečijo njihovo obnovitev.</p>
+  </div>
 
-  <h2>Kaj naj naredim, če sumim na virus ali zlonamerno programsko opremo?</h2>
-  <p>Če imate težave z računalnikom zaradi sumljivih programov, me kontaktirajte čim prej. Pomagal vam bom odstraniti viruse in zaščititi vaš sistem pred nadaljnjimi okužbami.</p>
+  <div class="faq-card">
+    <h2><span class="icon">🛡️</span> Kaj naj naredim, če sumim na virus ali zlonamerno programsko opremo?</h2>
+    <p>Če imate težave z računalnikom zaradi sumljivih programov, me kontaktirajte čim prej. Pomagal vam bom odstraniti viruse in zaščititi vaš sistem pred nadaljnjimi okužbami.</p>
+  </div>
 
-  <h2>Kako lahko zaščitim svoj računalnik pred vdori?</h2>
-  <p>Redno posodabljajte operacijski sistem in antivirusno programsko opremo, uporabljajte močna gesla ter ne odpirajte sumljivih povezav ali priponk.</p>
+  <div class="faq-card">
+    <h2><span class="icon">⚙️</span> Kako lahko zaščitim svoj računalnik pred vdori?</h2>
+    <p>Redno posodabljajte operacijski sistem in antivirusno programsko opremo, uporabljajte močna gesla ter ne odpirajte sumljivih povezav ali priponk.</p>
+  </div>
 
-  <h2>Kaj pomeni GDPR in kako vpliva na moje storitve?</h2>
-  <p>GDPR je evropska uredba, ki ščiti osebne podatke uporabnikov. Kot izvajalec storitev spoštujem vse zakonske zahteve glede varovanja vaših podatkov.</p>
+  <div class="faq-card">
+    <h2><span class="icon">📜</span> Kaj pomeni GDPR in kako vpliva na moje storitve?</h2>
+    <p>GDPR je evropska uredba, ki ščiti osebne podatke uporabnikov. Kot izvajalec storitev spoštujem vse zakonske zahteve glede varovanja vaših podatkov.</p>
+  </div>
 
-  <h2>Katere varnostne ukrepe izvajam pri svojem servisu?</h2>
-  <p>Pri delu uporabljam zaščitena omrežja in varne postopke, prav tako spoštujem zaupnost vaših podatkov in jih ne posredujem tretjim osebam brez vašega soglasja.</p>
+  <div class="faq-card">
+    <h2><span class="icon">🖥️</span> Katere varnostne ukrepe izvajam pri svojem servisu?</h2>
+    <p>Pri delu uporabljam zaščitena omrežja in varne postopke, prav tako spoštujem zaupnost vaših podatkov in jih ne posredujem tretjim osebam brez vašega soglasja.</p>
+  </div>
 
 </div>
 
