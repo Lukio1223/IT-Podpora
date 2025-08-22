@@ -5,103 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Zaključi nakup - Matkomp</title>
   <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f2f5f9;
-      color: #2e3a59;
-      max-width: 600px;
-      margin: 2em auto;
-      padding: 2em;
+    :root{
+      --bg:#f9fbfc; --card:#fff; --text:#2e3a59; --muted:#6b7280; 
+      --brand:#1e88e5; --brand-hover:#1565c0; --shadow:0 8px 20px rgba(0,0,0,.08); 
+      --radius:16px; --radius-lg:24px; --container:960px;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 1em;
-    }
-    form {
-      background: white;
-      padding: 1.5em;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      font-size: 1rem;
-    }
-    label {
-      display: block;
-      margin-top: 1em;
-      font-weight: 600;
-      color: #2e3a59;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
-      font-size: 1rem;
-    }
-    input[type="checkbox"] {
-      margin-top: 1em;
-      transform: scale(1.1);
-      margin-right: 8px;
-      vertical-align: middle;
-      cursor: pointer;
-    }
-    button {
-      margin-top: 2em;
-      padding: 12px 25px;
-      background-color: #005577;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0,85,119,0.5);
-      user-select: none;
-    }
-    button:hover {
-      background-color: #003344;
-      box-shadow: 0 6px 14px rgba(0, 51, 68, 0.7);
-    }
-    .cash-note {
-      margin-top: 2em;
-      font-weight: 700;
-      color: #b30000;
-      background: #ffeaea;
-      padding: 1em;
-      border-radius: 6px;
-      font-size: 1rem;
-      text-align: center;
-    }
-    .success-message, .error-message {
-      background: #d4edda;
-      border: 1px solid #c3e6cb;
-      color: #155724;
-      padding: 1em;
-      margin-top: 1em;
-      border-radius: 6px;
-      text-align: center;
-      display: none;
-    }
-    .error-message {
-      background: #f8d7da;
-      border-color: #f5c6cb;
-      color: #721c24;
-    }
-    .tracking-code {
-      font-weight: 700;
-      font-size: 1.3rem;
-      margin-top: 0.5em;
-      color: #004466;
-      user-select: all;
-      cursor: pointer;
-    }
+    *{box-sizing:border-box;}
+    body{margin:0;padding:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+    a{text-decoration:none;color:inherit;}
+
+    /* Topbar */
+    .topbar{position:sticky;top:0;background:linear-gradient(180deg, rgba(30,136,229,.15), rgba(21,101,192,.08));backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid rgba(0,0,0,.08);z-index:50;}
+    .topbar-inner{display:flex;justify-content:space-between;align-items:center;max-width:var(--container);margin:auto;padding:10px 20px;}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;}
+    .brand img{width:40px;height:40px;border-radius:50%;box-shadow:0 6px 20px rgba(30,136,229,.35);}
+    nav ul{display:flex;gap:10px;list-style:none;margin:0;padding:0;}
+    .chip{padding:8px 12px;border-radius:999px;background:rgba(30,136,229,.12);border:1px solid rgba(30,136,229,.35);font-weight:600;}
+
+    /* Container */
+    .container{max-width:var(--container);margin:auto;padding:20px;}
+
+    h1{text-align:center;margin-bottom:24px;color:var(--brand);}
+    form{background:var(--card);padding:2em;border-radius:var(--radius-lg);box-shadow:var(--shadow);max-width:600px;margin:auto;}
+    label{display:block;margin-top:1em;font-weight:600;}
+    input[type="text"], input[type="email"], input[type="tel"]{width:100%;padding:12px;margin-top:6px;border:1px solid #ccc;border-radius:8px;font-size:1rem;}
+    input[type="checkbox"]{transform:scale(1.1);margin-right:8px;vertical-align:middle;cursor:pointer;}
+    button{margin-top:2em;padding:12px 25px;background:var(--brand);color:#fff;border:none;border-radius:var(--radius);font-size:1.1rem;font-weight:600;cursor:pointer;transition:background 0.3s ease, box-shadow 0.3s ease;box-shadow:var(--shadow);}
+    button:hover{background:var(--brand-hover);box-shadow:0 6px 14px rgba(21,101,192,.35);}
+    .cash-note{margin-top:2em;font-weight:700;color:#b30000;background:#ffeaea;padding:1em;border-radius:8px;text-align:center;}
+    .success-message, .error-message{padding:1em;margin-top:1em;border-radius:8px;text-align:center;display:none;}
+    .success-message{background:#d4edda;color:#155724;border:1px solid #c3e6cb;}
+    .error-message{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;}
+    .tracking-code{font-weight:700;font-size:1.3rem;margin-top:0.5em;color:var(--brand);user-select:all;cursor:pointer;}
+
+    footer{margin:60px 0 24px;text-align:center;color:var(--muted);}
+    .foot{padding:22px;border-radius: var(--radius); background: rgba(30,136,229,.05);}
   </style>
 </head>
 <body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <img src="Matkomp.png" alt="Matkomp logo"/>
+      <span>Matkomp</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a class="chip" href="index.html">🏠 Domov</a></li>
+        <li><a class="chip" href="trgovina.html">🛒 Trgovina</a></li>
+        <li><a class="chip" href="faq.html">❓ FAQ</a></li>
+        <li><a class="chip" href="kontakt.html">📞 Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<div class="container">
   <h1>Zaključi nakup</h1>
 
   <form id="checkoutForm">
@@ -143,90 +103,85 @@
   </div>
 
   <div class="error-message" id="errorMessage"></div>
+</div>
 
-  <script>
-    function generirajStevilkoNarocila() {
-      const znaki = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      let koda = '';
-      for(let i=0; i<6; i++) {
-        koda += znaki.charAt(Math.floor(Math.random() * znaki.length));
-      }
-      return koda;
+<footer class="container">
+  <div class="foot">
+    &copy; 2025 Matkomp. Izdelano z ❤️ Luka & ekipa.
+  </div>
+</footer>
+
+<script>
+  function generirajStevilkoNarocila() {
+    const znaki = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let koda = '';
+    for(let i=0;i<6;i++){koda+=znaki.charAt(Math.floor(Math.random()*znaki.length));}
+    return koda;
+  }
+
+  window.addEventListener('DOMContentLoaded', ()=>{
+    const kosarica = JSON.parse(localStorage.getItem('kosarica'))||[];
+    document.getElementById('skrivniIzdelek').value = JSON.stringify(kosarica);
+  });
+
+  const form=document.getElementById('checkoutForm');
+  const successMessage=document.getElementById('successMessage');
+  const errorMessage=document.getElementById('errorMessage');
+  const trackingCodeEl=document.getElementById('trackingCode');
+
+  trackingCodeEl.addEventListener('click',()=>{
+    navigator.clipboard.writeText(trackingCodeEl.textContent)
+      .then(()=>alert('Številka za sledenje je kopirana!'))
+      .catch(()=>alert('Kopiranje ni uspelo, ročno označite in kopirajte.'));
+  });
+
+  form.addEventListener('submit',async (e)=>{
+    e.preventDefault();
+    errorMessage.style.display='none';
+    successMessage.style.display='none';
+
+    const kosarica=JSON.parse(localStorage.getItem('kosarica'))||[];
+    if(kosarica.length===0){
+      errorMessage.textContent='Vaša košarica je prazna!';
+      errorMessage.style.display='block';
+      return;
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-      document.getElementById('skrivniIzdelek').value = JSON.stringify(kosarica);
-    });
+    const stevilka=generirajStevilkoNarocila();
+    const formData=new FormData(form);
+    formData.append('kodaNarocila', stevilka);
 
-    const form = document.getElementById('checkoutForm');
-    const successMessage = document.getElementById('successMessage');
-    const errorMessage = document.getElementById('errorMessage');
-    const trackingCodeEl = document.getElementById('trackingCode');
+    try{
+      const response=await fetch('https://formspree.io/f/movwpkap',{method:'POST',body:formData,headers:{'Accept':'application/json'}});
+      if(response.ok){
+        const novoNarocilo={
+          koda:stevilka,
+          ime:form.ime.value.trim(),
+          telefon:form.telefon.value.trim(),
+          email:form.email.value.trim(),
+          naslov:form.naslov.value.trim(),
+          posta:form.posta.value.trim(),
+          mesto:form.mesto.value.trim(),
+          dostava:form.dostava.checked?'Da':'Ne',
+          status:'Obdelava naročila',
+          datum:new Date().toISOString(),
+          produkti:kosarica
+        };
+        const narocila=JSON.parse(localStorage.getItem('narocila'))||[];
+        narocila.push(novoNarocilo);
+        localStorage.setItem('narocila',JSON.stringify(narocila));
+        localStorage.removeItem('kosarica');
 
-    trackingCodeEl.addEventListener('click', () => {
-      navigator.clipboard.writeText(trackingCodeEl.textContent)
-        .then(() => alert('Številka za sledenje je kopirana!'))
-        .catch(() => alert('Kopiranje ni uspelo, ročno označite in kopirajte.'));
-    });
+        successMessage.style.display='block';
+        trackingCodeEl.textContent=stevilka;
+        form.reset();
+      } else throw new Error('Napaka pri pošiljanju naročila.');
+    }catch(err){
+      errorMessage.textContent=err.message;
+      errorMessage.style.display='block';
+    }
+  });
+</script>
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      errorMessage.style.display = 'none';
-      successMessage.style.display = 'none';
-
-      const kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-      if (kosarica.length === 0) {
-        errorMessage.textContent = 'Vaša košarica je prazna!';
-        errorMessage.style.display = 'block';
-        return;
-      }
-
-      const stevilka = generirajStevilkoNarocila();
-
-      // Dodamo kodo naročila v formData
-      const formData = new FormData(form);
-      formData.append('kodaNarocila', stevilka);
-
-      try {
-        const response = await fetch('https://formspree.io/f/movwpkap', {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          // Shrani naročilo lokalno
-          const novoNarocilo = {
-            koda: stevilka,
-            ime: form.ime.value.trim(),
-            telefon: form.telefon.value.trim(),
-            email: form.email.value.trim(),
-            naslov: form.naslov.value.trim(),
-            posta: form.posta.value.trim(),
-            mesto: form.mesto.value.trim(),
-            dostava: form.dostava.checked ? 'Da' : 'Ne',
-            status: 'Obdelava naročila',
-            datum: new Date().toISOString(),
-            produkti: kosarica
-          };
-          const narocila = JSON.parse(localStorage.getItem('narocila')) || [];
-          narocila.push(novoNarocilo);
-          localStorage.setItem('narocila', JSON.stringify(narocila));
-
-          localStorage.removeItem('kosarica');
-          successMessage.style.display = 'block';
-          trackingCodeEl.textContent = stevilka;
-          form.reset();
-        } else {
-          throw new Error('Napaka pri pošiljanju naročila.');
-        }
-      } catch(err) {
-        errorMessage.textContent = err.message;
-        errorMessage.style.display = 'block';
-      }
-    });
-  </script>
 </body>
 </html>
