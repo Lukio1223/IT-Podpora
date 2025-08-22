@@ -1,63 +1,121 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8" />
-  <title>Izdelek - Matkomp</title>
-  <style>
-    body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 2em auto; padding: 1em; }
-    img { max-width: 100%; height: auto; border-radius: 12px; }
-    button {
-      margin: 10px 10px 10px 0;
-      padding: 0.6em 1.2em;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 1rem;
-      color: white;
-      transition: background-color 0.3s ease;
-    }
-    #addToCartBtn { background-color: #005577; }
-    #addToCartBtn:hover { background-color: #004466; }
-    #buyNowBtn { background-color: #28a745; }
-    #buyNowBtn:hover { background-color: #1e7e34; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Izdelek - Matkomp</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f9fbfc; --card:#fff; --text:#2e3a59; --brand:#1e88e5; 
+  --shadow:0 8px 20px rgba(0,0,0,.08); --radius:16px; --container:960px;
+}
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  margin:0;
+  padding:0;
+}
+.container{
+  max-width:var(--container);
+  margin:2em auto;
+  padding:1em;
+}
+a.back-link{
+  display:inline-block;
+  margin-bottom:1em;
+  color:var(--brand);
+  font-weight:600;
+  text-decoration:none;
+}
+a.back-link:hover{text-decoration:underline;}
+.product-card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:2em;
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+.product-card img{
+  max-width:100%;
+  border-radius:var(--radius);
+  margin-bottom:1em;
+  transition:transform 0.3s ease;
+}
+.product-card img:hover{
+  transform:scale(1.05);
+}
+h1{
+  color:var(--brand);
+  margin-bottom:0.5em;
+}
+.price{
+  font-size:1.5rem;
+  font-weight:700;
+  margin:1em 0;
+  color:#28a745;
+}
+button{
+  margin:0.5em;
+  padding:0.8em 1.5em;
+  border:none;
+  border-radius:10px;
+  font-weight:600;
+  font-size:1rem;
+  cursor:pointer;
+  color:white;
+  transition:background-color 0.3s ease, transform 0.2s ease;
+}
+button:hover{
+  transform:translateY(-2px);
+}
+#addToCartBtn{background-color:var(--brand);}
+#addToCartBtn:hover{background-color:#1565c0;}
+#buyNowBtn{background-color:#28a745;}
+#buyNowBtn:hover{background-color:#1e7e34;}
+</style>
 </head>
 <body>
-  <h1 id="imeIzdelka">Lenovo IS6XM</h1>
-  <img id="slikaIzdelka" src="is6mx.jpg" alt="Lenovo IS6XM">
-  <p id="opisIzdelka">MicroATX matična plošča z Intel Q67 chipsetom, podpira do 32GB DDR3 RAM.</p>
-  <p><strong>Cena:</strong> <span id="cenaIzdelka">29.99</span> €</p>
 
-  <button id="addToCartBtn">Dodaj v košarico</button>
-  <button id="buyNowBtn">Kupi zdaj</button>
+<div class="container">
+  <a href="trgovina.html" class="back-link">← Nazaj na trgovino</a>
+  <div class="product-card">
+    <h1 id="imeIzdelka">Lenovo IS6XM</h1>
+    <img id="slikaIzdelka" src="is6mx.jpg" alt="Lenovo IS6XM">
+    <p id="opisIzdelka">MicroATX matična plošča z Intel Q67 chipsetom, podpira do 32GB DDR3 RAM.</p>
+    <p class="price"><span id="cenaIzdelka">29.99</span> €</p>
+    <button id="addToCartBtn">Dodaj v košarico</button>
+    <button id="buyNowBtn">Kupi zdaj</button>
+  </div>
+</div>
 
-  <script>
-    // Podatki o izdelku (lahko dobiš iz URL ali pa statično za demo)
-    const izdelek = {
-      id: 0,
-      ime: document.getElementById('imeIzdelka').textContent,
-      cena: parseFloat(document.getElementById('cenaIzdelka').textContent),
-      slika: document.getElementById('slikaIzdelka').src,
-      opis: document.getElementById('opisIzdelka').textContent
-    };
+<script>
+const izdelek = {
+  id:0,
+  ime:document.getElementById('imeIzdelka').textContent,
+  cena:parseFloat(document.getElementById('cenaIzdelka').textContent),
+  slika:document.getElementById('slikaIzdelka').src,
+  opis:document.getElementById('opisIzdelka').textContent
+};
 
-    function shraniVKosarico(izdelek) {
-      let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
-      // Če želiš, lahko tu dodaš preverjanje, da ne podvajaš izdelka, ampak za zdaj samo push
-      kosarica.push(izdelek);
-      localStorage.setItem('kosarica', JSON.stringify(kosarica));
-    }
+function shraniVKosarico(izdelek){
+  let kosarica = JSON.parse(localStorage.getItem('kosarica')) || [];
+  kosarica.push(izdelek);
+  localStorage.setItem('kosarica', JSON.stringify(kosarica));
+}
 
-    document.getElementById('addToCartBtn').addEventListener('click', () => {
-      shraniVKosarico(izdelek);
-      alert('Izdelek je bil dodan v košarico!');
-    });
+document.getElementById('addToCartBtn').addEventListener('click',()=>{
+  shraniVKosarico(izdelek);
+  alert('Izdelek je bil dodan v košarico!');
+});
 
-    document.getElementById('buyNowBtn').addEventListener('click', () => {
-      shraniVKosarico(izdelek);
-      window.location.href = 'checkout.html';
-    });
-  </script>
+document.getElementById('buyNowBtn').addEventListener('click',()=>{
+  shraniVKosarico(izdelek);
+  window.location.href='checkout.html';
+});
+</script>
+
 </body>
 </html>
