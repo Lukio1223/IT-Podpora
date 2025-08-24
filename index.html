@@ -40,14 +40,25 @@
 
     /* —— Topbar —— */
     .topbar{position:sticky; top:0; z-index:40; backdrop-filter: saturate(160%) blur(8px); background:linear-gradient(180deg, rgba(6,182,212,.15), rgba(20,184,166,.08) 60%, transparent); border-bottom: 1px solid rgba(255,255,255,.08)}
-    .topbar-inner{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:10px 0}
+    .topbar-inner{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:10px 0; flex-wrap:wrap}
     .topbar .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
     .brand img{width:40px; height:40px; border-radius:50%; box-shadow:0 6px 20px rgba(6,182,212,.35)}
-    nav ul{display:flex; gap:10px; list-style:none; margin:0; padding:0}
+    nav ul{display:flex; gap:10px; list-style:none; margin:0; padding:0; flex-wrap:wrap}
     .chip{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(6,182,212,.12); border:1px solid rgba(6,182,212,.35)}
     .btn{appearance:none; border:none; border-radius:12px; padding:10px 16px; font-weight:700; cursor:pointer; color:white; background:linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:0 10px 30px rgba(6,182,212,.35); transition: transform .12s ease, box-shadow .12s ease}
     .btn:hover{transform: translateY(-2px); box-shadow:0 14px 40px rgba(6,182,212,.45)}
 
+    /* —— Search —— */
+    .search-bar input{
+      padding:6px 12px;
+      border-radius:8px;
+      border:1px solid rgba(6,182,212,.35);
+      background:var(--bg-soft);
+      color:var(--text);
+      outline:none;
+    }
+    .search-bar input::placeholder{color:var(--muted)}
+    
     /* —— Hero —— */
     header.hero{position:relative; overflow:hidden}
     .hero-wrap{padding: clamp(40px, 6vw, 90px) 0}
@@ -112,6 +123,10 @@
         <li><button class="btn" onclick="location.href='trgovina.html'">🛒 Trgovina</button></li>
       </ul>
     </nav>
+    <!-- 🔍 Search -->
+    <form id="searchForm" class="search-bar">
+      <input type="text" id="searchInput" placeholder="Išči..." />
+    </form>
   </div>
 </div>
 
@@ -142,7 +157,7 @@
       </article>
       <article class="card svc">
         <h3>📀 Reševanje podatkov</h3>
-        <p>Varno kopiranje, obnovitev z diska/USB, vzpostavitev 3‑2‑1 varnostnih kopij.</p>
+        <p>Varno kopiranje, obnovitev z diska/USB, vzpostavitev 3-2-1 varnostnih kopij.</p>
       </article>
       <article class="card svc">
         <h3>💿 Namestitev OS & programov</h3>
@@ -150,7 +165,7 @@
       </article>
       <article class="card svc">
         <h3>🌐 Omrežje & internet</h3>
-        <p>Wi‑Fi optimizacija, NAS/HFS, deljenje datotek, tiskalniki in oddaljena pomoč.</p>
+        <p>Wi-Fi optimizacija, NAS/HFS, deljenje datotek, tiskalniki in oddaljena pomoč.</p>
       </article>
       <article class="card svc">
         <h3>🧰 Orodja in vodniki</h3>
@@ -165,7 +180,7 @@
         <h3>📞 Kontakt</h3>
         <ul>
           <li><strong>Discord:</strong> <a href="https://discord.gg/cXAD8jQr" target="_blank" rel="noopener">discord.gg/cXAD8jQr</a></li>
-          <li><strong>E‑pošta:</strong> <a href="mailto:lukacp346@gmail.com">lukacp346@gmail.com</a></li>
+          <li><strong>E-pošta:</strong> <a href="mailto:lukacp346@gmail.com">lukacp346@gmail.com</a></li>
           <li><strong>Telefon:</strong> 064 232 471, 064 208 206, 071 349 136</li>
         </ul>
       </div>
@@ -212,6 +227,35 @@
     &copy; 2025 Matkomp. Izdelano z ❤️ Luka & ekipa.
   </div>
 </footer>
+
+<!-- 🔍 Search Logic -->
+<script>
+  const pages = {
+    "storitve": "storitve.html",
+    "videi": "videi.html",
+    "galerija": "galerija.html",
+    "faq": "faq.html",
+    "trgovina": "trgovina.html",
+    "cenik": "cenik.html",
+    "vodniki": "vodniki.html",
+    "sledenje": "sledenje.html",
+    "team": "team.html",
+    "tools": "tools.html",
+    "about": "about.html",
+    "blog": "blog.html",
+    "it pomoč": "it-podpora.html"
+  };
+
+  document.getElementById("searchForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const query = document.getElementById("searchInput").value.toLowerCase().trim();
+    if(pages[query]){
+      window.location.href = pages[query];
+    } else {
+      alert("Ni zadetkov za: " + query);
+    }
+  });
+</script>
 
 </body>
 </html>
