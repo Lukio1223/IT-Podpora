@@ -48,7 +48,7 @@
     .post-list {
       display: flex;
       flex-direction: column;
-      gap: 1.5em;
+      gap: 2em;
     }
 
     .post {
@@ -58,11 +58,19 @@
       box-shadow: 0 4px 14px rgba(0,0,0,0.06);
       transition: transform 0.3s ease;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
     }
 
     .post:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .post img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 1em;
     }
 
     .post h2 {
@@ -74,6 +82,23 @@
     .post p {
       color: #444;
       font-size: 1.05rem;
+      margin-bottom: 0.5em;
+    }
+
+    .meta {
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 0.8em;
+    }
+
+    .category {
+      background: #e3f2fd;
+      color: #1565c0;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-bottom: 0.5em;
     }
   </style>
 </head>
@@ -83,67 +108,90 @@
 
   <header>
     <h1>📝 Blog Matkomp</h1>
-    <p>Vodiči in članki za vse, ki jih zanimajo računalniki</p>
+    <p>Vodiči, retro buildi in tech nasveti iz Lukove delavnice</p>
   </header>
 
   <div class="post-list" id="post-list"></div>
 
-<script>
+  <script>
     const posts = [
-    {
-      id: 'kako-izbrati-komponente',
-      title: 'Kako izbrati komponente za računalnik',
-      excerpt: 'Podroben vodič, ki ti pomaga razumeti, katere komponente izbrati glede na namen računalnika, proračun in želje.'
-    },
-    {
-      id: 'kako-zamenjati-pasto-cpu',
-      title: 'Kako zamenjati termalno pasto',
-      excerpt: 'Navodila po korakih za varno odstranjevanje stare in nanašanje nove termalne paste na procesor.'
-    },
-    {
-      id: 'namestitev-cpuz',
-      title: 'Namestitev in uporaba CPU-Z',
-      excerpt: 'Hitro preveri svoj procesor, matično ploščo in RAM s pomočjo brezplačnega orodja CPU-Z.'
-    },
-    {
-      id: 'kako-sestaviti-pc',
-      title: 'Kako sestaviti svoj PC',
-      excerpt: 'Navodila za sestavo računalnika'
-    },
-    {
-      id: 'vodic-pc',
-      title: 'Kako sestaviti svoj PC (za začetnike)',
-      excerpt: 'Poenostavljena navodila za sestavo računalnika'
-    }
       {
-  id: 'windows-xp-kralj',
-  title: 'Zakaj je Windows XP še vedno kralj',
-  excerpt: 'Retro build z Windows XP, Q6600, 7300 GT in CD RW pogoni – zakaj ta sistem še vedno navdušuje.'
-}
-  ]; // ✅ pravilno zaključen array
+        id: 'kako-izbrati-komponente',
+        title: 'Kako izbrati komponente za računalnik',
+        excerpt: 'Podroben vodič, ki ti pomaga razumeti, katere komponente izbrati glede na namen računalnika, proračun in želje.',
+        date: '10. september 2025',
+        category: 'Vodič',
+        image: 'images/komponente.jpg'
+      },
+      {
+        id: 'kako-zamenjati-pasto-cpu',
+        title: 'Kako zamenjati termalno pasto',
+        excerpt: 'Navodila po korakih za varno odstranjevanje stare in nanašanje nove termalne paste na procesor.',
+        date: '11. september 2025',
+        category: 'Vzdrževanje',
+        image: 'images/pasta.jpg'
+      },
+      {
+        id: 'namestitev-cpuz',
+        title: 'Namestitev in uporaba CPU-Z',
+        excerpt: 'Hitro preveri svoj procesor, matično ploščo in RAM s pomočjo brezplačnega orodja CPU-Z.',
+        date: '12. september 2025',
+        category: 'Orodja',
+        image: 'images/cpuz.jpg'
+      },
+      {
+        id: 'kako-sestaviti-pc',
+        title: 'Kako sestaviti svoj PC',
+        excerpt: 'Navodila za sestavo računalnika od začetka do konca.',
+        date: '13. september 2025',
+        category: 'Gradnja',
+        image: 'images/sestava.jpg'
+      },
+      {
+        id: 'windows-xp-kralj',
+        title: 'Zakaj je Windows XP še vedno kralj',
+        excerpt: 'Retro build z Windows XP, Q6600, 7300 GT in CD RW pogoni – zakaj ta sistem še vedno navdušuje.',
+        date: '14. september 2025',
+        category: 'Retro',
+        image: 'images/xp.jpg'
+      }
+    ];
 
+    const container = document.getElementById('post-list');
 
-  const container = document.getElementById('post-list');
+    for (const post of posts) {
+      const div = document.createElement('div');
+      div.className = 'post';
+      div.onclick = () => {
+        window.location.href = post.id + '.html';
+      };
 
-  for (const post of posts) {
-    const div = document.createElement('div');
-    div.className = 'post';
-    div.onclick = () => {
-      window.location.href = post.id + '.html';
-    };
+      const img = document.createElement('img');
+      img.src = post.image;
+      img.alt = post.title;
 
-    const naslov = document.createElement('h2');
-    naslov.textContent = post.title;
+      const category = document.createElement('div');
+      category.className = 'category';
+      category.textContent = post.category;
 
-    const povzetek = document.createElement('p');
-    povzetek.textContent = post.excerpt;
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.textContent = `Objavljeno: ${post.date}`;
 
-    div.appendChild(naslov);
-    div.appendChild(povzetek);
-    container.appendChild(div);
-  }
-</script>
+      const naslov = document.createElement('h2');
+      naslov.textContent = post.title;
 
+      const povzetek = document.createElement('p');
+      povzetek.textContent = post.excerpt;
+
+      div.appendChild(img);
+      div.appendChild(category);
+      div.appendChild(meta);
+      div.appendChild(naslov);
+      div.appendChild(povzetek);
+      container.appendChild(div);
+    }
+  </script>
 
 </body>
 </html>
