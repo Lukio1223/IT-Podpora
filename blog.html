@@ -3,191 +3,275 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blog - Matkomp</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>📝 Blog – Matkomp</title>
+  <meta name="color-scheme" content="light dark" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
+    :root {
+      --bg: #0f172a;
+      --card: #0b1224;
+      --text: #e5e7eb;
+      --muted: #a7b0c3;
+      --brand: #06b6d4;
+      --brand-2: #14b8a6;
+      --shadow: 0 10px 35px rgba(0,0,0,.35);
+      --radius: 18px;
+      --container: 1100px;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f2f5f9;
+        --card: #ffffff;
+        --text: #1f2937;
+        --muted: #4b5563;
+        --shadow: 0 12px 30px rgba(2,6,23,.08);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
       margin: 0;
       padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container {
+      max-width: var(--container);
+      margin: auto;
+      padding: 0 20px;
     }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f9fbfc;
-      color: #2e3a59;
-      padding: 2em;
-      max-width: 960px;
-      margin: auto;
-      line-height: 1.6;
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: saturate(160%) blur(8px);
+      background: linear-gradient(180deg, rgba(6,182,212,.15), rgba(20,184,166,.08) 60%, transparent);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 0;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .3px;
+    }
+    .brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      box-shadow: 0 6px 20px rgba(6,182,212,.35);
+    }
+    nav ul {
+      display: flex;
+      gap: 10px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(6,182,212,.12);
+      border: 1px solid rgba(6,182,212,.35);
+    }
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 10px 30px rgba(6,182,212,.35);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(6,182,212,.45);
     }
 
     header {
+      padding: 40px 0;
       text-align: center;
-      margin-bottom: 2em;
     }
-
     header h1 {
-      color: #1e88e5;
-      font-size: 2rem;
-      margin-bottom: 0.3em;
+      font-size: 2.2rem;
+      margin-bottom: 0.5em;
     }
-
-    a.back-link {
-      display: inline-block;
-      margin-bottom: 1em;
-      color: #1e88e5;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    a.back-link:hover {
-      text-decoration: underline;
+    header p {
+      color: var(--muted);
+      font-size: 1.1rem;
     }
 
     .post-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2em;
+      display: grid;
+      gap: 24px;
+      margin-bottom: 60px;
     }
-
     .post {
-      background: white;
-      padding: 1.5em 2em;
-      border-radius: 16px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-      transition: transform 0.3s ease;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
+      transition: transform 0.2s ease;
     }
-
     .post:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      transform: translateY(-4px);
     }
-
-    .post img {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 1em;
-    }
-
     .post h2 {
-      margin-bottom: 0.4em;
-      color: #1565c0;
+      margin: 0 0 10px;
       font-size: 1.4rem;
+      color: var(--brand);
     }
-
-    .post p {
-      color: #444;
-      font-size: 1.05rem;
-      margin-bottom: 0.5em;
-    }
-
-    .meta {
+    .post .meta {
       font-size: 0.9rem;
-      color: #777;
-      margin-bottom: 0.8em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .post .category {
+      display: inline-block;
+      background: rgba(6,182,212,.12);
+      color: var(--brand);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+    .post p {
+      font-size: 1rem;
+      color: var(--text);
+      margin: 0;
     }
 
-    .category {
-      background: #e3f2fd;
-      color: #1565c0;
-      padding: 4px 10px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      display: inline-block;
-      margin-bottom: 0.5em;
+    footer {
+      text-align: center;
+      color: var(--muted);
+      margin: 60px 0 24px;
     }
   </style>
 </head>
 <body>
 
-  <a href="index.html" class="back-link">← Nazaj na domov</a>
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="brand">
+      <img src="Matkomp.png" alt="Matkomp logo"/>
+      <span>Matkomp</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a class="chip" href="index.html">🏠 Domov</a></li>
+        <li><a class="chip" href="videi.html">🎥 Videi</a></li>
+        <li><a class="chip" href="galerija.html">🖼️ Galerija</a></li>
+        <li><a class="chip" href="faq.html">❓ FAQ</a></li>
+        <li><button class="btn" onclick="location.href='trgovina.html'">🛒 Trgovina</button></li>
+      </ul>
+    </nav>
+  </div>
+</div>
 
-  <header>
-    <h1>📝 Blog Matkomp</h1>
-    <p>Vodiči, retro buildi in tech nasveti iz Lukove delavnice</p>
-  </header>
+<header class="container">
+  <h1>📝 Blog Matkomp</h1>
+  <p>Vodiči, retro buildi in tech nasveti iz Lukove delavnice</p>
+</header>
 
+<main class="container">
   <div class="post-list" id="post-list"></div>
+</main>
 
-  <script>
-    const posts = [
-      {
-        id: 'kako-izbrati-komponente',
-        title: 'Kako izbrati komponente za računalnik',
-        excerpt: 'Podroben vodič, ki ti pomaga razumeti, katere komponente izbrati glede na namen računalnika, proračun in želje.',
-        date: '10. september 2025',
-        category: 'Vodič',
-      },
-      {
-        id: 'kako-zamenjati-pasto-cpu',
-        title: 'Kako zamenjati termalno pasto',
-        excerpt: 'Navodila po korakih za varno odstranjevanje stare in nanašanje nove termalne paste na procesor.',
-        date: '11. september 2025',
-        category: 'Vzdrževanje',
-      },
-      {
-        id: 'namestitev-cpuz',
-        title: 'Namestitev in uporaba CPU-Z',
-        excerpt: 'Hitro preveri svoj procesor, matično ploščo in RAM s pomočjo brezplačnega orodja CPU-Z.',
-        date: '12. september 2025',
-        category: 'Orodja',
-      },
-      {
-        id: 'kako-sestaviti-pc',
-        title: 'Kako sestaviti svoj PC',
-        excerpt: 'Navodila za sestavo računalnika od začetka do konca.',
-        date: '13. september 2025',
-        category: 'Gradnja',
-      },
-      {
-        id: 'windows-xp-kralj',
-        title: 'Zakaj je Windows XP še vedno kralj',
-        excerpt: 'Retro build z Windows XP, Q6600, 7300 GT in CD RW pogoni – zakaj ta sistem še vedno navdušuje.',
-        date: '14. september 2025',
-        category: 'Retro',
-        image: 'images.png'
-      }
-    ];
+<footer class="container">
+  &copy; 2025 Matkomp. Izdelano z ❤️ Luka & ekipa.
+</footer>
 
-    const container = document.getElementById('post-list');
-
-    for (const post of posts) {
-      const div = document.createElement('div');
-      div.className = 'post';
-      div.onclick = () => {
-        window.location.href = post.id + '.html';
-      };
-
-      const img = document.createElement('img');
-      img.src = post.image;
-      img.alt = post.title;
-
-      const category = document.createElement('div');
-      category.className = 'category';
-      category.textContent = post.category;
-
-      const meta = document.createElement('div');
-      meta.className = 'meta';
-      meta.textContent = `Objavljeno: ${post.date}`;
-
-      const naslov = document.createElement('h2');
-      naslov.textContent = post.title;
-
-      const povzetek = document.createElement('p');
-      povzetek.textContent = post.excerpt;
-
-      div.appendChild(img);
-      div.appendChild(category);
-      div.appendChild(meta);
-      div.appendChild(naslov);
-      div.appendChild(povzetek);
-      container.appendChild(div);
+<script>
+  const posts = [
+    {
+      id: 'kako-izbrati-komponente',
+      title: 'Kako izbrati komponente za računalnik',
+      excerpt: 'Podroben vodič, ki ti pomaga razumeti, katere komponente izbrati glede na namen računalnika, proračun in želje.',
+      date: '10. september 2025',
+      category: 'Vodič'
+    },
+    {
+      id: 'kako-zamenjati-pasto-cpu',
+      title: 'Kako zamenjati termalno pasto',
+      excerpt: 'Navodila po korakih za varno odstranjevanje stare in nanašanje nove termalne paste na procesor.',
+      date: '11. september 2025',
+      category: 'Vzdrževanje'
+    },
+    {
+      id: 'namestitev-cpuz',
+      title: 'Namestitev in uporaba CPU-Z',
+      excerpt: 'Hitro preveri svoj procesor, matično ploščo in RAM s pomočjo brezplačnega orodja CPU-Z.',
+      date: '12. september 2025',
+      category: 'Orodja'
+    },
+    {
+      id: 'kako-sestaviti-pc',
+      title: 'Kako sestaviti svoj PC',
+      excerpt: 'Navodila za sestavo računalnika od začetka do konca.',
+      date: '13. september 2025',
+      category: 'Gradnja'
+    },
+    {
+      id: 'windows-xp-kralj',
+      title: 'Zakaj je Windows XP še vedno kralj',
+      excerpt: 'Retro
+      id: 'windows-xp-kralj',
+      title: 'Zakaj je Windows XP še vedno kralj',
+      excerpt: 'Retro build z Windows XP, Q6600, 7300 GT in CD RW pogoni – zakaj ta sistem še vedno navdušuje.',
+      date: '14. september 2025',
+      category: 'Retro'
     }
-  </script>
+  ];
+
+  const container = document.getElementById('post-list');
+
+  for (const post of posts) {
+    const div = document.createElement('div');
+    div.className = 'post';
+    div.onclick = () => {
+      window.location.href = post.id + '.html';
+    };
+
+    const category = document.createElement('div');
+    category.className = 'category';
+    category.textContent = post.category;
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent = `Objavljeno: ${post.date}`;
+
+    const naslov = document.createElement('h2');
+    naslov.textContent = post.title;
+
+    const povzetek = document.createElement('p');
+    povzetek.textContent = post.excerpt;
+
+    div.appendChild(category);
+    div.appendChild(meta);
+    div.appendChild(naslov);
+    div.appendChild(povzetek);
+    container.appendChild(div);
+  }
+</script>
 
 </body>
 </html>
